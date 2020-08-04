@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
-import { ObjectType, Field, ID, Root } from "type-graphql";
+import { ObjectType, Field, ID } from "type-graphql";
 
 @ObjectType()
 @Entity()
@@ -9,25 +9,22 @@ export class User extends BaseEntity {
   id: number;
 
   @Field()
-  @Column()
-  firstName: string;
+  @Column("text", { unique: true })
+  discordId: string;
 
   @Field()
   @Column()
-  lastName: string;
+  username: string;
+
+  @Field()
+  @Column()
+  discriminator: string;
+
+  @Field()
+  @Column()
+  avatar: string;
 
   @Field()
   @Column("text", { unique: true })
   email: string;
-
-  @Field()
-  name(@Root() parent: User): string {
-    return `${parent.firstName} ${parent.lastName}`;
-  }
-
-  @Column()
-  password: string;
-
-  @Column("bool", { default: false })
-  confirmed: boolean;
 }
