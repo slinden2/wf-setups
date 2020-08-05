@@ -1,32 +1,39 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Container from "@material-ui/core/Container";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-import "./App.css";
-import discordLogo from "./assets/discord.svg";
 import Auth from "./components/user/Auth";
-
-const discordAuthUrl: string =
-  "https://discord.com/api/oauth2/authorize?client_id=738387634262638593&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth&response_type=code&scope=identify%20email";
+import AuthPage from "./components/user/AuthPage";
+import { useMeQuery } from "./generated/apolloComponents";
 
 const App = () => {
+  const loggedUser = useMeQuery();
+  const isAuth: boolean = !!loggedUser?.data?.me;
+
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <main className="App">
-            <div className="signup-discord">
-              <a href={discordAuthUrl}>
-                Sign Up with Discord
-                <img className="discord-logo" src={discordLogo}></img>
-              </a>
-            </div>
-          </main>
-        </Route>
-        <Route path="/auth">
-          <Auth />
-        </Route>
-      </Switch>
-    </Router>
+    <Container
+      component="main"
+      maxWidth={"lg"}
+      style={{ border: "1px solid red" }}
+    >
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            {loggedUser.loading ? (
+              <CircularProgress />
+            ) : isAuth ? (
+              <div>You are logged in</div>
+            ) : (
+              <AuthPage />
+            )}
+          </Route>
+          <Route path="/auth">
+            <Auth />
+          </Route>
+        </Switch>
+      </Router>
+    </Container>
   );
 };
 
