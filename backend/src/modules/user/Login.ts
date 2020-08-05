@@ -11,11 +11,11 @@ export class LoginResolver {
     return "Hello World!";
   }
 
-  @Mutation(() => String!, { nullable: true })
+  @Mutation(() => User!, { nullable: true })
   async login(
     @Arg("code") code: string,
     @Ctx() ctx: MyContext
-  ): Promise<string | null> {
+  ): Promise<User | null> {
     console.log(`The access code is ${code}.`);
     const discordUser = await getDiscordUser(code);
     console.log(discordUser);
@@ -44,6 +44,6 @@ export class LoginResolver {
     console.log("setting cookie");
     ctx.req.session!.userId = user.id;
 
-    return code;
+    return user;
   }
 }

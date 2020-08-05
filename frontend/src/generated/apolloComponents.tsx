@@ -10,89 +10,36 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** The `Upload` scalar type represents a file upload. */
-  Upload: any;
 };
 
 export type Query = {
   __typename?: 'Query';
-  me?: Maybe<User>;
   hello: Scalars['String'];
+  me?: Maybe<User>;
 };
 
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
-  firstName: Scalars['String'];
-  lastName: Scalars['String'];
+  discordId: Scalars['String'];
+  username: Scalars['String'];
+  discriminator: Scalars['String'];
+  avatar: Scalars['String'];
   email: Scalars['String'];
-  name: Scalars['String'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  changePassword?: Maybe<User>;
-  confirmUser: Scalars['Boolean'];
-  forgotPassword: Scalars['Boolean'];
   login?: Maybe<User>;
-  logout: Scalars['Boolean'];
-  register: User;
-  createUser: User;
-  addProfilePicture: Scalars['Boolean'];
-};
-
-
-export type MutationChangePasswordArgs = {
-  data: ChangePasswordInput;
-};
-
-
-export type MutationConfirmUserArgs = {
-  token: Scalars['String'];
-};
-
-
-export type MutationForgotPasswordArgs = {
-  email: Scalars['String'];
 };
 
 
 export type MutationLoginArgs = {
-  password: Scalars['String'];
-  email: Scalars['String'];
+  code: Scalars['String'];
 };
-
-
-export type MutationRegisterArgs = {
-  data: RegisterInput;
-};
-
-
-export type MutationCreateUserArgs = {
-  data: RegisterInput;
-};
-
-
-export type MutationAddProfilePictureArgs = {
-  picture: Scalars['Upload'];
-};
-
-export type ChangePasswordInput = {
-  password: Scalars['String'];
-  token: Scalars['String'];
-};
-
-export type RegisterInput = {
-  password: Scalars['String'];
-  firstName: Scalars['String'];
-  lastName: Scalars['String'];
-  email: Scalars['String'];
-};
-
 
 export type LoginMutationVariables = Exact<{
-  email: Scalars['String'];
-  password: Scalars['String'];
+  code: Scalars['String'];
 }>;
 
 
@@ -100,7 +47,7 @@ export type LoginMutation = (
   { __typename?: 'Mutation' }
   & { login?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'firstName' | 'lastName' | 'name' | 'email'>
+    & Pick<User, 'id' | 'discordId' | 'username' | 'email'>
   )> }
 );
 
@@ -111,17 +58,17 @@ export type MeQuery = (
   { __typename?: 'Query' }
   & { me?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'firstName' | 'lastName' | 'name' | 'email'>
+    & Pick<User, 'id' | 'discordId' | 'username' | 'email'>
   )> }
 );
 
 
 export const LoginDocument = gql`
-    mutation Login($email: String!, $password: String!) {
-  login(email: $email, password: $password) {
-    firstName
-    lastName
-    name
+    mutation Login($code: String!) {
+  login(code: $code) {
+    id
+    discordId
+    username
     email
   }
 }
@@ -141,8 +88,7 @@ export type LoginMutationFn = ApolloReactCommon.MutationFunction<LoginMutation, 
  * @example
  * const [loginMutation, { data, loading, error }] = useLoginMutation({
  *   variables: {
- *      email: // value for 'email'
- *      password: // value for 'password'
+ *      code: // value for 'code'
  *   },
  * });
  */
@@ -155,9 +101,9 @@ export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMu
 export const MeDocument = gql`
     query Me {
   me {
-    firstName
-    lastName
-    name
+    id
+    discordId
+    username
     email
   }
 }
