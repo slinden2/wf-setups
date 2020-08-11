@@ -1,16 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Container from "@material-ui/core/Container";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 import Auth from "./components/user/Auth";
-import AuthPage from "./components/user/AuthPage";
-import { useMeQuery } from "./generated/apolloComponents";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
-  const loggedUser = useMeQuery();
-  const isAuth: boolean = !!loggedUser?.data?.me;
-
   return (
     <Container
       component="main"
@@ -19,15 +14,9 @@ const App = () => {
     >
       <Router>
         <Switch>
-          <Route exact path="/">
-            {loggedUser.loading ? (
-              <CircularProgress />
-            ) : isAuth ? (
-              <div>You are logged in</div>
-            ) : (
-              <AuthPage />
-            )}
-          </Route>
+          <ProtectedRoute exact path="/">
+            <div>You are logged in</div>
+          </ProtectedRoute>
           <Route path="/auth">
             <Auth />
           </Route>
