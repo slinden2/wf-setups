@@ -2,7 +2,7 @@ import React from "react";
 import AddSetupForm from "./AddSetupForm";
 
 const HomePage = () => {
-  return <AddSetupForm />;
+  return <div>homepage</div>;
 };
 
 export default HomePage;
