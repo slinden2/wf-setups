@@ -1,6 +1,4 @@
 import React from "react";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
 import { InlineIcon } from "@iconify/react";
 import discordIcon from "@iconify/icons-logos/discord";
 
@@ -13,12 +11,12 @@ const AuthPage = () => {
   };
 
   return (
-    <Box>
-      <Button onClick={onClickHandler}>
+    <div>
+      <button onClick={onClickHandler}>
         <InlineIcon icon={discordIcon} width="3em" />
         <span>Access with Discord</span>
-      </Button>
-    </Box>
+      </button>
+    </div>
   );
 };
 
