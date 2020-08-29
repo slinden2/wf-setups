@@ -3,13 +3,14 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Auth from "./components/user/Auth";
 import ProtectedRoute from "./components/ProtectedRoute";
+import HomePage from "./components/HomePage";
 
 const App = () => {
   return (
     <Router>
       <Switch>
         <ProtectedRoute exact path="/">
-          <div>You are logged in</div>
+          <HomePage />
         </ProtectedRoute>
         <Route path="/auth">
           <Auth />
