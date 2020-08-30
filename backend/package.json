@@ -53,7 +53,8 @@
     "dev": "ts-node-dev --respawn src/index.ts",
     "db:setup": "ts-node ./src/test-utils/setup.ts",
     "test": "npm run db:setup && jest",
-    "addTracks": "ts-node ./src/scripts/addTracks.ts"
+    "addTracks": "ts-node ./src/scripts/addTracks.ts",
+    "addVehicles": "ts-node ./src/scripts/addVehicles.ts"
   },
   "repository": {
     "type": "git",
