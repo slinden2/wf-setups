@@ -16,6 +16,7 @@ export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
   me?: Maybe<User>;
+  getTracksAndVehicles: TracksAndVehicles;
 };
 
 export type User = {
@@ -26,6 +27,28 @@ export type User = {
   discriminator: Scalars['String'];
   avatar: Scalars['String'];
   email: Scalars['String'];
+};
+
+export type TracksAndVehicles = {
+  __typename?: 'TracksAndVehicles';
+  tracks: Array<Track>;
+  vehicles: Array<Vehicle>;
+};
+
+export type Track = {
+  __typename?: 'Track';
+  id: Scalars['ID'];
+  trackId: Scalars['String'];
+  origin: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type Vehicle = {
+  __typename?: 'Vehicle';
+  id: Scalars['ID'];
+  vehicleId: Scalars['String'];
+  vehicleFolder: Scalars['String'];
+  name: Scalars['String'];
 };
 
 export type Mutation = {
@@ -49,6 +72,23 @@ export type LoginMutation = (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'discordId' | 'username' | 'email'>
   )> }
+);
+
+export type TracksAndVehiclesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TracksAndVehiclesQuery = (
+  { __typename?: 'Query' }
+  & { getTracksAndVehicles: (
+    { __typename?: 'TracksAndVehicles' }
+    & { tracks: Array<(
+      { __typename?: 'Track' }
+      & Pick<Track, 'id' | 'origin' | 'name'>
+    )>, vehicles: Array<(
+      { __typename?: 'Vehicle' }
+      & Pick<Vehicle, 'id' | 'name'>
+    )> }
+  ) }
 );
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
@@ -98,6 +138,46 @@ export function useLoginMutation(baseOptions?: ApolloReactHooks.MutationHookOpti
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation>;
 export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const TracksAndVehiclesDocument = gql`
+    query TracksAndVehicles {
+  getTracksAndVehicles {
+    tracks {
+      id
+      origin
+      name
+    }
+    vehicles {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useTracksAndVehiclesQuery__
+ *
+ * To run a query within a React component, call `useTracksAndVehiclesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTracksAndVehiclesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTracksAndVehiclesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useTracksAndVehiclesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<TracksAndVehiclesQuery, TracksAndVehiclesQueryVariables>) {
+        return ApolloReactHooks.useQuery<TracksAndVehiclesQuery, TracksAndVehiclesQueryVariables>(TracksAndVehiclesDocument, baseOptions);
+      }
+export function useTracksAndVehiclesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<TracksAndVehiclesQuery, TracksAndVehiclesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<TracksAndVehiclesQuery, TracksAndVehiclesQueryVariables>(TracksAndVehiclesDocument, baseOptions);
+        }
+export type TracksAndVehiclesQueryHookResult = ReturnType<typeof useTracksAndVehiclesQuery>;
+export type TracksAndVehiclesLazyQueryHookResult = ReturnType<typeof useTracksAndVehiclesLazyQuery>;
+export type TracksAndVehiclesQueryResult = ApolloReactCommon.QueryResult<TracksAndVehiclesQuery, TracksAndVehiclesQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {
