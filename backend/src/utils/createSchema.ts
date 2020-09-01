@@ -5,6 +5,7 @@ import { buildSchema } from "type-graphql";
 import { LoginResolver } from "../modules/user/Login";
 // import { LogoutResolver } from "../modules/user/Logout";
 import { MeResolver } from "../modules/user/Me";
+import { GetTracksAndVehiclesResolver } from "../modules/static/GetTracksAndVehicles";
 // import { RegisterResolver } from "../modules/user/Register";
 // import { CreateUserResolver } from "../modules/user/CreateUser";
 // import { ProfilePictureResolver } from "../modules/user/ProfilePicture";
@@ -21,6 +22,7 @@ export const createSchema = () =>
       // RegisterResolver,
       // CreateUserResolver,
       // ProfilePictureResolver,
+      GetTracksAndVehiclesResolver,
     ],
     authChecker: ({ context: { req } }) => {
       return !!req.session.userId;
