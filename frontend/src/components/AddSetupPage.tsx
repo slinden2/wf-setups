@@ -3,10 +3,18 @@ import AddSetupForm from "./AddSetupForm";
 import { useTracksAndVehiclesQuery } from "../generated/apolloComponents";
 
 const AddSetupPage = () => {
-  const test = useTracksAndVehiclesQuery();
-  console.log(test);
+  const { loading, data } = useTracksAndVehiclesQuery();
 
-  return <AddSetupForm />;
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <AddSetupForm
+      tracks={data?.getTracksAndVehicles.tracks}
+      vehicles={data?.getTracksAndVehicles.vehicles}
+    />
+  );
 };
 
 export default AddSetupPage;

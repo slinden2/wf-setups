@@ -1,14 +1,30 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { Track, Vehicle } from "../generated/apolloComponents";
 
 type Inputs = {
   example: string;
   exampleRequired: string;
 };
 
-const AddSetupForm = () => {
+interface Props {
+  tracks:
+    | ({ __typename?: "Track" | undefined } & Pick<
+        Track,
+        "id" | "origin" | "name"
+      >)[]
+    | undefined;
+  vehicles:
+    | ({ __typename?: "Vehicle" | undefined } & Pick<Vehicle, "id" | "name">)[]
+    | undefined;
+}
+
+const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
   const { register, handleSubmit, watch, errors } = useForm<Inputs>();
   const onSubmit = (data: any) => console.log(data);
+
+  console.log(tracks);
+  console.log(vehicles);
 
   console.log(watch("track"));
 
