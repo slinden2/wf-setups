@@ -1,48 +1,49 @@
 import React from "react";
-import { useForm } from "react-hook-form";
-import { Track, Vehicle } from "../generated/apolloComponents";
+import { useForm, Controller } from "react-hook-form";
+import Select, { OptionTypeBase } from "react-select";
+import { OptionType } from "../types/OptionType";
 
-type Inputs = {
-  example: string;
-  exampleRequired: string;
-};
+interface IFormInputs {
+  track: string;
+  vehicle: string;
+  power: string;
+  suspension: number;
+  gears: number;
+  differential: number;
+  brake: number;
+}
 
 interface Props {
-  tracks:
-    | ({ __typename?: "Track" | undefined } & Pick<
-        Track,
-        "id" | "origin" | "name"
-      >)[]
-    | undefined;
-  vehicles:
-    | ({ __typename?: "Vehicle" | undefined } & Pick<Vehicle, "id" | "name">)[]
-    | undefined;
+  tracks: OptionType[];
+  vehicles: OptionTypeBase[];
 }
 
 const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
-  const { register, handleSubmit, watch, errors } = useForm<Inputs>();
-  const onSubmit = (data: any) => console.log(data);
-
-  console.log(tracks);
-  console.log(vehicles);
-
-  console.log(watch("track"));
-
-  console.log(errors);
+  const methods = useForm<IFormInputs>();
+  const { handleSubmit, control, register } = methods;
+  const onSubmit = (data: IFormInputs) => console.log(data);
 
   const powerValidationPattern = /^[aAbBcCdD]\d{2,3}$/;
   const setupValueValidationPattern = /[12345]/;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <select name="track" ref={register}>
-        <option>1</option>
-        <option>2</option>
-      </select>
-      <select name="car" ref={register}>
-        <option>3</option>
-        <option>4</option>
-      </select>
+      <Controller
+        as={Select}
+        name="track"
+        control={control}
+        options={tracks}
+        placeholder="Choose a track"
+        defaultValue=""
+      />
+      <Controller
+        as={Select}
+        name="vehicle"
+        control={control}
+        options={vehicles}
+        placeholder="Choose a vehicle"
+        defaultValue=""
+      />
       <input
         name="power"
         defaultValue="C164"
