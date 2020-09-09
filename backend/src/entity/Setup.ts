@@ -4,6 +4,7 @@ import {
   Column,
   BaseEntity,
   ManyToOne,
+  CreateDateColumn,
 } from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
 import { User } from "./User";
@@ -16,6 +17,12 @@ export class Setup extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
+
+  @CreateDateColumn()
+  createdDate: Date;
+
+  @CreateDateColumn()
+  updatedDate: Date;
 
   @Field()
   @Column()

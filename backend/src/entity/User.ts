@@ -4,6 +4,8 @@ import {
   Column,
   BaseEntity,
   OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
 import { Setup } from "./Setup";
@@ -14,6 +16,12 @@ export class User extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
+
+  @CreateDateColumn()
+  createdDate: Date;
+
+  @UpdateDateColumn()
+  updatedDate: Date;
 
   @Field()
   @Column("text", { unique: true })
