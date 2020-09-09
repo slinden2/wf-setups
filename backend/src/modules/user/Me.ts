@@ -10,6 +10,10 @@ export class MeResolver {
       return undefined;
     }
 
-    return User.findOne(ctx.req.session!.userId);
+    const user = await User.findOne({
+      where: { id: ctx.req.session!.userId },
+    });
+
+    return user;
   }
 }

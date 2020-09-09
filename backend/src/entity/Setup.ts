@@ -40,12 +40,14 @@ export class Setup extends BaseEntity {
   @Column()
   brake: number;
 
-  @ManyToOne(() => User, (user) => user.setups, { nullable: false })
+  @ManyToOne(() => User, (user) => user.setups, {
+    nullable: false,
+  })
   user: User;
 
-  @ManyToOne(() => Track, { nullable: false })
+  @ManyToOne(() => Track, { nullable: false, eager: true })
   track: Track;
 
-  @ManyToOne(() => Vehicle, { nullable: false })
+  @ManyToOne(() => Vehicle, { nullable: false, eager: true })
   vehicle: Vehicle;
 }
