@@ -1,8 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  OneToMany,
+} from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
+import { Setup } from "./Setup";
 
 @ObjectType()
-@Entity()
+@Entity({ name: "users" })
 export class User extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
@@ -27,4 +34,7 @@ export class User extends BaseEntity {
   @Field()
   @Column("text", { unique: true })
   email: string;
+
+  @OneToMany(() => Setup, (setup) => setup.user)
+  setups: Setup[];
 }
