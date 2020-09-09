@@ -43,6 +43,7 @@ export class User extends BaseEntity {
   @Column("text", { unique: true })
   email: string;
 
+  @Field(() => [Setup])
   @OneToMany(() => Setup, (setup) => setup.user, { eager: true })
   setups: Setup[];
 }

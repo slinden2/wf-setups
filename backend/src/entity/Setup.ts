@@ -45,9 +45,11 @@ export class Setup extends BaseEntity {
   })
   user: User;
 
+  @Field(() => Track)
   @ManyToOne(() => Track, { nullable: false, eager: true })
   track: Track;
 
+  @Field(() => Vehicle)
   @ManyToOne(() => Vehicle, { nullable: false, eager: true })
   vehicle: Vehicle;
 }
