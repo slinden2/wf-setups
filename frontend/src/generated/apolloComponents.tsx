@@ -27,12 +27,18 @@ export type User = {
   discriminator: Scalars['String'];
   avatar: Scalars['String'];
   email: Scalars['String'];
+  setups: Array<Setup>;
 };
 
-export type TracksAndVehicles = {
-  __typename?: 'TracksAndVehicles';
-  tracks: Array<Track>;
-  vehicles: Array<Vehicle>;
+export type Setup = {
+  __typename?: 'Setup';
+  id: Scalars['ID'];
+  suspension: Scalars['Float'];
+  gear: Scalars['Float'];
+  differential: Scalars['Float'];
+  brake: Scalars['Float'];
+  track: Track;
+  vehicle: Vehicle;
 };
 
 export type Track = {
@@ -51,15 +57,54 @@ export type Vehicle = {
   name: Scalars['String'];
 };
 
+export type TracksAndVehicles = {
+  __typename?: 'TracksAndVehicles';
+  tracks: Array<Track>;
+  vehicles: Array<Vehicle>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   login?: Maybe<User>;
+  addSetup?: Maybe<Setup>;
 };
 
 
 export type MutationLoginArgs = {
   code: Scalars['String'];
 };
+
+
+export type MutationAddSetupArgs = {
+  data: AddSetupInput;
+};
+
+export type AddSetupInput = {
+  trackId: Scalars['Float'];
+  vehicleId: Scalars['Float'];
+  suspension: Scalars['Float'];
+  gear: Scalars['Float'];
+  differential: Scalars['Float'];
+  brake: Scalars['Float'];
+};
+
+export type AddSetupMutationVariables = Exact<{
+  trackId: Scalars['Float'];
+  vehicleId: Scalars['Float'];
+  suspension: Scalars['Float'];
+  gear: Scalars['Float'];
+  differential: Scalars['Float'];
+  brake: Scalars['Float'];
+}>;
+
+
+export type AddSetupMutation = (
+  { __typename?: 'Mutation' }
+  & { addSetup?: Maybe<(
+    { __typename?: 'Setup' }
+    & Pick<Setup, 'id'>
+  )> }
+);
 
 export type LoginMutationVariables = Exact<{
   code: Scalars['String'];
@@ -103,6 +148,43 @@ export type MeQuery = (
 );
 
 
+export const AddSetupDocument = gql`
+    mutation AddSetup($trackId: Float!, $vehicleId: Float!, $suspension: Float!, $gear: Float!, $differential: Float!, $brake: Float!) {
+  addSetup(data: {trackId: $trackId, vehicleId: $vehicleId, suspension: $suspension, gear: $gear, differential: $differential, brake: $brake}) {
+    id
+  }
+}
+    `;
+export type AddSetupMutationFn = ApolloReactCommon.MutationFunction<AddSetupMutation, AddSetupMutationVariables>;
+
+/**
+ * __useAddSetupMutation__
+ *
+ * To run a mutation, you first call `useAddSetupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddSetupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addSetupMutation, { data, loading, error }] = useAddSetupMutation({
+ *   variables: {
+ *      trackId: // value for 'trackId'
+ *      vehicleId: // value for 'vehicleId'
+ *      suspension: // value for 'suspension'
+ *      gear: // value for 'gear'
+ *      differential: // value for 'differential'
+ *      brake: // value for 'brake'
+ *   },
+ * });
+ */
+export function useAddSetupMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddSetupMutation, AddSetupMutationVariables>) {
+        return ApolloReactHooks.useMutation<AddSetupMutation, AddSetupMutationVariables>(AddSetupDocument, baseOptions);
+      }
+export type AddSetupMutationHookResult = ReturnType<typeof useAddSetupMutation>;
+export type AddSetupMutationResult = ApolloReactCommon.MutationResult<AddSetupMutation>;
+export type AddSetupMutationOptions = ApolloReactCommon.BaseMutationOptions<AddSetupMutation, AddSetupMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($code: String!) {
   login(code: $code) {
