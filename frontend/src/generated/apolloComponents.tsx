@@ -144,6 +144,17 @@ export type MeQuery = (
   & { me?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'id' | 'discordId' | 'username' | 'email'>
+    & { setups: Array<(
+      { __typename?: 'Setup' }
+      & Pick<Setup, 'id' | 'suspension' | 'gear' | 'differential' | 'brake'>
+      & { track: (
+        { __typename?: 'Track' }
+        & Pick<Track, 'id' | 'name'>
+      ), vehicle: (
+        { __typename?: 'Vehicle' }
+        & Pick<Vehicle, 'id' | 'name'>
+      ) }
+    )> }
   )> }
 );
 
@@ -267,6 +278,21 @@ export const MeDocument = gql`
     discordId
     username
     email
+    setups {
+      id
+      track {
+        id
+        name
+      }
+      vehicle {
+        id
+        name
+      }
+      suspension
+      gear
+      differential
+      brake
+    }
   }
 }
     `;
