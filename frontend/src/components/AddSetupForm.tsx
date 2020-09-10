@@ -1,27 +1,45 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import Select, { OptionTypeBase } from "react-select";
+import Select from "react-select";
 import { OptionType } from "../types/OptionType";
+import { useAddSetupMutation } from "../generated/apolloComponents";
 
-interface IFormInputs {
-  track: string;
-  vehicle: string;
+interface FormInputs {
+  track: OptionType;
+  vehicle: OptionType;
   power: string;
   suspension: number;
-  gears: number;
+  gear: number;
   differential: number;
   brake: number;
 }
 
 interface Props {
   tracks: OptionType[];
-  vehicles: OptionTypeBase[];
+  vehicles: OptionType[];
 }
 
 const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
-  const methods = useForm<IFormInputs>();
-  const { handleSubmit, control, register } = methods;
-  const onSubmit = (data: IFormInputs) => console.log(data);
+  const [addSetup] = useAddSetupMutation();
+  const methods = useForm<FormInputs>();
+  const { handleSubmit, control, register, errors } = methods;
+
+  const onSubmit = async (data: FormInputs) => {
+    try {
+      await addSetup({
+        variables: {
+          trackId: Number(data.track.value),
+          vehicleId: Number(data.vehicle.value),
+          suspension: Number(data.suspension),
+          gear: Number(data.gear),
+          differential: Number(data.differential),
+          brake: Number(data.brake),
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const powerValidationPattern = /^[aAbBcCdD]\d{2,3}$/;
   const setupValueValidationPattern = /[12345]/;
@@ -54,7 +72,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
         ref={register({ required: true, pattern: setupValueValidationPattern })}
       />
       <input
-        name="gears"
+        name="gear"
         ref={register({ required: true, pattern: setupValueValidationPattern })}
       />
       <input
