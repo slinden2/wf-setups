@@ -50,6 +50,7 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
+    "build:server": "tsc -p tsconfig.json",
     "dev": "ts-node-dev --respawn src/index.ts",
     "db:setup": "ts-node ./src/test-utils/setup.ts",
     "test": "npm run db:setup && jest",
