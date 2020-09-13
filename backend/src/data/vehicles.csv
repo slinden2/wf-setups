@@ -1,0 +1,47 @@
+vehicleFolder,vehicleId,vehicleName
+01_american,speedbird,Speedbird
+02_european,killerbee s,Killerbee S
+02_european_01,killerbee,Killerbee
+02_pig_car,killerpig,Killerpig
+03_american,rammer rs,Rammer RS
+03_american_01,rammer,Rammer
+04_european,gremlin,Gremlin
+05_american,starbeast,Starbeast
+06_american,roadslayer gt,Roadslayer GT
+06_american_01,roadslayer,Roadslayer
+06_drag_car,dragslayer,Dragslayer
+07_european,boomer rs,Boomer RS
+07_european_01,boomer,Boomer
+08_asian,tristar,Tristar
+09_american,roadcutter,Roadcutter
+10_american,el matador,El Matador
+11_european,bulldog,Bulldog
+12_european,buggy,Buggy
+12_monster_buggy,bugzilla,Bugzilla
+13_asian,sunrise super,Sunrise Super
+14_american,gatecrasher,Gatecrasher
+15_european,panther rs,Panther RS
+16_european,hammerhead,Hammerhead
+17_asian,nexus rx,Nexus RX
+18_american,rocket,Rocket
+19_american,hotshot,Hotshot
+20_european,firefly,Firefly
+21_european,dominator,Dominator
+22_asian,speedemon,Speedemon
+23_american,bandit,Bandit
+23_american_01,bandit ripper v8,Bandit Ripper V8
+24_american,warwagon,Warwagon
+25_american,muddigger,Muddigger
+25_military_pickup,wardigger,Wardigger
+26 american,venom,Venom
+26_race_car,super venom,Super Venom
+27 american,limo,Limo
+28_european,hornet,Hornet
+29_american,wingman,Wingman
+30_american,outlaw,Outlaw
+31_asian,raiden rs,Raiden RS
+32_american,vandal,Vandal
+33_american,rebelrat,Rebelrat
+34_american,gran duke,Grand Duke
+35_american,little trasher,Little Trasher
+36_american,wildking,Wildking

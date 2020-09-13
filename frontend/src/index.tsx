@@ -4,12 +4,15 @@ import { ApolloProvider } from "@apollo/client";
 import apolloClient from "./apolloClient";
 import { AuthProvider } from "./context/AuthContext";
 import App from "./App";
+import { SetupProvider } from "./context/SetupContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={apolloClient}>
       <AuthProvider>
-        <App />
+        <SetupProvider>
+          <App />
+        </SetupProvider>
       </AuthProvider>
     </ApolloProvider>
   </React.StrictMode>,

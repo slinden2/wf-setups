@@ -16,6 +16,7 @@ export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
   me?: Maybe<User>;
+  getTracksAndVehicles: TracksAndVehicles;
 };
 
 export type User = {
@@ -26,17 +27,84 @@ export type User = {
   discriminator: Scalars['String'];
   avatar: Scalars['String'];
   email: Scalars['String'];
+  setups: Array<Setup>;
+};
+
+export type Setup = {
+  __typename?: 'Setup';
+  id: Scalars['ID'];
+  suspension: Scalars['Float'];
+  gear: Scalars['Float'];
+  differential: Scalars['Float'];
+  brake: Scalars['Float'];
+  track: Track;
+  vehicle: Vehicle;
+};
+
+export type Track = {
+  __typename?: 'Track';
+  id: Scalars['ID'];
+  trackId: Scalars['String'];
+  origin: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type Vehicle = {
+  __typename?: 'Vehicle';
+  id: Scalars['ID'];
+  vehicleId: Scalars['String'];
+  vehicleFolder: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type TracksAndVehicles = {
+  __typename?: 'TracksAndVehicles';
+  tracks: Array<Track>;
+  vehicles: Array<Vehicle>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   login?: Maybe<User>;
+  addSetup?: Maybe<Setup>;
 };
 
 
 export type MutationLoginArgs = {
   code: Scalars['String'];
 };
+
+
+export type MutationAddSetupArgs = {
+  data: AddSetupInput;
+};
+
+export type AddSetupInput = {
+  trackId: Scalars['Float'];
+  vehicleId: Scalars['Float'];
+  suspension: Scalars['Float'];
+  gear: Scalars['Float'];
+  differential: Scalars['Float'];
+  brake: Scalars['Float'];
+};
+
+export type AddSetupMutationVariables = Exact<{
+  trackId: Scalars['Float'];
+  vehicleId: Scalars['Float'];
+  suspension: Scalars['Float'];
+  gear: Scalars['Float'];
+  differential: Scalars['Float'];
+  brake: Scalars['Float'];
+}>;
+
+
+export type AddSetupMutation = (
+  { __typename?: 'Mutation' }
+  & { addSetup?: Maybe<(
+    { __typename?: 'Setup' }
+    & Pick<Setup, 'id'>
+  )> }
+);
 
 export type LoginMutationVariables = Exact<{
   code: Scalars['String'];
@@ -51,6 +119,23 @@ export type LoginMutation = (
   )> }
 );
 
+export type TracksAndVehiclesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TracksAndVehiclesQuery = (
+  { __typename?: 'Query' }
+  & { getTracksAndVehicles: (
+    { __typename?: 'TracksAndVehicles' }
+    & { tracks: Array<(
+      { __typename?: 'Track' }
+      & Pick<Track, 'id' | 'origin' | 'name'>
+    )>, vehicles: Array<(
+      { __typename?: 'Vehicle' }
+      & Pick<Vehicle, 'id' | 'name'>
+    )> }
+  ) }
+);
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -59,10 +144,58 @@ export type MeQuery = (
   & { me?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'id' | 'discordId' | 'username' | 'email'>
+    & { setups: Array<(
+      { __typename?: 'Setup' }
+      & Pick<Setup, 'id' | 'suspension' | 'gear' | 'differential' | 'brake'>
+      & { track: (
+        { __typename?: 'Track' }
+        & Pick<Track, 'id' | 'name'>
+      ), vehicle: (
+        { __typename?: 'Vehicle' }
+        & Pick<Vehicle, 'id' | 'name'>
+      ) }
+    )> }
   )> }
 );
 
 
+export const AddSetupDocument = gql`
+    mutation AddSetup($trackId: Float!, $vehicleId: Float!, $suspension: Float!, $gear: Float!, $differential: Float!, $brake: Float!) {
+  addSetup(data: {trackId: $trackId, vehicleId: $vehicleId, suspension: $suspension, gear: $gear, differential: $differential, brake: $brake}) {
+    id
+  }
+}
+    `;
+export type AddSetupMutationFn = ApolloReactCommon.MutationFunction<AddSetupMutation, AddSetupMutationVariables>;
+
+/**
+ * __useAddSetupMutation__
+ *
+ * To run a mutation, you first call `useAddSetupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddSetupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addSetupMutation, { data, loading, error }] = useAddSetupMutation({
+ *   variables: {
+ *      trackId: // value for 'trackId'
+ *      vehicleId: // value for 'vehicleId'
+ *      suspension: // value for 'suspension'
+ *      gear: // value for 'gear'
+ *      differential: // value for 'differential'
+ *      brake: // value for 'brake'
+ *   },
+ * });
+ */
+export function useAddSetupMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddSetupMutation, AddSetupMutationVariables>) {
+        return ApolloReactHooks.useMutation<AddSetupMutation, AddSetupMutationVariables>(AddSetupDocument, baseOptions);
+      }
+export type AddSetupMutationHookResult = ReturnType<typeof useAddSetupMutation>;
+export type AddSetupMutationResult = ApolloReactCommon.MutationResult<AddSetupMutation>;
+export type AddSetupMutationOptions = ApolloReactCommon.BaseMutationOptions<AddSetupMutation, AddSetupMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($code: String!) {
   login(code: $code) {
@@ -98,6 +231,46 @@ export function useLoginMutation(baseOptions?: ApolloReactHooks.MutationHookOpti
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation>;
 export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const TracksAndVehiclesDocument = gql`
+    query TracksAndVehicles {
+  getTracksAndVehicles {
+    tracks {
+      id
+      origin
+      name
+    }
+    vehicles {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useTracksAndVehiclesQuery__
+ *
+ * To run a query within a React component, call `useTracksAndVehiclesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTracksAndVehiclesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTracksAndVehiclesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useTracksAndVehiclesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<TracksAndVehiclesQuery, TracksAndVehiclesQueryVariables>) {
+        return ApolloReactHooks.useQuery<TracksAndVehiclesQuery, TracksAndVehiclesQueryVariables>(TracksAndVehiclesDocument, baseOptions);
+      }
+export function useTracksAndVehiclesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<TracksAndVehiclesQuery, TracksAndVehiclesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<TracksAndVehiclesQuery, TracksAndVehiclesQueryVariables>(TracksAndVehiclesDocument, baseOptions);
+        }
+export type TracksAndVehiclesQueryHookResult = ReturnType<typeof useTracksAndVehiclesQuery>;
+export type TracksAndVehiclesLazyQueryHookResult = ReturnType<typeof useTracksAndVehiclesLazyQuery>;
+export type TracksAndVehiclesQueryResult = ApolloReactCommon.QueryResult<TracksAndVehiclesQuery, TracksAndVehiclesQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {
@@ -105,6 +278,21 @@ export const MeDocument = gql`
     discordId
     username
     email
+    setups {
+      id
+      track {
+        id
+        name
+      }
+      vehicle {
+        id
+        name
+      }
+      suspension
+      gear
+      differential
+      brake
+    }
   }
 }
     `;

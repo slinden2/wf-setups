@@ -1,0 +1,276 @@
+trackOrigin,trackName,trackId
+VANILLA,Big Valley Speedway Open Demolition Arena,speedway2_classic_arena
+VANILLA,Big Valley Speedway Demolition Arena,speedway2_demolition_arena
+VANILLA,Big Valley Speedway Figure 8,speedway2_figure_8
+VANILLA,Big Valley Speedway Inner Oval,speedway2_inner_oval
+VANILLA,Big Valley Speedway Outer Oval,speedway2_outer_oval
+VANILLA,Big Valley Speedway Outer Oval Loop,speedway2_oval_loop
+VANILLA,Bloomfield Speedway Dirt Oval,dirt_speedway_dirt_oval
+VANILLA,Bloomfield Speedway Figure 8,dirt_speedway_figure_8
+VANILLA,Bonebreaker Valley Main Circuit,bonebreaker_valley_main_circuit
+VANILLA,Boulder Bank Circuit Main Route,sandpit3_long_loop
+VANILLA,Boulder Bank Circuit Main Route Reverse,sandpit3_long_loop_rev
+VANILLA,Boulder Bank Circuit Short Route,sandpit3_short_loop
+VANILLA,Boulder Bank Circuit Short Route Reverse,sandpit3_short_loop_rev
+JIMMY,Boulder Bank Circuit Main Route No X,sandpit3_long_loop_1_nox
+JIMMY,Boulder Bank Circuit Main Route Reverse No X,sandpit3_long_loop_1_nox_rev
+JIMMY,Boulder Bank Circuit Main Route 2 No X,sandpit3_long_loop_2_nox
+JIMMY,Boulder Bank Circuit Main Route 2 Reverse No X,sandpit3_long_loop_2_nox_rev
+JIMMY,Boulder Bank Circuit Main Route 3 No X,sandpit3_long_loop_3_nox
+JIMMY,Boulder Bank Circuit Main Route 3 Reverse No X,sandpit3_long_loop_3_nox_rev
+JIMMY,Boulder Bank Circuit Short Route No X,sandpit3_short_loop_nox
+JIMMY,Boulder Bank Circuit Short Route Reverse No X,sandpit3_short_loop_nox_rev
+VANILLA,Clayridge Main Circuit,mixed9_r1
+VANILLA,Clayridge Main Circuit Reverse,mixed9_r1_rev
+VANILLA,Crash Canyon,crash_canyon_main_circuit            
+VANILLA,Deathloop,loop
+VANILLA,Dirt Devil Stadium Dirt Speedway,triangle_r1
+VANILLA,Dirt Devil Stadium Demolition Arena,triangle_r2
+VANILLA,Drytown Desert Main Circuit,fields08_1
+VANILLA,Drytown Desert Main Circuit Reverse,fields08_1_rev
+VANILLA,Espedalen Raceway Main Circuit,tarmac3_main_circuit
+VANILLA,Espedalen Raceway Main Circuit Reverse,tarmac3_main_circuit_rev
+VANILLA,Espedalen Raceway Short Circuit,tarmac3_short_circuit
+VANILLA,Espedalen Raceway Short Circuit Reverse,tarmac3_short_circuit_rev
+JIMMY,Espedalen Raceway Very Long Circuit,tarmac3_verylong_circuit
+VANILLA,Fairfield County,smallstadium_demolition_arena    
+VANILLA,Fairfield Mudpit,mudpit_demolition_arena        
+VANILLA,Fairfield Grass Arena,grass_arena_demolition_arena    
+VANILLA,Finncross Main Circuit,mixed1_main_circuit
+VANILLA,Finncross Main Circuit Reverse,mixed1_main_circuit_rev
+VANILLA,Fire Rock Raceway Main Circuit,tarmac1_main_circuit
+VANILLA,Fire Rock Raceway Main Circuit Reverse,tarmac1_main_circuit_rev
+VANILLA,Fire Rock Raceway Short Circuit,tarmac1_short_circuit
+VANILLA,Fire Rock Raceway Short Circuit Reverse,tarmac1_short_circuit_rev
+VANILLA,Firwood Motocenter Main Circuit,mixed7_r1
+VANILLA,Firwood Motocenter Main Circuit Reverse,mixed7_r1_rev
+VANILLA,Firwood Motocenter Short Circuit,mixed7_r3
+VANILLA,Firwood Motocenter Short Circuit Reverse,mixed7_r3_rev
+VANILLA,Glendale Countryside Field Arena,field_derby_arena       
+VANILLA,Hellride,urban06
+VANILLA,Hilltop Stadium Figure 8,speedway1_figure_8
+VANILLA,Hilltop Stadium Oval,speedway1_oval
+VANILLA,Maasten Motocenter Main Circuit,mixed2_main_circuit
+VANILLA,Maasten Motocenter Main Circuit Reverse,mixed2_main_circuit_rev
+VANILLA,Madman Stadium Demolition Arena,bigstadium_demolition_arena
+VANILLA,Madman Stadium Figure 8,bigstadium_figure_8
+VANILLA,The Maw,fields11_1
+VANILLA,Midwest Motocenter Main Circuit,gravel1_main_loop
+VANILLA,Midwest Motocenter Main Circuit Reverse,gravel1_main_loop_rev
+VANILLA,Motorcity Main Circuit,tarmac2_main_circuit
+VANILLA,Motorcity Main Circuit Reverse,tarmac2_main_circuit_rev
+VANILLA,Northfolk Ring Main Circuit,mixed8_r1
+VANILLA,Northfolk Ring Open Circuit,mixed8_r2
+VANILLA,Northfolk Ring Main Route Reverse,mixed8_r3_rev
+VANILLA,Northland Raceway Outer Route,mixed5_outer_loop
+VANILLA,Northland Raceway Outer Route Reverse,mixed5_outer_loop_rev
+VANILLA,Northland Raceway Inner Route,mixed5_inner_loop
+VANILLA,Northland Raceway Inner Route Reverse,mixed5_inner_loop_rev
+VANILLA,Northland Raceway Free Route,mixed5_free_route
+VANILLA,Pinehills Raceway Main Circuit,mixed3_long_loop
+VANILLA,Pinehills Raceway Main Circuit Reverse,mixed3_long_loop_rev
+VANILLA,Pinehills Raceway Short Circuit,mixed3_short_loop
+VANILLA,Pinehills Raceway Short Circuit Reverse,mixed3_short_loop_rev
+PINEHILLS,Pinehills Raceway Alternate Route Long,newmixed3_alt1
+PINEHILLS,Pinehills Raceway Alternate Route Short,newmixed3_alt2
+VANILLA,Rockfield Roughspot,fields09_1
+VANILLA,Rosenheim Raceway Main Circuit,mixed4_main_circuit
+VANILLA,Rosenheim Raceway Main Circuit Reverse,mixed4_main_circuit_rev
+JIMMY,Rosenheim Raceway Main Circuit w/o Joker,mixed4_main_circuit_no_joker
+JIMMY,Rosenheim Raceway Main Circuit w/o Joker Reverse,mixed4_main_circuit_no_joker_rev
+VANILLA,Sandstone Raceway Main Route,sandpit1_long_loop
+VANILLA,Sandstone Raceway Main Route Reverse,sandpit1_long_loop_rev
+VANILLA,Sandstone Raceway Short Route,sandpit1_short_loop
+VANILLA,Sandstone Raceway Short Route Reverse,sandpit1_short_loop_rev
+VANILLA,Sandstone Raceway Alt Route,sandpit1_alt_loop
+VANILLA,Sandstone Raceway Alt Route Revese,sandpit1_alt_loop_rev
+JIMMY,Sandstone Raceway Alt Route Barrier,sandpit1_alt_loop_barrier
+JIMMY,Sandstone Raceway Alt Route Barrier Reverse,sandpit1_alt_loop_barrier_rev
+VANILLA,Savolax Sandpit Main Route,sandpit2_full_circuit
+VANILLA,Savolax Sandpit Main Route Reverse,sandpit2_full_circuit_rev
+VANILLA,Savolax Sandpit Short Route,sandpit2_2
+VANILLA,Savolax Sandpit Short Route Reverse,sandpit2_2_rev
+JIMMY,Savolax Sandpit Medium Route 1,sandpit2_3
+JIMMY,Savolax Sandpit Medium Route 1 Reverse,sandpit2_3_rev
+VANILLA,Thunderbowl,urban07
+VANILLA,Tribend Speedway Main Circuit,forest12_1
+VANILLA,Tribend Speedway Main Circuit Reverse,forest12_1_rev
+VANILLA,Tribend Speedway Wild Circuit,forest12_2
+VANILLA,Vale Falls Main Circuit,forest11_1
+VANILLA,Vale Falls Main Circuit Reverse,forest11_1_rev
+VANILLA,Vale Falls Short Circuit,forest11_2
+VANILLA,Vale Falls Short Circuit Reverse,forest11_2_rev
+VERY,Bristol Arena,arenas_bristol_arena
+VERY,Corrosion Arena,arenas_corrosion
+VERY,Main Derby Arena,arenas_nfdd
+VERY,Warehouse Derby Arena,arenas_nfddwarehouse
+VERY,Rock Bottom Derby Arena,arenas_rbderby
+VERY,Red Pike Arena,arenas_rpa2017
+VERY,Wimbledon Derby Arena,arenas_wimbledonderby
+VERY,Farmlands Stage 1,farmlands_s1
+VERY,Farmlands Stage 1 Reverse,farmlands_s1_reverse
+VERY,Farmlands Stage 2,farmlands_s2
+VERY,Farmlands Stage 2 Reverse,farmlands_s2_reverse
+VERY,Farmlands Stage 3,farmlands_s3
+VERY,Farmlands Stage 3 Reverse,farmlands_s3_reverse
+VERY,Farmlands Stage 4,farmlands_s4
+VERY,Farmlands Stage 4 Reverse,farmlands_s4_reverse
+VERY,Farmlands Stage 5,farmlands_s5
+VERY,Farmlands Stage 5 Reverse,farmlands_s5_reverse
+VERY,Derby Boom Figure 8,fig8_boom
+VERY,Derby Banked Figure 8,fig8_derbybankedeight
+VERY,Derby Banked Big Ramp Figure 8,fig8_derbybankedeightbigramp
+VERY,Derby Banked No Ramp Figure 8,fig8_derbybankedeightnoramp
+VERY,Derby Banked Safe Figure 8,fig8_derbybankedeightsafe
+VERY,Elevated Figure 8,fig8_elevatedeight
+VERY,Hurtfull Five Figure 8,fig8_hurtfullfive
+VERY,Nevada Freight Depot Figure 8,fig8_nfd
+VERY,Red Pike Race Figure 8,fig8_rpar2017
+VERY,Sca Ultimate Raceway Chicane Figure 8,fig8_scac
+VERY,Wimbledon Figure 8,fig8_wimbledonfig8
+VERY,Gardemoen Oval,gardemoen_drag_oval
+VERY,Gardemoen Oval Reverse,gardemoen_drag_oval_reverse
+VERY,Gardemoen Dragstrip,gardemoen_dragstrip
+VERY,Gardemoen Dragstrip Long,gardemoen_dragstrip_long
+VERY,Gardemoen Dragstrip Chicane,gardemoen_dragstrip_chicane
+VERY,Gardemoen Figure 8,gardemoen_fig8
+VERY,Gardemoen Figure 8 Reverse,gardemoen_fig8_reverse
+VERY,Gardemoen Head-On,gardemoen_head-on
+VERY,Gardemoen Head-On Reverse,gardemoen_head-on_reverse
+VERY,Gardemoen Zigzag,gardemoen_zigzag
+VERY,Gardemoen Zigzag Reverse,gardemoen_zigzag_reverse
+VERY,Gardemoen Arena,gardemoen_arena_01
+VERY,Green Racing Park,greenracing_crosskart_01
+VERY,Green Racing Park Reverse,greenracing_crosskart_01_reverse
+VERY,Grenland Chicane,grenland_chicane
+VERY,Grenland Chicane Reverse,grenland_chicane_reverse
+VERY,Grenland Fast,grenland_fast
+VERY,Grenland Fast Reverse,grenland_fast_reverse
+VERY,Grenland Folkrace,grenland_folkrace
+VERY,Grenland Folkrace Reverse,grenland_folkrace_reverse
+VERY,Grenland Head-On,grenland_head_on
+VERY,Grenland Joker,grenland_joker
+VERY,Grenland Joker Reverse,grenland_joker_reverse
+VERY,Lyngås Fast,lyngas_lyngas_fast
+VERY,Lyngås Fast Reverse,lyngas_lyngas_fast_reverse
+VERY,Lyngås Original,lyngas_lyngas_original
+VERY,Lyngås Original Reverse,lyngas_lyngas_original_reverse
+VERY,Lyngås Slow,lyngas_lyngas_slow
+VERY,Lyngås Slow Reverse,lyngas_lyngas_slow_reverse
+VERY,Birkeland,misc_birkeland
+VERY,Birkeland No Construction Fences,misc_birkeland_barriers
+VERY,Birkeland Reverse,misc_birkeland_reverse
+VERY,Birkeland No Construction Fences Reverse,misc_birkeland_reverse_barriers
+VERY,Bridge To Nowhere,misc_bridgetonowhere
+VERY,Black Sails Valley,misc_bsv
+VERY,Black Sails Valley Reverse,misc_bsv_reverse_day
+VERY,Bugbear Island,misc_bugbearisland
+VERY,Bugbear Island Reverse,misc_bugbearislandreverse
+VERY,Chalk Canyon,misc_cc2017
+VERY,Caprio County Raceway,misc_ccr
+VERY,Caprio County Raceway Reverse,misc_ccr_reverse
+VERY,Caprio County Raceway Ramp,misc_ccr_ramp
+VERY,Caprio County Raceway Ramp Reverse,misc_ccr_ramp_reverse
+VERY,Crash Alley,misc_crashalley
+VERY,Dakar,misc_dakar_s01
+VERY,Dakar Drag,misc_dakar_s02_drag
+VERY,Dakar Drag Chicanes,misc_dakar_s03
+VERY,Dakar Danger,misc_dakar_s04
+VERY,Dakar Dragstorm,misc_dakar_s05_dragstorm
+VERY,Dakar Storm,misc_dakar_s06_storm
+VERY,Dune Race,misc_dunerace
+VERY,Dune Race Reverse,misc_dunerace_reverse
+VERY,Eagle's Nest,misc_eaglesnest
+VERY,Knobhill,misc_knockhill
+VERY,Knobhill Reverse,misc_knockhill_reverse
+VERY,Kristiansand Raceway,misc_kristiansandraceway
+VERY,Kristiansand Raceway Reverse,misc_kristiansandracewayreverse
+VERY,High Speed,misc_nfdhighspeed
+VERY,Warehouse Run,misc_nfdwarehouserun
+VERY,Pit Stop,misc_pitstop
+VERY,Rock Bottom Race,misc_rbrace
+VERY,Redwood Ring Tour,misc_rwr_tour
+VERY,Ballistic,misc_space_s1
+VERY,Sca Ultimate Raceway,misc_sca
+VERY,Sca Ultimate Raceway Fast,misc_sca_fast
+VERY,SFS,misc_sfs
+VERY,Woodhill Raceway,misc_woodhillraceway
+VERY,Arena Essex,ovals_ae
+VERY,Arendal Triangle,ovals_arendaltriangle
+VERY,Arendal Triangle Reverse,ovals_arendaltriangle_reverse
+VERY,Birkeland Oval,ovals_birkeland_oval01
+VERY,Bristol,ovals_bristol
+VERY,Bristol Dirt,ovals_bristol_dirt
+VERY,Emmen Raceway,ovals_emmenraceway
+VERY,Hillside Raceway,ovals_hillsideracewaysmooth
+VERY,King's Lynn,ovals_kingslynn
+VERY,Knobhill Oval,ovals_knockhill_oval
+VERY,Knobhill Oval Reverse,ovals_knockhill_oval_reverse
+VERY,Lakewood Oval,ovals_lakewood
+VERY,Michigan Speedway,ovals_michiganspeedway
+VERY,Oval With Jump,ovals_nfdovaljump
+VERY,Orange Speedway,ovals_os
+VERY,Orange Speedway Small,ovals_osm
+VERY,Orange Speedway Reverse,ovals_osr
+VERY,Orange Speedway Safer,ovals_oss
+VERY,Pennsboro,ovals_pennsboro
+VERY,Pennsboro Reverse,ovals_pennsboro_reverse
+VERY,Pennsboro Minioval,ovals_pennsboro_minioval
+VERY,Pennsboro Minioval Reverse,ovals_pennsboro_minioval_reverse
+VERY,Pine Hills Raceway Oval,ovals_phr
+VERY,Pine Hills Raceway Oval Reverse,ovals_phrr
+VERY,Ringwood,ovals_ringwood
+VERY,Red Pike Arena Oval,ovals_rpa_oval
+VERY,Redwood Ring Oval,ovals_rwro
+VERY,Redwood Ring Oval Reverse,ovals_rwror
+VERY,Redwood Ring Minioval,ovals_rwr_minioval
+VERY,Talladega,ovals_talledega
+VERY,Wimbledon,ovals_wimbledon
+VERY,Pocono Oval,pocono_oval
+VERY,Pocono Oval Reverse,pocono_oval_reverse
+VERY,Pocono Route 1,pocono_route_1
+VERY,Pocono Route 1 Reverse,pocono_route_1_reverse
+VERY,Pocono Route 2,pocono_route_2
+VERY,Pocono Route 2 Reverse,pocono_route_2_reverse
+VERY,Pocono Route 3,pocono_route_3
+VERY,Pocono Route 3 Reverse,pocono_route_3_reverse
+VERY,Pocono Route 4,pocono_route_4
+VERY,Pocono Route 4 Reverse,pocono_route_4_reverse
+VERY,Pocono Route 5,pocono_route_5
+VERY,Pocono Route 5 Reverse,pocono_route_5_reverse
+VERY,Pocono Route 6,pocono_route_6
+VERY,Pocono Route 6 Reverse,pocono_route_6_reverse
+VERY,Aremark Motorbane,rallycross_aremark
+VERY,Aremark Motorbane Reverse,rallycross_aremark_reverse
+VERY,Brønnøy,rallycross_bronnoy
+VERY,Brønnøy Reverse,rallycross_bronnoy_reverse
+VERY,Brønnøy Long,rallycross_bronnoy_long
+VERY,Brønnøy Short,rallycross_bronnoy_short
+VERY,Greenlake Valley,rallycross_greenlakevalley
+VERY,Howling Wolfs Raceway,rallycross_hw
+VERY,Howling Wolfs Raceway Reverse,rallycross_hw_reverse
+VERY,Howling Wolfs Raceway Chicane,rallycross_hw_chicane
+VERY,Howling Wolfs Raceway Chicane Reverse,rallycross_hw_chicane_reverse
+VERY,Knobhill Rallycross Short,rallycross_knockhill_rc_short
+VERY,Knobhill Rallycross Short Reverse,rallycross_knockhill_rc_short_reverse
+VERY,Knobhill Rallycross Long,rallycross_knockhill_rc_long
+VERY,Knobhill Rallycross Long Reverse,rallycross_knockhill_rc_long_reverse
+VERY,Lupines Hill,rallycross_lupineshill
+VERY,Rugsland,rallycross_rugsland
+VERY,Rugsland Reverse,rallycross_rugsland_reverse
+VERY,Redwood Ring Rallycross,rallycross_rwrr
+VERY,Redwood Ring Rallycross Reverse,rallycross_rwrrr
+VERY,Simstox Showdown,rallycross_simstoxshowdown
+VANILLA,Kingston Raceway Asphalt Oval,fields12_1
+VANILLA,Kingston Raceway Asphalt Oval Reverse,fields12_1_rev
+VANILLA,Kingston Raceway Figure 8,fields12_2
+VANILLA,Mudford Motorpark Mud Oval,fields10_1
+VANILLA,Mudford Motorpark Mud Pit,fields10_2
+VERY,Harbor 01,misc_harbor_01
+VERY,Harbor 02,misc_harbor_02
+VERY,Harbor 03,misc_harbor_03
+VERY,Harbor 04,fig8_harbor_04
+VERY,Harbor 05,arenas_harbor_05
+VERY,Harbor 06,misc_harbor_06
+VERY,Harbor 07,ovals_harbor_07
+pete's tracks,Tempelhof One,tempelhof1

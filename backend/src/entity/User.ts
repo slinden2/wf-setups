@@ -1,12 +1,27 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
+import { Setup } from "./Setup";
 
 @ObjectType()
-@Entity()
+@Entity({ name: "users" })
 export class User extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
+
+  @CreateDateColumn()
+  createdDate: Date;
+
+  @UpdateDateColumn()
+  updatedDate: Date;
 
   @Field()
   @Column("text", { unique: true })
@@ -27,4 +42,8 @@ export class User extends BaseEntity {
   @Field()
   @Column("text", { unique: true })
   email: string;
+
+  @Field(() => [Setup])
+  @OneToMany(() => Setup, (setup) => setup.user, { eager: true })
+  setups: Setup[];
 }
