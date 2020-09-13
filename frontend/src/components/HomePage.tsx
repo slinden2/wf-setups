@@ -1,10 +1,10 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 
-import { useAuthContext } from "../context/AuthContext";
 import { useTracksAndVehiclesQuery } from "../generated/apolloComponents";
 import AddSetupForm from "./AddSetupForm";
 import { OptionType } from "../types/OptionType";
+import { useSetupContext } from "../context/SetupContext";
 
 const columns = [
   {
@@ -41,7 +41,7 @@ const columns = [
 
 const HomePage = () => {
   const { loading, data } = useTracksAndVehiclesQuery();
-  const { user } = useAuthContext();
+  const { setups } = useSetupContext()!;
 
   if (loading) {
     return <div>Loading...</div>;
@@ -68,11 +68,11 @@ const HomePage = () => {
     })
   );
 
-  if (!user) {
+  if (!setups) {
     return null;
   }
 
-  const tableData = user.setups.map((setup) => ({
+  const tableData = setups.map((setup) => ({
     id: setup.id,
     track: setup.track.name,
     vehicle: setup.vehicle.name,

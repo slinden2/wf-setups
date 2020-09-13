@@ -3,6 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import Select from "react-select";
 import { OptionType } from "../types/OptionType";
 import { useAddSetupMutation } from "../generated/apolloComponents";
+import { useSetupContext } from "../context/SetupContext";
 
 interface FormInputs {
   track: OptionType;
@@ -20,13 +21,14 @@ interface Props {
 }
 
 const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
+  const { addSetup: addSetupToState } = useSetupContext()!;
   const [addSetup] = useAddSetupMutation();
   const methods = useForm<FormInputs>();
   const { handleSubmit, control, register, reset } = methods;
 
   const onSubmit = async (data: FormInputs) => {
     try {
-      await addSetup({
+      const response = await addSetup({
         variables: {
           trackId: Number(data.track.value),
           vehicleId: Number(data.vehicle.value),
@@ -35,6 +37,26 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
           differential: Number(data.differential),
           brake: Number(data.brake),
         },
+      });
+
+      if (!response.data?.addSetup?.id) {
+        throw new Error("no setup id returned");
+      }
+
+      addSetupToState({
+        id: response.data?.addSetup?.id,
+        track: {
+          id: data.track.value,
+          name: data.track.label,
+        },
+        vehicle: {
+          id: data.vehicle.value,
+          name: data.vehicle.label,
+        },
+        suspension: Number(data.suspension),
+        gear: Number(data.gear),
+        differential: Number(data.differential),
+        brake: Number(data.brake),
       });
       reset();
     } catch (err) {

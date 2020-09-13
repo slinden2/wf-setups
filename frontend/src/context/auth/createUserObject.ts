@@ -1,8 +1,6 @@
 import { UserState } from "../../types/UserState";
-import { MeQueryResult, MeQuery } from "../../generated/apolloComponents";
+import { MeQueryResult } from "../../generated/apolloComponents";
 import { SetupState } from "../../types/SetupState";
-import { TrackState } from "../../types/TrackState";
-import { VehicleState } from "../../types/VehicleState";
 
 export const createUserObject = (
   loggedUser: MeQueryResult

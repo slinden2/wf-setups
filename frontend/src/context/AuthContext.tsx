@@ -1,7 +1,6 @@
 import React, { createContext, useContext } from "react";
 import { useMeQuery } from "../generated/apolloComponents";
 import { UserState } from "../types/UserState";
-import { SetupState } from "../types/SetupState";
 import { createUserObject } from "./auth/createUserObject";
 
 export type AuthContextProps = {
@@ -34,7 +33,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     } else {
       setIsAuth(false);
     }
-  }, [loggedUser.data]);
+  }, [loggedUser]);
 
   return (
     <AuthContext.Provider value={{ isAuth, user }}>
