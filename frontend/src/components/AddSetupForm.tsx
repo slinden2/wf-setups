@@ -22,7 +22,7 @@ interface Props {
 const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
   const [addSetup] = useAddSetupMutation();
   const methods = useForm<FormInputs>();
-  const { handleSubmit, control, register, errors } = methods;
+  const { handleSubmit, control, register, reset } = methods;
 
   const onSubmit = async (data: FormInputs) => {
     try {
@@ -36,8 +36,10 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
           brake: Number(data.brake),
         },
       });
+      reset();
     } catch (err) {
       console.error(err);
+      reset();
     }
   };
 
