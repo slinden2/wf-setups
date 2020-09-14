@@ -18,7 +18,7 @@ import config from "./config";
 import path from "path";
 
 const main = async () => {
-  await createConnection();
+  await createConnection(config.postgres.connParams);
 
   const schema = await createSchema();
 
@@ -77,7 +77,7 @@ const main = async () => {
       saveUninitialized: false,
       cookie: {
         httpOnly: true,
-        // secure: config.env === "production", TODO activate this when SSL is available in production
+        // secure: config.env.isProd, TODO activate this when SSL is available in production
         secure: false,
         maxAge: 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
       },
@@ -86,7 +86,7 @@ const main = async () => {
 
   apolloServer.applyMiddleware({ app, cors: false });
 
-  if (config.env === "production") {
+  if (config.env.isProd) {
     app.use(express.static(path.join(__dirname, "client")));
     app.get("*", (_req, res) => {
       res.sendFile(path.resolve(__dirname, "client", "index.html"));
