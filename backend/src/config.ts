@@ -19,6 +19,10 @@ if (!process.env.SESSION_SECRET) {
   throw new Error("SESSION_SECRET missing from .env");
 }
 
+if (env === "production" && process.env.REDIS_URL) {
+  throw new Error("REDIS_URL missing from .env in production");
+}
+
 export default {
   discord: {
     clientId: process.env.DISCORD_CLIENT_ID,
@@ -27,5 +31,8 @@ export default {
   env,
   session: {
     secret: process.env.SESSION_SECRET,
+  },
+  redis: {
+    url: process.env.REDIS_URL,
   },
 };

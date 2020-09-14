@@ -1,3 +1,10 @@
 import Redis from "ioredis";
+import config from "./config";
 
-export const redis = new Redis();
+export let redis: Redis.Redis;
+
+if (config.env === "production") {
+  redis = new Redis(config.redis.url);
+} else {
+  redis = new Redis();
+}
