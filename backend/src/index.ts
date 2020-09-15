@@ -59,12 +59,7 @@ const main = async () => {
   const app = express();
   const RedisStore = connectRedis(session);
 
-  app.use(
-    cors({
-      credentials: true,
-      origin: "http://localhost:3000",
-    })
-  );
+  app.use(cors());
 
   app.use(
     session({
@@ -93,8 +88,12 @@ const main = async () => {
     });
   }
 
-  app.listen(4000, () => {
-    console.log("Server started on http://localhost:4000/graphql");
+  const port = config.server.port || 4000;
+
+  app.listen({ port }, () => {
+    console.log(
+      `Server ready at http://localhost:${port}${apolloServer.graphqlPath}`
+    );
   });
 };
 

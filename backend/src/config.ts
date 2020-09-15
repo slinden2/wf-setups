@@ -20,11 +20,11 @@ if (!process.env.SESSION_SECRET) {
   throw new Error("SESSION_SECRET missing from .env");
 }
 
-if (env === "production" && process.env.REDIS_URL) {
+if (env === "production" && !process.env.REDIS_URL) {
   throw new Error("REDIS_URL missing from .env in production");
 }
 
-if (env === "production" && process.env.DATABASE_URL) {
+if (env === "production" && !process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL missing from .env in production");
 }
 
@@ -71,5 +71,8 @@ export default {
   },
   postgres: {
     connParams: postgresConn,
+  },
+  server: {
+    port: process.env.PORT,
   },
 };
