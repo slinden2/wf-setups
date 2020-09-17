@@ -33,6 +33,7 @@ export type User = {
 export type Setup = {
   __typename?: 'Setup';
   id: Scalars['ID'];
+  power: Scalars['String'];
   suspension: Scalars['Float'];
   gear: Scalars['Float'];
   differential: Scalars['Float'];
@@ -82,6 +83,7 @@ export type MutationAddSetupArgs = {
 export type AddSetupInput = {
   trackId: Scalars['Float'];
   vehicleId: Scalars['Float'];
+  power: Scalars['String'];
   suspension: Scalars['Float'];
   gear: Scalars['Float'];
   differential: Scalars['Float'];
@@ -91,6 +93,7 @@ export type AddSetupInput = {
 export type AddSetupMutationVariables = Exact<{
   trackId: Scalars['Float'];
   vehicleId: Scalars['Float'];
+  power: Scalars['String'];
   suspension: Scalars['Float'];
   gear: Scalars['Float'];
   differential: Scalars['Float'];
@@ -146,7 +149,7 @@ export type MeQuery = (
     & Pick<User, 'id' | 'discordId' | 'username' | 'email'>
     & { setups: Array<(
       { __typename?: 'Setup' }
-      & Pick<Setup, 'id' | 'suspension' | 'gear' | 'differential' | 'brake'>
+      & Pick<Setup, 'id' | 'power' | 'suspension' | 'gear' | 'differential' | 'brake'>
       & { track: (
         { __typename?: 'Track' }
         & Pick<Track, 'id' | 'name'>
@@ -160,8 +163,8 @@ export type MeQuery = (
 
 
 export const AddSetupDocument = gql`
-    mutation AddSetup($trackId: Float!, $vehicleId: Float!, $suspension: Float!, $gear: Float!, $differential: Float!, $brake: Float!) {
-  addSetup(data: {trackId: $trackId, vehicleId: $vehicleId, suspension: $suspension, gear: $gear, differential: $differential, brake: $brake}) {
+    mutation AddSetup($trackId: Float!, $vehicleId: Float!, $power: String!, $suspension: Float!, $gear: Float!, $differential: Float!, $brake: Float!) {
+  addSetup(data: {trackId: $trackId, vehicleId: $vehicleId, power: $power, suspension: $suspension, gear: $gear, differential: $differential, brake: $brake}) {
     id
   }
 }
@@ -183,6 +186,7 @@ export type AddSetupMutationFn = ApolloReactCommon.MutationFunction<AddSetupMuta
  *   variables: {
  *      trackId: // value for 'trackId'
  *      vehicleId: // value for 'vehicleId'
+ *      power: // value for 'power'
  *      suspension: // value for 'suspension'
  *      gear: // value for 'gear'
  *      differential: // value for 'differential'
@@ -288,6 +292,7 @@ export const MeDocument = gql`
         id
         name
       }
+      power
       suspension
       gear
       differential

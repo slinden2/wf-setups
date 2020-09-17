@@ -24,6 +24,7 @@ export const createUserObject = (
           id: setup.vehicle.id,
           name: setup.vehicle.name,
         },
+        power: setup.power,
         suspension: setup.suspension,
         gear: setup.gear,
         differential: setup.differential,

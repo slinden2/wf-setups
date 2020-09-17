@@ -18,6 +18,10 @@ const columns = [
     sortable: true,
   },
   {
+    name: "Power",
+    selector: "power",
+  },
+  {
     name: "Suspension",
     selector: "suspension",
     center: true,
@@ -76,6 +80,7 @@ const HomePage = () => {
     id: setup.id,
     track: setup.track.name,
     vehicle: setup.vehicle.name,
+    power: setup.power,
     suspension: setup.suspension,
     gear: setup.gear,
     differential: setup.differential,

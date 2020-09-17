@@ -17,6 +17,7 @@ export const meQuery = gql`
           id
           name
         }
+        power
         suspension
         gear
         differential

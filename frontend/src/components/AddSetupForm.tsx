@@ -32,6 +32,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
         variables: {
           trackId: Number(data.track.value),
           vehicleId: Number(data.vehicle.value),
+          power: data.power,
           suspension: Number(data.suspension),
           gear: Number(data.gear),
           differential: Number(data.differential),
@@ -53,6 +54,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
           id: data.vehicle.value,
           name: data.vehicle.label,
         },
+        power: data.power,
         suspension: Number(data.suspension),
         gear: Number(data.gear),
         differential: Number(data.differential),

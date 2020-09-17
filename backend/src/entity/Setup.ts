@@ -26,6 +26,10 @@ export class Setup extends BaseEntity {
 
   @Field()
   @Column()
+  power: string;
+
+  @Field()
+  @Column()
   suspension: number;
 
   @Field()

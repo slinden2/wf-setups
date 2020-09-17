@@ -9,6 +9,9 @@ export class AddSetupInput {
   vehicleId: number;
 
   @Field()
+  power: string;
+
+  @Field()
   suspension: number;
 
   @Field()
