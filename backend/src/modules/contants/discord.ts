@@ -13,7 +13,7 @@ export const authData: AuthData = {
   client_id: config.discord.clientId,
   client_secret: config.discord.clientSecret,
   grant_type: "authorization_code",
-  redirect_uri: "http://localhost:3000/auth",
+  redirect_uri: config.discord.redirectUri,
   scope: "identity",
 };
 

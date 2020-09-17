@@ -23,6 +23,10 @@ if (!process.env.SESSION_SECRET) {
   throw new Error("SESSION_SECRET missing from .env");
 }
 
+if (!process.env.DISCORD_REDIRECT_URI) {
+  throw new Error("DISCORD_REDIRECT_URI missing from .env");
+}
+
 if (env === "production") {
   if (!isLocal && !process.env.REDIS_URL) {
     throw new Error("REDIS_URL missing from .env in production");
@@ -97,6 +101,7 @@ export default {
   discord: {
     clientId: process.env.DISCORD_CLIENT_ID,
     clientSecret: process.env.DISCORD_CLIENT_SECRET,
+    redirectUri: process.env.DISCORD_REDIRECT_URI,
   },
   env: {
     env: process.env.NODE_ENV,
