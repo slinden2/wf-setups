@@ -38,7 +38,7 @@ export class AddSetupResolver {
     }
 
     const setup = new Setup();
-    setup.power = data.power;
+    setup.power = data.power.toUpperCase();
     setup.suspension = data.suspension;
     setup.gear = data.gear;
     setup.differential = data.differential;
