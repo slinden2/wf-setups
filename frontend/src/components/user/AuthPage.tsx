@@ -5,6 +5,7 @@ import config from "../../config";
 
 const AuthPage = () => {
   const onClickHandler = () => {
+    // console.log(config.discordAuthUrl);
     window.location.href = config.discordAuthUrl;
   };
 
