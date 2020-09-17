@@ -3,13 +3,14 @@ import csv from "csvtojson";
 import { createConnection } from "typeorm";
 import { VehicleRawData } from "../types/VehicleRawData";
 import { Vehicle } from "../entity/Vehicle";
+import config from "../config";
 
 const addVehicles = async () => {
   const vehicles = (await csv().fromFile(
     path.join(__dirname, "../data/vehicles.csv")
   )) as VehicleRawData[];
 
-  await createConnection();
+  await createConnection(config.postgres.connParams);
 
   const vehiclePromises: Promise<Vehicle>[] = [];
 

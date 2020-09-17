@@ -1,7 +1,7 @@
 {
   "name": "wf-setups",
   "version": "1.0.0",
-  "description": "This is a bug tracking software.",
+  "description": "This is a setup archive app for Wreckfest.",
   "main": "index.js",
   "directories": {
     "doc": "docs"
@@ -56,20 +56,20 @@
     "bundle:start": "cross-env NODE_ENV=production node dist/index.js",
     "dev": "cross-env NODE_ENV=development ts-node-dev --respawn src/index.ts",
     "db:setup": "ts-node ./src/test-utils/setup.ts",
-    "addTracks:dev": "ts-node ./src/scripts/addTracks.ts",
-    "addVehicles:dev": "ts-node ./src/scripts/addVehicles.ts",
-    "addTracks:prod": "cross-env NODE_ENV=production ts-node ./src/scripts/addTracks.ts",
-    "addVehicles:prod": "cross-env NODE_ENV=production ts-node ./src/scripts/addVehicles.ts"
+    "addTracks:dev": "cross-env NODE_ENV=development ts-node ./src/scripts/addTracks.ts",
+    "addVehicles:dev": "cross-env NODE_ENV=development ts-node ./src/scripts/addVehicles.ts",
+    "addTracks:prod": "cross-env NODE_ENV=production IS_LOCAL=true ts-node ./src/scripts/addTracks.ts",
+    "addVehicles:prod": "cross-env NODE_ENV=production IS_LOCAL=true ts-node ./src/scripts/addVehicles.ts"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/slinden2/bug-tracker.git"
+    "url": "git+https://github.com/slinden2/wf-setups.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/slinden2/bug-tracker/issues"
+    "url": "https://github.com/slinden2/wf-setups/issues"
   },
-  "homepage": "https://github.com/slinden2/bug-tracker#readme"
+  "homepage": "https://github.com/slinden2/wf-setups#readme"
 }

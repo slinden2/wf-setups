@@ -3,13 +3,14 @@ import csv from "csvtojson";
 import { createConnection } from "typeorm";
 import { Track } from "../entity/Track";
 import { TrackRawData } from "../types/TrackRawData";
+import config from "../config";
 
 const addTracks = async () => {
   const tracks = (await csv().fromFile(
     path.join(__dirname, "../data/tracks.csv")
   )) as TrackRawData[];
 
-  await createConnection();
+  await createConnection(config.postgres.connParams);
 
   const trackPromises: Promise<Track>[] = [];
 
