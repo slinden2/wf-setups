@@ -1,10 +1,12 @@
 import React from "react";
 import DataTable from "react-data-table-component";
+import { useHistory } from "react-router-dom";
 
 import { useTracksAndVehiclesQuery } from "../generated/apolloComponents";
 import AddSetupForm from "./AddSetupForm";
 import { OptionType } from "../types/OptionType";
 import { useSetupContext } from "../context/SetupContext";
+import { SetupRow } from "../types/SetupRow";
 
 const columns = [
   {
@@ -44,6 +46,7 @@ const columns = [
 ];
 
 const HomePage = () => {
+  const history = useHistory();
   const { loading, data } = useTracksAndVehiclesQuery();
   const { setups } = useSetupContext()!;
 
@@ -76,7 +79,7 @@ const HomePage = () => {
     return null;
   }
 
-  const tableData = setups.map((setup) => ({
+  const tableData: SetupRow[] = setups.map((setup) => ({
     id: setup.id,
     track: setup.track.name,
     vehicle: setup.vehicle.name,
@@ -87,10 +90,22 @@ const HomePage = () => {
     brake: setup.brake,
   }));
 
+  const openSetup = (row: SetupRow) => {
+    return history.push(`/setups/${row.id}`);
+  };
+
   return (
     <div>
       <AddSetupForm tracks={tracks} vehicles={vehicles} />
-      <DataTable columns={columns} data={tableData} />
+      <DataTable
+        columns={columns}
+        data={tableData}
+        onRowClicked={(row) => openSetup(row)}
+        pointerOnHover
+        striped
+        highlightOnHover
+        dense
+      />
     </div>
   );
 };

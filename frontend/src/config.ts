@@ -9,8 +9,6 @@ if (!process.env.REACT_APP_DISCORD_AUTH_URL) {
   throw new Error("REACT_APP_DISCORD_AUTH_URL missing from .env");
 }
 
-console.log(process.env);
-
 export default {
   env,
   discordAuthUrl: process.env.REACT_APP_DISCORD_AUTH_URL!,
