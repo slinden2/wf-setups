@@ -4,7 +4,8 @@ import Select from "react-select";
 import { OptionType } from "../types/OptionType";
 import { useAddSetupMutation } from "../generated/apolloComponents";
 import { useSetupContext } from "../context/SetupContext";
-import { InputField } from "./form/fieldGenerators";
+import { InputField } from "./form/InputField";
+import { inputFieldData } from "./form/formFieldData";
 
 interface FormInputs {
   track: OptionType;
@@ -68,9 +69,6 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
     }
   };
 
-  const powerValidationPattern = /^[aAbBcCdD]\d{2,3}$/;
-  const setupValueValidationPattern = /[12345]/;
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Controller
@@ -89,32 +87,9 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
         placeholder="Choose a vehicle"
         defaultValue=""
       />
-      <InputField
-        name="power"
-        defaultValue="C164"
-        pattern={powerValidationPattern}
-        register={register}
-      />
-      <InputField
-        name="suspension"
-        pattern={setupValueValidationPattern}
-        register={register}
-      />
-      <InputField
-        name="gear"
-        pattern={setupValueValidationPattern}
-        register={register}
-      />
-      <InputField
-        name="differential"
-        pattern={setupValueValidationPattern}
-        register={register}
-      />
-      <InputField
-        name="brake"
-        pattern={setupValueValidationPattern}
-        register={register}
-      />
+      {inputFieldData.map((input) => (
+        <InputField {...input} register={register} />
+      ))}
       <input type="submit" />
     </form>
   );
