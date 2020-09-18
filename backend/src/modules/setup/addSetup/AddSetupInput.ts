@@ -1,6 +1,6 @@
 import { IsInt, Max, Min } from "class-validator";
 import { InputType, Field } from "type-graphql";
-import { IsPowerString } from "./isPowerString";
+import { IsPowerString } from "./IsPowerString";
 
 @InputType()
 export class AddSetupInput {
