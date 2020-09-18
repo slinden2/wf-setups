@@ -2,11 +2,10 @@ import React from "react";
 import DataTable from "react-data-table-component";
 import { useHistory } from "react-router-dom";
 
-import { useTracksAndVehiclesQuery } from "../generated/apolloComponents";
 import AddSetupForm from "./AddSetupForm";
-import { OptionType } from "../types/OptionType";
 import { useSetupContext } from "../context/SetupContext";
 import { SetupRow } from "../types/SetupRow";
+import { getSelectFieldData } from "../utils/getSelectFieldData";
 
 const columns = [
   {
@@ -47,33 +46,14 @@ const columns = [
 
 const HomePage = () => {
   const history = useHistory();
-  const { loading, data } = useTracksAndVehiclesQuery();
-  const { setups } = useSetupContext()!;
+  const { setups, tracks, vehicles } = useSetupContext()!;
 
-  if (loading) {
+  if (!tracks || !vehicles) {
     return <div>Loading...</div>;
   }
 
-  if (
-    !data?.getTracksAndVehicles.tracks.length ||
-    !data?.getTracksAndVehicles.vehicles.length
-  ) {
-    throw new Error("No track or vehicle data found");
-  }
-
-  const tracks: OptionType[] = data.getTracksAndVehicles.tracks.map(
-    (track) => ({
-      value: track.id,
-      label: track.name,
-    })
-  );
-
-  const vehicles: OptionType[] = data.getTracksAndVehicles.vehicles.map(
-    (track) => ({
-      value: track.id,
-      label: track.name,
-    })
-  );
+  const tracksForSelect = getSelectFieldData(tracks);
+  const vehiclesForSelect = getSelectFieldData(vehicles);
 
   if (!setups) {
     return null;
@@ -96,7 +76,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <AddSetupForm tracks={tracks} vehicles={vehicles} />
+      <AddSetupForm tracks={tracksForSelect} vehicles={vehiclesForSelect} />
       <DataTable
         columns={columns}
         data={tableData}
