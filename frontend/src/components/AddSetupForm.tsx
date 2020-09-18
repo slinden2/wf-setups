@@ -4,6 +4,7 @@ import Select from "react-select";
 import { OptionType } from "../types/OptionType";
 import { useAddSetupMutation } from "../generated/apolloComponents";
 import { useSetupContext } from "../context/SetupContext";
+import { InputField } from "./form/fieldGenerators";
 
 interface FormInputs {
   track: OptionType;
@@ -88,26 +89,31 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
         placeholder="Choose a vehicle"
         defaultValue=""
       />
-      <input
+      <InputField
         name="power"
         defaultValue="C164"
-        ref={register({ required: true, pattern: powerValidationPattern })}
+        pattern={powerValidationPattern}
+        register={register}
       />
-      <input
+      <InputField
         name="suspension"
-        ref={register({ required: true, pattern: setupValueValidationPattern })}
+        pattern={setupValueValidationPattern}
+        register={register}
       />
-      <input
+      <InputField
         name="gear"
-        ref={register({ required: true, pattern: setupValueValidationPattern })}
+        pattern={setupValueValidationPattern}
+        register={register}
       />
-      <input
+      <InputField
         name="differential"
-        ref={register({ required: true, pattern: setupValueValidationPattern })}
+        pattern={setupValueValidationPattern}
+        register={register}
       />
-      <input
+      <InputField
         name="brake"
-        ref={register({ required: true, pattern: setupValueValidationPattern })}
+        pattern={setupValueValidationPattern}
+        register={register}
       />
       <input type="submit" />
     </form>
