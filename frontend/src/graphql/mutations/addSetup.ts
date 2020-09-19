@@ -22,6 +22,20 @@ export const addSetupMutation = gql`
       }
     ) {
       id
+      power
+      suspension
+      gear
+      differential
+      brake
+      track {
+        id
+        name
+        origin
+      }
+      vehicle {
+        id
+        name
+      }
     }
   }
 `;

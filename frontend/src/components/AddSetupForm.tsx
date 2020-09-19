@@ -17,8 +17,7 @@ interface Props {
 }
 
 const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
-  const { addSetup: addSetupToState } = useSetupContext()!;
-  const [addSetup] = useAddSetupMutation();
+  const { addSetup } = useSetupContext()!;
   const methods = useForm<AddSetupInputWithSelect>();
   const { handleSubmit, control, register, reset } = methods;
 
@@ -40,7 +39,6 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
         throw new Error("no setup id returned");
       }
 
-      await addSetupToState();
       reset();
     } catch (err) {
       console.error(err);

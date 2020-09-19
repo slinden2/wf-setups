@@ -106,7 +106,14 @@ export type AddSetupMutation = (
   { __typename?: 'Mutation' }
   & { addSetup?: Maybe<(
     { __typename?: 'Setup' }
-    & Pick<Setup, 'id'>
+    & Pick<Setup, 'id' | 'power' | 'suspension' | 'gear' | 'differential' | 'brake'>
+    & { track: (
+      { __typename?: 'Track' }
+      & Pick<Track, 'id' | 'name' | 'origin'>
+    ), vehicle: (
+      { __typename?: 'Vehicle' }
+      & Pick<Vehicle, 'id' | 'name'>
+    ) }
   )> }
 );
 
@@ -174,6 +181,20 @@ export const AddSetupDocument = gql`
     mutation AddSetup($trackId: Float!, $vehicleId: Float!, $power: String!, $suspension: Float!, $gear: Float!, $differential: Float!, $brake: Float!) {
   addSetup(data: {trackId: $trackId, vehicleId: $vehicleId, power: $power, suspension: $suspension, gear: $gear, differential: $differential, brake: $brake}) {
     id
+    power
+    suspension
+    gear
+    differential
+    brake
+    track {
+      id
+      name
+      origin
+    }
+    vehicle {
+      id
+      name
+    }
   }
 }
     `;

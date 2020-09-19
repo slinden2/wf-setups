@@ -20,7 +20,6 @@ export const getSelectFieldData = (
   type: InputType
 ): OptionType[] | undefined => {
   const dataArrays = query.data?.getTracksAndVehicles;
-  console.log("dataArrays", dataArrays);
 
   if (dataArrays) {
     switch (type) {

@@ -1,29 +1,34 @@
-import { QueryResult } from "@apollo/client";
+import {
+  FetchResult,
+  MutationFunctionOptions,
+  QueryResult,
+} from "@apollo/client";
 import React, { createContext, useContext } from "react";
 import {
-  Exact,
+  AddSetupMutation,
+  AddSetupMutationOptions,
   GetSetupsQuery,
+  GetSetupsQueryVariables,
   Setup,
-  Track,
   TracksAndVehiclesQuery,
+  TracksAndVehiclesQueryVariables,
+  useAddSetupMutation,
   useGetSetupsQuery,
   useTracksAndVehiclesQuery,
 } from "../generated/apolloComponents";
+import { getSetupsQuery } from "../graphql/queries/setup/getSetups";
 
 export type SetupContextProps = {
   tracksAndVehicles: QueryResult<
     TracksAndVehiclesQuery,
-    Exact<{
-      [key: string]: never;
-    }>
+    TracksAndVehiclesQueryVariables
   >;
-  setups: QueryResult<
-    GetSetupsQuery,
-    Exact<{
-      [key: string]: never;
-    }>
+  setups: QueryResult<GetSetupsQuery, GetSetupsQueryVariables>;
+  addSetup: (
+    options?: AddSetupMutationOptions
+  ) => Promise<
+    FetchResult<AddSetupMutation, Record<string, any>, Record<string, any>>
   >;
-  addSetup: () => Promise<void>;
   getSetup: (id: string) => Setup | null;
 };
 
@@ -41,9 +46,22 @@ export const SetupProvider: React.FC<SetupProviderProps> = ({
   const tracksAndVehicles = useTracksAndVehiclesQuery();
   const setups = useGetSetupsQuery();
 
-  const addSetup = async () => {
-    await setups.refetch();
-  };
+  const [addSetup] = useAddSetupMutation({
+    update: (cache, response) => {
+      const setupsInCache = cache.readQuery({ query: getSetupsQuery }) as {
+        getSetups: Array<Setup>;
+      };
+
+      if (response.data?.addSetup) {
+        cache.writeQuery({
+          query: getSetupsQuery,
+          data: {
+            getSetups: [...setupsInCache.getSetups, response.data.addSetup],
+          },
+        });
+      }
+    },
+  });
 
   const getSetup = (id: string) => {
     if (setups.data?.getSetups) {
