@@ -17,6 +17,7 @@ export type Query = {
   hello: Scalars['String'];
   me?: Maybe<User>;
   getTracksAndVehicles: TracksAndVehicles;
+  getSetups?: Maybe<Array<Setup>>;
 };
 
 export type User = {
@@ -120,6 +121,24 @@ export type LoginMutation = (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'discordId' | 'username' | 'email'>
   )> }
+);
+
+export type GetSetupsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSetupsQuery = (
+  { __typename?: 'Query' }
+  & { getSetups?: Maybe<Array<(
+    { __typename?: 'Setup' }
+    & Pick<Setup, 'id' | 'power' | 'suspension' | 'gear' | 'differential' | 'brake'>
+    & { track: (
+      { __typename?: 'Track' }
+      & Pick<Track, 'id' | 'name' | 'origin'>
+    ), vehicle: (
+      { __typename?: 'Vehicle' }
+      & Pick<Vehicle, 'id' | 'name'>
+    ) }
+  )>> }
 );
 
 export type TracksAndVehiclesQueryVariables = Exact<{ [key: string]: never; }>;
@@ -235,6 +254,52 @@ export function useLoginMutation(baseOptions?: ApolloReactHooks.MutationHookOpti
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation>;
 export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const GetSetupsDocument = gql`
+    query GetSetups {
+  getSetups {
+    id
+    track {
+      id
+      name
+      origin
+    }
+    vehicle {
+      id
+      name
+    }
+    power
+    suspension
+    gear
+    differential
+    brake
+  }
+}
+    `;
+
+/**
+ * __useGetSetupsQuery__
+ *
+ * To run a query within a React component, call `useGetSetupsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSetupsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSetupsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetSetupsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetSetupsQuery, GetSetupsQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetSetupsQuery, GetSetupsQueryVariables>(GetSetupsDocument, baseOptions);
+      }
+export function useGetSetupsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetSetupsQuery, GetSetupsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetSetupsQuery, GetSetupsQueryVariables>(GetSetupsDocument, baseOptions);
+        }
+export type GetSetupsQueryHookResult = ReturnType<typeof useGetSetupsQuery>;
+export type GetSetupsLazyQueryHookResult = ReturnType<typeof useGetSetupsLazyQuery>;
+export type GetSetupsQueryResult = ApolloReactCommon.QueryResult<GetSetupsQuery, GetSetupsQueryVariables>;
 export const TracksAndVehiclesDocument = gql`
     query TracksAndVehicles {
   getTracksAndVehicles {
