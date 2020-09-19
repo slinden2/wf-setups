@@ -7,22 +7,6 @@ export const meQuery = gql`
       discordId
       username
       email
-      setups {
-        id
-        track {
-          id
-          name
-        }
-        vehicle {
-          id
-          name
-        }
-        power
-        suspension
-        gear
-        differential
-        brake
-      }
     }
   }
 `;

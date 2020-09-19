@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import AddSetupForm from "./AddSetupForm";
 import { useSetupContext } from "../context/SetupContext";
 import { SetupRow } from "../types/SetupRow";
-import { getSelectFieldData } from "../utils/getSelectFieldData";
+import { getSelectFieldData, InputType } from "../utils/getSelectFieldData";
 
 const columns = [
   {
@@ -46,20 +46,28 @@ const columns = [
 
 const HomePage = () => {
   const history = useHistory();
-  const { setups, tracks, vehicles } = useSetupContext()!;
+  const { setups, tracksAndVehicles } = useSetupContext()!;
 
-  if (!tracks || !vehicles) {
+  if (setups.loading || tracksAndVehicles.loading) {
     return <div>Loading...</div>;
   }
 
-  const tracksForSelect = getSelectFieldData(tracks);
-  const vehiclesForSelect = getSelectFieldData(vehicles);
+  const setupArray = setups.data?.getSetups;
 
-  if (!setups) {
+  const tracksForSelect = getSelectFieldData(
+    tracksAndVehicles,
+    InputType["tracks"]
+  );
+  const vehiclesForSelect = getSelectFieldData(
+    tracksAndVehicles,
+    InputType["vehicles"]
+  );
+
+  if (!setupArray || !tracksForSelect || !vehiclesForSelect) {
     return null;
   }
 
-  const tableData: SetupRow[] = setups.map((setup) => ({
+  const tableData: SetupRow[] = setupArray.map((setup) => ({
     id: setup.id,
     track: setup.track.name,
     vehicle: setup.vehicle.name,
@@ -76,7 +84,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <AddSetupForm tracks={tracksForSelect} vehicles={vehiclesForSelect} />
+      <AddSetupForm tracks={tracksForSelect!} vehicles={vehiclesForSelect!} />
       <DataTable
         columns={columns}
         data={tableData}

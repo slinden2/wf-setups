@@ -1,16 +1,22 @@
+import { QueryResult } from "@apollo/client";
 import React, { createContext, useContext } from "react";
-import { useMeQuery } from "../generated/apolloComponents";
-import { UserState } from "../types/UserState";
-import { createUserObject } from "./auth/createUserObject";
+import { Exact, MeQuery, useMeQuery } from "../generated/apolloComponents";
 
 export type AuthContextProps = {
   isAuth: boolean;
-  user: UserState | null;
+  user:
+    | QueryResult<
+        MeQuery,
+        Exact<{
+          [key: string]: never;
+        }>
+      >
+    | undefined;
 };
 
 const initialState: AuthContextProps = {
   isAuth: false,
-  user: null,
+  user: undefined,
 };
 
 export const AuthContext = createContext<AuthContextProps>(initialState);
@@ -23,20 +29,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   children,
 }: AuthProviderProps) => {
   const [isAuth, setIsAuth] = React.useState<boolean>(false);
-  const [user, setUser] = React.useState<UserState | null>(null);
-  const loggedUser = useMeQuery();
+  const user = useMeQuery();
 
   React.useEffect(() => {
-    if (loggedUser.data?.me) {
+    if (user.data?.me) {
       setIsAuth(true);
-      setUser(createUserObject(loggedUser));
     } else {
       setIsAuth(false);
     }
-  }, [loggedUser]);
+  }, [user]);
 
   return (
-    <AuthContext.Provider value={{ isAuth, user }}>
+    <AuthContext.Provider value={{ user, isAuth }}>
       {children}
     </AuthContext.Provider>
   );

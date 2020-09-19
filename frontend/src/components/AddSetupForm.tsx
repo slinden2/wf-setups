@@ -2,20 +2,14 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import Select from "react-select";
 import { OptionType } from "../types/OptionType";
-import { useAddSetupMutation } from "../generated/apolloComponents";
+import {
+  AddSetupInput,
+  useAddSetupMutation,
+} from "../generated/apolloComponents";
 import { useSetupContext } from "../context/SetupContext";
 import { InputField } from "./form/InputField";
 import { inputFieldData } from "./form/formFieldData";
-
-interface FormInputs {
-  track: OptionType;
-  vehicle: OptionType;
-  power: string;
-  suspension: number;
-  gear: number;
-  differential: number;
-  brake: number;
-}
+import { AddSetupInputWithSelect } from "../types/AddSetupInputWithSelect";
 
 interface Props {
   tracks: OptionType[];
@@ -25,10 +19,10 @@ interface Props {
 const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
   const { addSetup: addSetupToState } = useSetupContext()!;
   const [addSetup] = useAddSetupMutation();
-  const methods = useForm<FormInputs>();
+  const methods = useForm<AddSetupInputWithSelect>();
   const { handleSubmit, control, register, reset } = methods;
 
-  const onSubmit = async (data: FormInputs) => {
+  const onSubmit = async (data: AddSetupInputWithSelect) => {
     try {
       const response = await addSetup({
         variables: {
@@ -46,22 +40,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
         throw new Error("no setup id returned");
       }
 
-      addSetupToState({
-        id: response.data?.addSetup?.id,
-        track: {
-          id: data.track.value,
-          name: data.track.label,
-        },
-        vehicle: {
-          id: data.vehicle.value,
-          name: data.vehicle.label,
-        },
-        power: data.power,
-        suspension: Number(data.suspension),
-        gear: Number(data.gear),
-        differential: Number(data.differential),
-        brake: Number(data.brake),
-      });
+      await addSetupToState();
       reset();
     } catch (err) {
       console.error(err);
@@ -88,7 +67,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
         defaultValue=""
       />
       {inputFieldData.map((input) => (
-        <InputField {...input} register={register} />
+        <InputField key={input.name} {...input} register={register} />
       ))}
       <input type="submit" />
     </form>
