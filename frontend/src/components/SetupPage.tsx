@@ -13,7 +13,7 @@ const statArray: Array<StatType> = [
 
 export const SetupPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { getSetup } = useSetupContext()!;
+  const { getSetup, deleteSetup } = useSetupContext()!;
   const curSetup = getSetup(id);
 
   if (!curSetup) {
@@ -44,6 +44,14 @@ export const SetupPage = () => {
           ))}
         </tbody>
       </table>
+      <button>Modify</button>
+      <button
+        onClick={async () =>
+          await deleteSetup({ variables: { id: Number(id) } })
+        }
+      >
+        Delete
+      </button>
     </section>
   );
 };

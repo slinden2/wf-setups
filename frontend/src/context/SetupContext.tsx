@@ -1,18 +1,17 @@
-import {
-  FetchResult,
-  MutationFunctionOptions,
-  QueryResult,
-} from "@apollo/client";
+import { FetchResult, QueryResult } from "@apollo/client";
 import React, { createContext, useContext } from "react";
 import {
   AddSetupMutation,
   AddSetupMutationOptions,
+  DeleteSetupMutation,
+  DeleteSetupMutationOptions,
   GetSetupsQuery,
   GetSetupsQueryVariables,
   Setup,
   TracksAndVehiclesQuery,
   TracksAndVehiclesQueryVariables,
   useAddSetupMutation,
+  useDeleteSetupMutation,
   useGetSetupsQuery,
   useTracksAndVehiclesQuery,
 } from "../generated/apolloComponents";
@@ -28,6 +27,11 @@ export type SetupContextProps = {
     options?: AddSetupMutationOptions
   ) => Promise<
     FetchResult<AddSetupMutation, Record<string, any>, Record<string, any>>
+  >;
+  deleteSetup: (
+    options?: DeleteSetupMutationOptions
+  ) => Promise<
+    FetchResult<DeleteSetupMutation, Record<string, any>, Record<string, any>>
   >;
   getSetup: (id: string) => Setup | null;
 };
@@ -63,6 +67,25 @@ export const SetupProvider: React.FC<SetupProviderProps> = ({
     },
   });
 
+  const [deleteSetup] = useDeleteSetupMutation({
+    update: (cache, response) => {
+      const setupsInCache = cache.readQuery({ query: getSetupsQuery }) as {
+        getSetups: Array<Setup>;
+      };
+
+      if (response.data?.deleteSetup) {
+        cache.writeQuery({
+          query: getSetupsQuery,
+          data: {
+            getSetups: setupsInCache.getSetups.filter(
+              (setup) => Number(setup.id) !== response.data?.deleteSetup
+            ),
+          },
+        });
+      }
+    },
+  });
+
   const getSetup = (id: string) => {
     if (setups.data?.getSetups) {
       const setup = setups.data?.getSetups.find((setup) => setup.id === id);
@@ -81,6 +104,7 @@ export const SetupProvider: React.FC<SetupProviderProps> = ({
         setups,
         getSetup,
         addSetup,
+        deleteSetup,
       }}
     >
       {children}
