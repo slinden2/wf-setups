@@ -36,7 +36,7 @@ export class User extends BaseEntity {
   discriminator: string;
 
   @Field()
-  @Column()
+  @Column("text", { nullable: true })
   avatar: string;
 
   @Field()
