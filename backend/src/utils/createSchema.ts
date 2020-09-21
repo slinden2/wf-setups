@@ -5,6 +5,7 @@ import { GetTracksAndVehiclesResolver } from "../modules/static/GetTracksAndVehi
 import { AddSetupResolver } from "../modules/setup/AddSetup";
 import { GetSetupsResolver } from "../modules/setup/GetSetups";
 import { DeleteSetupResolver } from "../modules/setup/DeleteSetup";
+import { EditSetupResolver } from "../modules/setup/EditSetup";
 
 export const createSchema = () =>
   buildSchema({
@@ -15,6 +16,7 @@ export const createSchema = () =>
       AddSetupResolver,
       GetSetupsResolver,
       DeleteSetupResolver,
+      EditSetupResolver,
     ],
     authChecker: ({ context: { req } }) => {
       return !!req.session.userId;
