@@ -70,6 +70,7 @@ export type Mutation = {
   login?: Maybe<User>;
   addSetup?: Maybe<Setup>;
   deleteSetup?: Maybe<Scalars['Float']>;
+  editSetup?: Maybe<Setup>;
 };
 
 
@@ -87,9 +88,31 @@ export type MutationDeleteSetupArgs = {
   id: Scalars['Float'];
 };
 
+
+export type MutationEditSetupArgs = {
+  data: EditSetupInput;
+};
+
 export type AddSetupInput = {
+  power: Scalars['String'];
+  suspension: Scalars['Float'];
+  gear: Scalars['Float'];
+  differential: Scalars['Float'];
+  brake: Scalars['Float'];
   trackId: Scalars['Float'];
   vehicleId: Scalars['Float'];
+};
+
+export type EditSetupInput = {
+  power: Scalars['String'];
+  suspension: Scalars['Float'];
+  gear: Scalars['Float'];
+  differential: Scalars['Float'];
+  brake: Scalars['Float'];
+  id: Scalars['Float'];
+};
+
+export type BaseSetupInput = {
   power: Scalars['String'];
   suspension: Scalars['Float'];
   gear: Scalars['Float'];
@@ -131,6 +154,24 @@ export type DeleteSetupMutationVariables = Exact<{
 export type DeleteSetupMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'deleteSetup'>
+);
+
+export type EditSetupMutationVariables = Exact<{
+  id: Scalars['Float'];
+  power: Scalars['String'];
+  suspension: Scalars['Float'];
+  gear: Scalars['Float'];
+  differential: Scalars['Float'];
+  brake: Scalars['Float'];
+}>;
+
+
+export type EditSetupMutation = (
+  { __typename?: 'Mutation' }
+  & { editSetup?: Maybe<(
+    { __typename?: 'Setup' }
+    & Pick<Setup, 'id' | 'power' | 'suspension' | 'gear' | 'differential' | 'brake'>
+  )> }
 );
 
 export type LoginMutationVariables = Exact<{
@@ -275,6 +316,48 @@ export function useDeleteSetupMutation(baseOptions?: ApolloReactHooks.MutationHo
 export type DeleteSetupMutationHookResult = ReturnType<typeof useDeleteSetupMutation>;
 export type DeleteSetupMutationResult = ApolloReactCommon.MutationResult<DeleteSetupMutation>;
 export type DeleteSetupMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteSetupMutation, DeleteSetupMutationVariables>;
+export const EditSetupDocument = gql`
+    mutation EditSetup($id: Float!, $power: String!, $suspension: Float!, $gear: Float!, $differential: Float!, $brake: Float!) {
+  editSetup(data: {id: $id, power: $power, suspension: $suspension, gear: $gear, differential: $differential, brake: $brake}) {
+    id
+    power
+    suspension
+    gear
+    differential
+    brake
+  }
+}
+    `;
+export type EditSetupMutationFn = ApolloReactCommon.MutationFunction<EditSetupMutation, EditSetupMutationVariables>;
+
+/**
+ * __useEditSetupMutation__
+ *
+ * To run a mutation, you first call `useEditSetupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditSetupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editSetupMutation, { data, loading, error }] = useEditSetupMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      power: // value for 'power'
+ *      suspension: // value for 'suspension'
+ *      gear: // value for 'gear'
+ *      differential: // value for 'differential'
+ *      brake: // value for 'brake'
+ *   },
+ * });
+ */
+export function useEditSetupMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<EditSetupMutation, EditSetupMutationVariables>) {
+        return ApolloReactHooks.useMutation<EditSetupMutation, EditSetupMutationVariables>(EditSetupDocument, baseOptions);
+      }
+export type EditSetupMutationHookResult = ReturnType<typeof useEditSetupMutation>;
+export type EditSetupMutationResult = ApolloReactCommon.MutationResult<EditSetupMutation>;
+export type EditSetupMutationOptions = ApolloReactCommon.BaseMutationOptions<EditSetupMutation, EditSetupMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($code: String!) {
   login(code: $code) {
