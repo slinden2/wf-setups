@@ -39,6 +39,7 @@ export class EditSetupResolver {
     existingSetup.gear = data.gear;
     existingSetup.differential = data.differential;
     existingSetup.brake = data.brake;
+    existingSetup.note = data.note;
 
     const modifiedSetup = await existingSetup.save();
 

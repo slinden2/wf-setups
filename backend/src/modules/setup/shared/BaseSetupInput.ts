@@ -1,4 +1,4 @@
-import { IsInt, Max, Min } from "class-validator";
+import { IsInt, Max, MaxLength, Min } from "class-validator";
 import { InputType, Field } from "type-graphql";
 import { IsPowerString } from "../addSetup/IsPowerString";
 
@@ -31,4 +31,8 @@ export class BaseSetupInput {
   @Min(1)
   @Max(5)
   brake: number;
+
+  @Field({ nullable: true })
+  @MaxLength(1000, { message: "note is too long ($value/$constraint1)" })
+  note: string;
 }

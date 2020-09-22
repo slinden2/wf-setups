@@ -44,6 +44,10 @@ export class Setup extends BaseEntity {
   @Column()
   brake: number;
 
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  note: string;
+
   @ManyToOne(() => User, (user) => user.setups, {
     nullable: false,
   })

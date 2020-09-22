@@ -5,34 +5,35 @@ export interface InputFieldProps {
   name: keyof Setup;
   defaultValue?: string;
   register: any;
-  pattern: RegExp;
   ref?: React.MutableRefObject<HTMLInputElement | null>;
+  tag?: "input" | "textarea";
 }
 
 export const InputField: React.FC<InputFieldProps> = ({
   name,
   defaultValue,
   register,
-  pattern,
   ref,
+  tag,
 }) => {
+  const props = {
+    name,
+    defaultValue,
+    ref: (e: any) => {
+      register(e, {
+        required: true,
+      });
+
+      if (ref) {
+        ref.current = e;
+      }
+    },
+  };
+
   return (
     <div>
       <label>{name.toUpperCase()}</label>
-      <input
-        name={name}
-        defaultValue={defaultValue}
-        ref={(e) => {
-          register(e, {
-            required: true,
-            pattern: pattern,
-          });
-
-          if (ref) {
-            ref.current = e;
-          }
-        }}
-      />
+      {tag === "textarea" ? <textarea {...props} /> : <input {...props} />}
     </div>
   );
 };

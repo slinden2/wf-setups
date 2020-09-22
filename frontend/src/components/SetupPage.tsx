@@ -38,6 +38,7 @@ export const SetupPage = () => {
         gear: Number(data.gear),
         differential: Number(data.differential),
         brake: Number(data.brake),
+        note: data.note ? data.note : "",
       },
     });
     setEditing(false);
@@ -68,6 +69,7 @@ export const SetupPage = () => {
             ))}
         </tbody>
       </table>
+      {!isEditing && curSetup.note && <p>{curSetup.note}</p>}
       {isEditing ? (
         <>
           <form onSubmit={handleSubmit(onSubmit)}>

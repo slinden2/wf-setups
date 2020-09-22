@@ -46,6 +46,7 @@ export class AddSetupResolver {
     setup.user = user;
     setup.track = track;
     setup.vehicle = vehicle;
+    setup.note = data.note;
     const newSetup = await setup.save();
 
     return newSetup;

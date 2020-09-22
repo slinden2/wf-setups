@@ -8,6 +8,7 @@ export const editSetupMutation = gql`
     $gear: Float!
     $differential: Float!
     $brake: Float!
+    $note: String
   ) {
     editSetup(
       data: {
@@ -17,6 +18,7 @@ export const editSetupMutation = gql`
         gear: $gear
         differential: $differential
         brake: $brake
+        note: $note
       }
     ) {
       id
@@ -25,6 +27,7 @@ export const editSetupMutation = gql`
       gear
       differential
       brake
+      note
     }
   }
 `;

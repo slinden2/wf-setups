@@ -18,6 +18,7 @@ export const getSetupsQuery = gql`
       gear
       differential
       brake
+      note
     }
   }
 `;

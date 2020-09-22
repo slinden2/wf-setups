@@ -1,32 +1,54 @@
 import { InputFieldProps } from "./InputField";
+import * as yup from "yup";
 
-const powerValidationPattern = /^[aAbBcCdD]\d{2,3}$/;
-const setupValueValidationPattern = /[12345]/;
+const setupValueValidation = yup.number().min(1, "min is 1").max(5, "max is 5");
+
+export const baseValidationSchema = {
+  power: yup
+    .string()
+    .required()
+    .matches(/^[aAbBcCdD]\d{2,3}$/, { message: "invalid power value" }),
+  suspension: setupValueValidation,
+  gear: setupValueValidation,
+  differential: setupValueValidation,
+  brake: setupValueValidation,
+  note: yup.string().max(1000, `must not exceed 1000 characters`),
+};
+
+export const addSetupValidationSchema = yup.object().shape({
+  ...baseValidationSchema,
+  track: yup.object().required(),
+  vehicle: yup.object().required(),
+});
+
+export const editSetupValidationSchema = yup.object().shape({
+  ...baseValidationSchema,
+});
 
 export const inputFieldData: Omit<InputFieldProps, "register">[] = [
   {
     name: "power",
     defaultValue: "C164",
-    pattern: powerValidationPattern,
   },
   {
     name: "suspension",
     defaultValue: "",
-    pattern: setupValueValidationPattern,
   },
   {
     name: "gear",
     defaultValue: "",
-    pattern: setupValueValidationPattern,
   },
   {
     name: "differential",
     defaultValue: "",
-    pattern: setupValueValidationPattern,
   },
   {
     name: "brake",
     defaultValue: "",
-    pattern: setupValueValidationPattern,
+  },
+  {
+    name: "note",
+    defaultValue: "",
+    tag: "textarea",
   },
 ];

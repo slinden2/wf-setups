@@ -1,10 +1,11 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import Select from "react-select";
+import { yupResolver } from "@hookform/resolvers";
 import { OptionType } from "../types/OptionType";
 import { useSetupContext } from "../context/SetupContext";
 import { InputField } from "./form/InputField";
-import { inputFieldData } from "./form/formFieldData";
+import { inputFieldData, addSetupValidationSchema } from "./form/formFieldData";
 import { AddSetupInputWithSelect } from "../types/AddSetupInputWithSelect";
 
 interface Props {
@@ -14,10 +15,14 @@ interface Props {
 
 const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
   const { addSetup } = useSetupContext()!;
-  const methods = useForm<AddSetupInputWithSelect>();
+  const methods = useForm<AddSetupInputWithSelect>({
+    resolver: yupResolver(addSetupValidationSchema),
+  });
   const { handleSubmit, control, register, reset } = methods;
 
   const onSubmit = async (data: AddSetupInputWithSelect) => {
+    console.log(data);
+    console.log("data.note.length", data.note!.length);
     try {
       const response = await addSetup({
         variables: {
@@ -28,6 +33,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
           gear: Number(data.gear),
           differential: Number(data.differential),
           brake: Number(data.brake),
+          note: data.note ? data.note : "",
         },
       });
 
