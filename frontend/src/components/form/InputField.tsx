@@ -1,7 +1,8 @@
 import React from "react";
+import { Setup } from "../../generated/apolloComponents";
 
 export interface InputFieldProps {
-  name: string;
+  name: keyof Setup;
   defaultValue?: string;
   register: any;
   pattern: RegExp;

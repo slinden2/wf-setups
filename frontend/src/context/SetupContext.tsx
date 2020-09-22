@@ -1,22 +1,25 @@
-import {
-  FetchResult,
-  MutationFunctionOptions,
-  QueryResult,
-} from "@apollo/client";
+import { FetchResult, QueryResult } from "@apollo/client";
 import React, { createContext, useContext } from "react";
 import {
   AddSetupMutation,
   AddSetupMutationOptions,
+  DeleteSetupMutation,
+  DeleteSetupMutationOptions,
+  EditSetupMutation,
+  EditSetupMutationOptions,
   GetSetupsQuery,
   GetSetupsQueryVariables,
   Setup,
   TracksAndVehiclesQuery,
   TracksAndVehiclesQueryVariables,
   useAddSetupMutation,
+  useDeleteSetupMutation,
+  useEditSetupMutation,
   useGetSetupsQuery,
   useTracksAndVehiclesQuery,
 } from "../generated/apolloComponents";
 import { getSetupsQuery } from "../graphql/queries/setup/getSetups";
+import { GetSetupsQueryCache } from "../types/GetSetupsQueryCache";
 
 export type SetupContextProps = {
   tracksAndVehicles: QueryResult<
@@ -28,6 +31,16 @@ export type SetupContextProps = {
     options?: AddSetupMutationOptions
   ) => Promise<
     FetchResult<AddSetupMutation, Record<string, any>, Record<string, any>>
+  >;
+  deleteSetup: (
+    options?: DeleteSetupMutationOptions
+  ) => Promise<
+    FetchResult<DeleteSetupMutation, Record<string, any>, Record<string, any>>
+  >;
+  editSetup: (
+    options?: EditSetupMutationOptions
+  ) => Promise<
+    FetchResult<EditSetupMutation, Record<string, any>, Record<string, any>>
   >;
   getSetup: (id: string) => Setup | null;
 };
@@ -48,9 +61,9 @@ export const SetupProvider: React.FC<SetupProviderProps> = ({
 
   const [addSetup] = useAddSetupMutation({
     update: (cache, response) => {
-      const setupsInCache = cache.readQuery({ query: getSetupsQuery }) as {
-        getSetups: Array<Setup>;
-      };
+      const setupsInCache = cache.readQuery({
+        query: getSetupsQuery,
+      }) as GetSetupsQueryCache;
 
       if (response.data?.addSetup) {
         cache.writeQuery({
@@ -59,6 +72,50 @@ export const SetupProvider: React.FC<SetupProviderProps> = ({
             getSetups: [...setupsInCache.getSetups, response.data.addSetup],
           },
         });
+      }
+    },
+  });
+
+  const [deleteSetup] = useDeleteSetupMutation({
+    update: (cache, response) => {
+      const setupsInCache = cache.readQuery({
+        query: getSetupsQuery,
+      }) as GetSetupsQueryCache;
+
+      if (response.data?.deleteSetup) {
+        cache.writeQuery({
+          query: getSetupsQuery,
+          data: {
+            getSetups: setupsInCache.getSetups.filter(
+              (setup) => Number(setup.id) !== response.data?.deleteSetup
+            ),
+          },
+        });
+      }
+    },
+  });
+
+  const [editSetup] = useEditSetupMutation({
+    update: (cache, response) => {
+      const setupsInCache = cache.readQuery({
+        query: getSetupsQuery,
+      }) as GetSetupsQueryCache;
+
+      if (response.data?.editSetup) {
+        const setupToEdit = setupsInCache.getSetups.find(
+          (setup) => setup.id === response.data?.editSetup?.id
+        );
+
+        if (setupToEdit) {
+          const editedSetup = { ...setupToEdit, ...response.data.editSetup };
+
+          cache.writeQuery({
+            query: getSetupsQuery,
+            data: {
+              getSetups: [...setupsInCache.getSetups, editedSetup],
+            },
+          });
+        }
       }
     },
   });
@@ -81,6 +138,8 @@ export const SetupProvider: React.FC<SetupProviderProps> = ({
         setups,
         getSetup,
         addSetup,
+        deleteSetup,
+        editSetup,
       }}
     >
       {children}

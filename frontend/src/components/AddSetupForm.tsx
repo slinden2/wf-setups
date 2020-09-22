@@ -2,10 +2,6 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import Select from "react-select";
 import { OptionType } from "../types/OptionType";
-import {
-  AddSetupInput,
-  useAddSetupMutation,
-} from "../generated/apolloComponents";
 import { useSetupContext } from "../context/SetupContext";
 import { InputField } from "./form/InputField";
 import { inputFieldData } from "./form/formFieldData";
