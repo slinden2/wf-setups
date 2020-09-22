@@ -112,7 +112,12 @@ export const SetupProvider: React.FC<SetupProviderProps> = ({
           cache.writeQuery({
             query: getSetupsQuery,
             data: {
-              getSetups: [...setupsInCache.getSetups, editedSetup],
+              getSetups: [
+                ...setupsInCache.getSetups.filter(
+                  (setup) => setup.id !== setupToEdit.id
+                ),
+                editedSetup,
+              ],
             },
           });
         }
