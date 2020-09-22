@@ -1,11 +1,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import createDOMPurify from "dompurify";
+import TurndownService from "turndown";
+
 import { useSetupContext } from "../context/SetupContext";
 import { EditSetupInput } from "../generated/apolloComponents";
 import { StatType } from "../types/StatType";
 import { inputFieldData } from "./form/formFieldData";
 import { InputField } from "./form/InputField";
+import config from "../config";
 
 const statArray: Array<StatType> = [
   "power",
@@ -28,6 +32,9 @@ export const SetupPage = () => {
   if (!curSetup) {
     return null;
   }
+
+  const DOMPurify = createDOMPurify(window);
+  const turndownService = new TurndownService(config.turndown.options);
 
   const onSubmit = async (data: EditSetupInput) => {
     await editSetup({
@@ -69,7 +76,13 @@ export const SetupPage = () => {
             ))}
         </tbody>
       </table>
-      {!isEditing && curSetup.note && <p>{curSetup.note}</p>}
+      {!isEditing && curSetup.note && (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(curSetup.note),
+          }}
+        />
+      )}
       {isEditing ? (
         <>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -77,7 +90,9 @@ export const SetupPage = () => {
               <InputField
                 key={input.name}
                 {...input}
-                defaultValue={String(curSetup[input.name])}
+                defaultValue={turndownService.turndown(
+                  String(curSetup[input.name])
+                )}
                 register={register}
               />
             ))}

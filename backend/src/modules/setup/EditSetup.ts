@@ -1,4 +1,5 @@
 import { Resolver, Mutation, Arg, Ctx, UseMiddleware } from "type-graphql";
+import marked from "marked";
 
 import { MyContext } from "../../types/MyContext";
 import { isAuth } from "../middleware/isAuth";
@@ -39,7 +40,7 @@ export class EditSetupResolver {
     existingSetup.gear = data.gear;
     existingSetup.differential = data.differential;
     existingSetup.brake = data.brake;
-    existingSetup.note = data.note;
+    existingSetup.note = marked(data.note);
 
     const modifiedSetup = await existingSetup.save();
 

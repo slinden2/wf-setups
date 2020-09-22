@@ -1,4 +1,5 @@
 import { Resolver, Mutation, Arg, Ctx, UseMiddleware } from "type-graphql";
+import marked from "marked";
 
 import { MyContext } from "../../types/MyContext";
 import { isAuth } from "../middleware/isAuth";
@@ -37,6 +38,8 @@ export class AddSetupResolver {
       throw new Error("vehicle not found");
     }
 
+    console.log("data", data);
+
     const setup = new Setup();
     setup.power = data.power.toUpperCase();
     setup.suspension = data.suspension;
@@ -46,8 +49,10 @@ export class AddSetupResolver {
     setup.user = user;
     setup.track = track;
     setup.vehicle = vehicle;
-    setup.note = data.note;
+    setup.note = marked(data.note);
     const newSetup = await setup.save();
+
+    console.log("newSetup", newSetup);
 
     return newSetup;
   }
