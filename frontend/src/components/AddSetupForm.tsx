@@ -7,6 +7,7 @@ import { useSetupContext } from "../context/SetupContext";
 import { InputField } from "./form/InputField";
 import { inputFieldData, addSetupValidationSchema } from "./form/formFieldData";
 import { AddSetupInputWithSelect } from "../types/AddSetupInputWithSelect";
+import { useNotificationContext } from "../context/NotificationContext";
 
 interface Props {
   tracks: OptionType[];
@@ -15,14 +16,13 @@ interface Props {
 
 const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
   const { addSetup } = useSetupContext()!;
+  const { setNotification } = useNotificationContext()!;
   const methods = useForm<AddSetupInputWithSelect>({
     resolver: yupResolver(addSetupValidationSchema),
   });
   const { handleSubmit, control, register, reset } = methods;
 
   const onSubmit = async (data: AddSetupInputWithSelect) => {
-    console.log(data);
-    console.log("data.note.length", data.note!.length);
     try {
       const response = await addSetup({
         variables: {
@@ -43,7 +43,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
 
       reset();
     } catch (err) {
-      console.error(err);
+      setNotification({ type: "error", message: err.message });
       reset();
     }
   };
