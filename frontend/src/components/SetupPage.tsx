@@ -1,15 +1,20 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import createDOMPurify from "dompurify";
 import TurndownService from "turndown";
 
 import { useSetupContext } from "../context/SetupContext";
 import { EditSetupInput } from "../generated/apolloComponents";
 import { StatType } from "../types/StatType";
-import { inputFieldData } from "./form/formFieldData";
+import {
+  editSetupValidationSchema,
+  inputFieldData,
+} from "./form/formFieldData";
 import { InputField } from "./form/InputField";
 import config from "../config";
+import { useNotificationContext } from "../context/NotificationContext";
+import { yupResolver } from "@hookform/resolvers";
 
 const statArray: Array<StatType> = [
   "power",
@@ -22,11 +27,15 @@ const statArray: Array<StatType> = [
 export const SetupPage = () => {
   const [isEditing, setEditing] = React.useState<boolean>(false);
   const { getSetup, deleteSetup, editSetup } = useSetupContext()!;
+  const { setNotification } = useNotificationContext()!;
 
+  const history = useHistory();
   const { id } = useParams<{ id: string }>();
   const curSetup = getSetup(id);
 
-  const methods = useForm<EditSetupInput>();
+  const methods = useForm<EditSetupInput>({
+    resolver: yupResolver(editSetupValidationSchema),
+  });
   const { handleSubmit, register } = methods;
 
   if (!curSetup) {
@@ -37,18 +46,31 @@ export const SetupPage = () => {
   const turndownService = new TurndownService(config.turndown.options);
 
   const onSubmit = async (data: EditSetupInput) => {
-    await editSetup({
-      variables: {
-        id: Number(id),
-        power: data.power,
-        suspension: Number(data.suspension),
-        gear: Number(data.gear),
-        differential: Number(data.differential),
-        brake: Number(data.brake),
-        note: data.note ? data.note : "",
-      },
-    });
-    setEditing(false);
+    try {
+      await editSetup({
+        variables: {
+          id: Number(id),
+          power: data.power,
+          suspension: Number(data.suspension),
+          gear: Number(data.gear),
+          differential: Number(data.differential),
+          brake: Number(data.brake),
+          note: data.note ? data.note : "",
+        },
+      });
+      setEditing(false);
+      setNotification({
+        type: "success",
+        message: "Setup successfully modified.",
+      });
+    } catch (err) {
+      setNotification({ type: "error", message: err.message });
+    }
+  };
+
+  const onDelete = async () => {
+    await deleteSetup({ variables: { id: Number(id) } });
+    history.push("/");
   };
 
   return (
@@ -103,13 +125,7 @@ export const SetupPage = () => {
       ) : (
         <>
           <button onClick={() => setEditing(true)}>Modify</button>
-          <button
-            onClick={async () =>
-              await deleteSetup({ variables: { id: Number(id) } })
-            }
-          >
-            Delete
-          </button>
+          <button onClick={() => onDelete()}>Delete</button>
         </>
       )}
     </section>

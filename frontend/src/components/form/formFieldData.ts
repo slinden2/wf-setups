@@ -1,7 +1,11 @@
 import { InputFieldProps } from "./InputField";
 import * as yup from "yup";
 
-const setupValueValidation = yup.number().min(1, "min is 1").max(5, "max is 5");
+const setupValueValidation = yup
+  .number()
+  .min(1, "min is 1")
+  .max(5, "max is 5")
+  .typeError("must be a number");
 
 export const baseValidationSchema = {
   power: yup
