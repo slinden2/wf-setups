@@ -6,6 +6,7 @@ import { AuthProvider } from "./context/AuthContext";
 import App from "./App";
 import { SetupProvider } from "./context/SetupContext";
 import { NotificationProvider } from "./context/NotificationContext";
+import { GlobalStyle } from "./styles/global";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,6 +14,7 @@ ReactDOM.render(
       <AuthProvider>
         <SetupProvider>
           <NotificationProvider>
+            <GlobalStyle />
             <App />
           </NotificationProvider>
         </SetupProvider>
