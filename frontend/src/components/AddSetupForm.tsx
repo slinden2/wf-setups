@@ -70,7 +70,12 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
         styles={selectStyleFn({ isError: !!errors.vehicle })}
       />
       {inputFieldData.map((input) => (
-        <InputField key={input.name} {...input} register={register} />
+        <InputField
+          key={input.name}
+          {...input}
+          isError={!!errors[input.name]}
+          register={register}
+        />
       ))}
       <input type="submit" />
     </form>

@@ -36,7 +36,7 @@ export const SetupPage = () => {
   const methods = useForm<EditSetupInput>({
     resolver: yupResolver(editSetupValidationSchema),
   });
-  const { handleSubmit, register } = methods;
+  const { handleSubmit, register, errors } = methods;
 
   if (!curSetup) {
     return null;
@@ -116,6 +116,7 @@ export const SetupPage = () => {
                   String(curSetup[input.name])
                 )}
                 register={register}
+                isError={!!errors[input.name]}
               />
             ))}
             <button type="submit">Save</button>
