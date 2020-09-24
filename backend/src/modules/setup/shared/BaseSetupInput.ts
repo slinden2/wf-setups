@@ -10,27 +10,9 @@ export class BaseSetupInput {
 
   @Field()
   @IsInt()
-  @Min(1)
-  @Max(5)
-  suspension: number;
-
-  @Field()
-  @IsInt()
-  @Min(1)
-  @Max(5)
-  gear: number;
-
-  @Field()
-  @IsInt()
-  @Min(1)
-  @Max(5)
-  differential: number;
-
-  @Field()
-  @IsInt()
-  @Min(1)
-  @Max(5)
-  brake: number;
+  @Min(1111)
+  @Max(5555)
+  setup: number;
 
   @Field({ nullable: true })
   @MaxLength(1000, { message: "note is too long ($value/$constraint1)" })

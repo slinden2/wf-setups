@@ -39,7 +39,7 @@ export type Setup = {
   gear: Scalars['Float'];
   differential: Scalars['Float'];
   brake: Scalars['Float'];
-  note: Scalars['String'];
+  note?: Maybe<Scalars['String']>;
   track: Track;
   vehicle: Vehicle;
 };
@@ -96,10 +96,7 @@ export type MutationEditSetupArgs = {
 
 export type AddSetupInput = {
   power: Scalars['String'];
-  suspension: Scalars['Float'];
-  gear: Scalars['Float'];
-  differential: Scalars['Float'];
-  brake: Scalars['Float'];
+  setup: Scalars['Float'];
   note?: Maybe<Scalars['String']>;
   trackId: Scalars['Float'];
   vehicleId: Scalars['Float'];
@@ -107,20 +104,14 @@ export type AddSetupInput = {
 
 export type EditSetupInput = {
   power: Scalars['String'];
-  suspension: Scalars['Float'];
-  gear: Scalars['Float'];
-  differential: Scalars['Float'];
-  brake: Scalars['Float'];
+  setup: Scalars['Float'];
   note?: Maybe<Scalars['String']>;
   id: Scalars['Float'];
 };
 
 export type BaseSetupInput = {
   power: Scalars['String'];
-  suspension: Scalars['Float'];
-  gear: Scalars['Float'];
-  differential: Scalars['Float'];
-  brake: Scalars['Float'];
+  setup: Scalars['Float'];
   note?: Maybe<Scalars['String']>;
 };
 
@@ -128,10 +119,7 @@ export type AddSetupMutationVariables = Exact<{
   trackId: Scalars['Float'];
   vehicleId: Scalars['Float'];
   power: Scalars['String'];
-  suspension: Scalars['Float'];
-  gear: Scalars['Float'];
-  differential: Scalars['Float'];
-  brake: Scalars['Float'];
+  setup: Scalars['Float'];
   note?: Maybe<Scalars['String']>;
 }>;
 
@@ -164,10 +152,7 @@ export type DeleteSetupMutation = (
 export type EditSetupMutationVariables = Exact<{
   id: Scalars['Float'];
   power: Scalars['String'];
-  suspension: Scalars['Float'];
-  gear: Scalars['Float'];
-  differential: Scalars['Float'];
-  brake: Scalars['Float'];
+  setup: Scalars['Float'];
   note?: Maybe<Scalars['String']>;
 }>;
 
@@ -241,8 +226,8 @@ export type MeQuery = (
 
 
 export const AddSetupDocument = gql`
-    mutation AddSetup($trackId: Float!, $vehicleId: Float!, $power: String!, $suspension: Float!, $gear: Float!, $differential: Float!, $brake: Float!, $note: String) {
-  addSetup(data: {trackId: $trackId, vehicleId: $vehicleId, power: $power, suspension: $suspension, gear: $gear, differential: $differential, brake: $brake, note: $note}) {
+    mutation AddSetup($trackId: Float!, $vehicleId: Float!, $power: String!, $setup: Float!, $note: String) {
+  addSetup(data: {trackId: $trackId, vehicleId: $vehicleId, power: $power, setup: $setup, note: $note}) {
     id
     power
     suspension
@@ -280,10 +265,7 @@ export type AddSetupMutationFn = ApolloReactCommon.MutationFunction<AddSetupMuta
  *      trackId: // value for 'trackId'
  *      vehicleId: // value for 'vehicleId'
  *      power: // value for 'power'
- *      suspension: // value for 'suspension'
- *      gear: // value for 'gear'
- *      differential: // value for 'differential'
- *      brake: // value for 'brake'
+ *      setup: // value for 'setup'
  *      note: // value for 'note'
  *   },
  * });
@@ -325,8 +307,8 @@ export type DeleteSetupMutationHookResult = ReturnType<typeof useDeleteSetupMuta
 export type DeleteSetupMutationResult = ApolloReactCommon.MutationResult<DeleteSetupMutation>;
 export type DeleteSetupMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteSetupMutation, DeleteSetupMutationVariables>;
 export const EditSetupDocument = gql`
-    mutation EditSetup($id: Float!, $power: String!, $suspension: Float!, $gear: Float!, $differential: Float!, $brake: Float!, $note: String) {
-  editSetup(data: {id: $id, power: $power, suspension: $suspension, gear: $gear, differential: $differential, brake: $brake, note: $note}) {
+    mutation EditSetup($id: Float!, $power: String!, $setup: Float!, $note: String) {
+  editSetup(data: {id: $id, power: $power, setup: $setup, note: $note}) {
     id
     power
     suspension
@@ -354,10 +336,7 @@ export type EditSetupMutationFn = ApolloReactCommon.MutationFunction<EditSetupMu
  *   variables: {
  *      id: // value for 'id'
  *      power: // value for 'power'
- *      suspension: // value for 'suspension'
- *      gear: // value for 'gear'
- *      differential: // value for 'differential'
- *      brake: // value for 'brake'
+ *      setup: // value for 'setup'
  *      note: // value for 'note'
  *   },
  * });

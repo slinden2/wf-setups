@@ -1,8 +1,7 @@
 import React from "react";
-import { Setup } from "../../generated/apolloComponents";
 
 export interface InputFieldProps {
-  name: keyof Setup;
+  name: "power" | "setup" | "note";
   defaultValue?: string;
   register: any;
   ref?: React.MutableRefObject<HTMLInputElement | null>;

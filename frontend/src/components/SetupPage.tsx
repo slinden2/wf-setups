@@ -10,6 +10,7 @@ import { StatType } from "../types/StatType";
 import { inputFieldData } from "./form/formFieldData";
 import { InputField } from "./form/InputField";
 import config from "../config";
+import { getSetupString } from "../utils/getSetupString";
 
 const statArray: Array<StatType> = [
   "power",
@@ -33,6 +34,13 @@ export const SetupPage = () => {
     return null;
   }
 
+  const setupString = getSetupString(
+    curSetup.suspension,
+    curSetup.gear,
+    curSetup.differential,
+    curSetup.brake
+  );
+
   const DOMPurify = createDOMPurify(window);
   const turndownService = new TurndownService(config.turndown.options);
 
@@ -41,10 +49,7 @@ export const SetupPage = () => {
       variables: {
         id: Number(id),
         power: data.power,
-        suspension: Number(data.suspension),
-        gear: Number(data.gear),
-        differential: Number(data.differential),
-        brake: Number(data.brake),
+        setup: Number(data.setup),
         note: data.note ? data.note : "",
       },
     });
@@ -86,16 +91,20 @@ export const SetupPage = () => {
       {isEditing ? (
         <>
           <form onSubmit={handleSubmit(onSubmit)}>
-            {inputFieldData.map((input) => (
-              <InputField
-                key={input.name}
-                {...input}
-                defaultValue={turndownService.turndown(
-                  String(curSetup[input.name])
-                )}
-                register={register}
-              />
-            ))}
+            {inputFieldData.map((input) => {
+              const defaultValue =
+                input.name === "setup"
+                  ? setupString.toString()
+                  : turndownService.turndown(curSetup[input.name]!.toString());
+              return (
+                <InputField
+                  key={input.name}
+                  {...input}
+                  defaultValue={defaultValue}
+                  register={register}
+                />
+              );
+            })}
             <button type="submit">Save</button>
           </form>
           <button onClick={() => setEditing(false)}>Cancel</button>

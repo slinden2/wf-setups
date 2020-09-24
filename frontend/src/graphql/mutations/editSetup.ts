@@ -4,23 +4,10 @@ export const editSetupMutation = gql`
   mutation EditSetup(
     $id: Float!
     $power: String!
-    $suspension: Float!
-    $gear: Float!
-    $differential: Float!
-    $brake: Float!
+    $setup: Float!
     $note: String
   ) {
-    editSetup(
-      data: {
-        id: $id
-        power: $power
-        suspension: $suspension
-        gear: $gear
-        differential: $differential
-        brake: $brake
-        note: $note
-      }
-    ) {
+    editSetup(data: { id: $id, power: $power, setup: $setup, note: $note }) {
       id
       power
       suspension

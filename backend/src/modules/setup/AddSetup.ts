@@ -8,6 +8,7 @@ import { Setup } from "../../entity/Setup";
 import { User } from "../../entity/User";
 import { Track } from "../../entity/Track";
 import { Vehicle } from "../../entity/Vehicle";
+import { getSetupValues } from "../../utils/getSetupValues";
 
 @Resolver()
 export class AddSetupResolver {
@@ -38,14 +39,14 @@ export class AddSetupResolver {
       throw new Error("vehicle not found");
     }
 
-    console.log("data", data);
+    const setupValues = getSetupValues(data.setup);
 
     const setup = new Setup();
     setup.power = data.power.toUpperCase();
-    setup.suspension = data.suspension;
-    setup.gear = data.gear;
-    setup.differential = data.differential;
-    setup.brake = data.brake;
+    setup.suspension = setupValues.suspension;
+    setup.gear = setupValues.gear;
+    setup.differential = setupValues.differential;
+    setup.brake = setupValues.brake;
     setup.user = user;
     setup.track = track;
     setup.vehicle = vehicle;

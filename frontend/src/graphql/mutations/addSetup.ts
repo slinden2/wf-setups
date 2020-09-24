@@ -5,10 +5,7 @@ export const addSetupMutation = gql`
     $trackId: Float!
     $vehicleId: Float!
     $power: String!
-    $suspension: Float!
-    $gear: Float!
-    $differential: Float!
-    $brake: Float!
+    $setup: Float!
     $note: String
   ) {
     addSetup(
@@ -16,10 +13,7 @@ export const addSetupMutation = gql`
         trackId: $trackId
         vehicleId: $vehicleId
         power: $power
-        suspension: $suspension
-        gear: $gear
-        differential: $differential
-        brake: $brake
+        setup: $setup
         note: $note
       }
     ) {

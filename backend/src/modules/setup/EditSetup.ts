@@ -6,6 +6,7 @@ import { isAuth } from "../middleware/isAuth";
 import { Setup } from "../../entity/Setup";
 import { User } from "../../entity/User";
 import { EditSetupInput } from "./editSetup/EditSetupInput";
+import { getSetupValues } from "../../utils/getSetupValues";
 
 @Resolver()
 export class EditSetupResolver {
@@ -35,11 +36,13 @@ export class EditSetupResolver {
       throw new Error("auth user id and setup use id do not match");
     }
 
+    const setupValues = getSetupValues(data.setup);
+
     existingSetup.power = data.power;
-    existingSetup.suspension = data.suspension;
-    existingSetup.gear = data.gear;
-    existingSetup.differential = data.differential;
-    existingSetup.brake = data.brake;
+    existingSetup.suspension = setupValues.suspension;
+    existingSetup.gear = setupValues.gear;
+    existingSetup.differential = setupValues.differential;
+    existingSetup.brake = setupValues.brake;
     existingSetup.note = marked(data.note);
 
     const modifiedSetup = await existingSetup.save();
