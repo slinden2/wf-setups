@@ -1,6 +1,5 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { AddSetupFormIds } from "../../types/AddSetupFormIds";
 
 const StyledLabel = styled.label`
   display: block;
@@ -27,7 +26,7 @@ const StyledTextArea = styled.textarea<{ isError?: boolean }>`
 `;
 
 export interface InputFieldProps {
-  name: AddSetupFormIds;
+  name: "power" | "setup" | "note";
   defaultValue?: string;
   register: any;
   ref?: React.MutableRefObject<HTMLInputElement | null>;

@@ -30,10 +30,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
           trackId: Number(data.track.value),
           vehicleId: Number(data.vehicle.value),
           power: data.power,
-          suspension: Number(data.suspension),
-          gear: Number(data.gear),
-          differential: Number(data.differential),
-          brake: Number(data.brake),
+          setup: Number(data.setup),
           note: data.note ? data.note : "",
         },
       });
