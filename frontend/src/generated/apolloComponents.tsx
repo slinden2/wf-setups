@@ -96,7 +96,7 @@ export type MutationEditSetupArgs = {
 
 export type AddSetupInput = {
   power: Scalars['String'];
-  setup: Scalars['Float'];
+  setup: Scalars['String'];
   note?: Maybe<Scalars['String']>;
   trackId: Scalars['Float'];
   vehicleId: Scalars['Float'];
@@ -104,14 +104,14 @@ export type AddSetupInput = {
 
 export type EditSetupInput = {
   power: Scalars['String'];
-  setup: Scalars['Float'];
+  setup: Scalars['String'];
   note?: Maybe<Scalars['String']>;
   id: Scalars['Float'];
 };
 
 export type BaseSetupInput = {
   power: Scalars['String'];
-  setup: Scalars['Float'];
+  setup: Scalars['String'];
   note?: Maybe<Scalars['String']>;
 };
 
@@ -119,7 +119,7 @@ export type AddSetupMutationVariables = Exact<{
   trackId: Scalars['Float'];
   vehicleId: Scalars['Float'];
   power: Scalars['String'];
-  setup: Scalars['Float'];
+  setup: Scalars['String'];
   note?: Maybe<Scalars['String']>;
 }>;
 
@@ -152,7 +152,7 @@ export type DeleteSetupMutation = (
 export type EditSetupMutationVariables = Exact<{
   id: Scalars['Float'];
   power: Scalars['String'];
-  setup: Scalars['Float'];
+  setup: Scalars['String'];
   note?: Maybe<Scalars['String']>;
 }>;
 
@@ -226,7 +226,7 @@ export type MeQuery = (
 
 
 export const AddSetupDocument = gql`
-    mutation AddSetup($trackId: Float!, $vehicleId: Float!, $power: String!, $setup: Float!, $note: String) {
+    mutation AddSetup($trackId: Float!, $vehicleId: Float!, $power: String!, $setup: String!, $note: String) {
   addSetup(data: {trackId: $trackId, vehicleId: $vehicleId, power: $power, setup: $setup, note: $note}) {
     id
     power
@@ -307,7 +307,7 @@ export type DeleteSetupMutationHookResult = ReturnType<typeof useDeleteSetupMuta
 export type DeleteSetupMutationResult = ApolloReactCommon.MutationResult<DeleteSetupMutation>;
 export type DeleteSetupMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteSetupMutation, DeleteSetupMutationVariables>;
 export const EditSetupDocument = gql`
-    mutation EditSetup($id: Float!, $power: String!, $setup: Float!, $note: String) {
+    mutation EditSetup($id: Float!, $power: String!, $setup: String!, $note: String) {
   editSetup(data: {id: $id, power: $power, setup: $setup, note: $note}) {
     id
     power

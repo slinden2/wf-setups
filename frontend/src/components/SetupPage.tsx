@@ -54,19 +54,20 @@ export const SetupPage = () => {
   const turndownService = new TurndownService(config.turndown.options);
 
   const onSubmit = async (data: EditSetupInput) => {
-    await editSetup({
-      variables: {
-        id: Number(id),
-        power: data.power,
-        setup: Number(data.setup),
-        note: data.note ? data.note : "",
-      },
-    });
-    setEditing(false);
-    setNotification({
-      type: "success",
-      message: "Setup successfully modified.",
-    });
+    try {
+      await editSetup({
+        variables: {
+          id: Number(id),
+          power: data.power,
+          setup: data.setup,
+          note: data.note ? data.note : "",
+        },
+      });
+      setEditing(false);
+      setNotification({
+        type: "success",
+        message: "Setup successfully modified.",
+      });
     } catch (err) {
       setNotification({ type: "error", message: err.message });
     }

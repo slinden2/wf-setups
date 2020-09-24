@@ -4,7 +4,7 @@ export const editSetupMutation = gql`
   mutation EditSetup(
     $id: Float!
     $power: String!
-    $setup: Float!
+    $setup: String!
     $note: String
   ) {
     editSetup(data: { id: $id, power: $power, setup: $setup, note: $note }) {
