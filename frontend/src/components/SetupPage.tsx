@@ -1,15 +1,20 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import createDOMPurify from "dompurify";
 import TurndownService from "turndown";
 
 import { useSetupContext } from "../context/SetupContext";
 import { EditSetupInput } from "../generated/apolloComponents";
 import { StatType } from "../types/StatType";
-import { inputFieldData } from "./form/formFieldData";
+import {
+  editSetupValidationSchema,
+  inputFieldData,
+} from "./form/formFieldData";
 import { InputField } from "./form/InputField";
 import config from "../config";
+import { useNotificationContext } from "../context/NotificationContext";
+import { yupResolver } from "@hookform/resolvers";
 import { getSetupString } from "../utils/getSetupString";
 
 const statArray: Array<StatType> = [
@@ -23,12 +28,16 @@ const statArray: Array<StatType> = [
 export const SetupPage = () => {
   const [isEditing, setEditing] = React.useState<boolean>(false);
   const { getSetup, deleteSetup, editSetup } = useSetupContext()!;
+  const { setNotification } = useNotificationContext()!;
 
+  const history = useHistory();
   const { id } = useParams<{ id: string }>();
   const curSetup = getSetup(id);
 
-  const methods = useForm<EditSetupInput>();
-  const { handleSubmit, register } = methods;
+  const methods = useForm<EditSetupInput>({
+    resolver: yupResolver(editSetupValidationSchema),
+  });
+  const { handleSubmit, register, errors } = methods;
 
   if (!curSetup) {
     return null;
@@ -54,6 +63,18 @@ export const SetupPage = () => {
       },
     });
     setEditing(false);
+    setNotification({
+      type: "success",
+      message: "Setup successfully modified.",
+    });
+    } catch (err) {
+      setNotification({ type: "error", message: err.message });
+    }
+  };
+
+  const onDelete = async () => {
+    await deleteSetup({ variables: { id: Number(id) } });
+    history.push("/");
   };
 
   return (
@@ -102,6 +123,7 @@ export const SetupPage = () => {
                   {...input}
                   defaultValue={defaultValue}
                   register={register}
+                  isError={!!errors[input.name]}
                 />
               );
             })}
@@ -112,13 +134,7 @@ export const SetupPage = () => {
       ) : (
         <>
           <button onClick={() => setEditing(true)}>Modify</button>
-          <button
-            onClick={async () =>
-              await deleteSetup({ variables: { id: Number(id) } })
-            }
-          >
-            Delete
-          </button>
+          <button onClick={() => onDelete()}>Delete</button>
         </>
       )}
     </section>

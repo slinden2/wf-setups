@@ -5,13 +5,18 @@ import apolloClient from "./apolloClient";
 import { AuthProvider } from "./context/AuthContext";
 import App from "./App";
 import { SetupProvider } from "./context/SetupContext";
+import { NotificationProvider } from "./context/NotificationContext";
+import { GlobalStyle } from "./styles/global";
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={apolloClient}>
       <AuthProvider>
         <SetupProvider>
-          <App />
+          <NotificationProvider>
+            <GlobalStyle />
+            <App />
+          </NotificationProvider>
         </SetupProvider>
       </AuthProvider>
     </ApolloProvider>

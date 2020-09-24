@@ -7,6 +7,8 @@ import { useSetupContext } from "../context/SetupContext";
 import { InputField } from "./form/InputField";
 import { inputFieldData, addSetupValidationSchema } from "./form/formFieldData";
 import { AddSetupInputWithSelect } from "../types/AddSetupInputWithSelect";
+import { useNotificationContext } from "../context/NotificationContext";
+import { selectStyleFn } from "./form/selectStyleFn";
 
 interface Props {
   tracks: OptionType[];
@@ -15,14 +17,13 @@ interface Props {
 
 const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
   const { addSetup } = useSetupContext()!;
+  const { setNotification } = useNotificationContext()!;
   const methods = useForm<AddSetupInputWithSelect>({
     resolver: yupResolver(addSetupValidationSchema),
   });
-  const { handleSubmit, control, register, reset } = methods;
+  const { handleSubmit, control, register, reset, errors } = methods;
 
   const onSubmit = async (data: AddSetupInputWithSelect) => {
-    console.log(data);
-    console.log("data.note.length", data.note!.length);
     try {
       const response = await addSetup({
         variables: {
@@ -40,7 +41,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
 
       reset();
     } catch (err) {
-      console.error(err);
+      setNotification({ type: "error", message: err.message });
       reset();
     }
   };
@@ -54,6 +55,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
         options={tracks}
         placeholder="Choose a track"
         defaultValue=""
+        styles={selectStyleFn({ isError: !!errors.track })}
       />
       <Controller
         as={Select}
@@ -62,9 +64,15 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
         options={vehicles}
         placeholder="Choose a vehicle"
         defaultValue=""
+        styles={selectStyleFn({ isError: !!errors.vehicle })}
       />
       {inputFieldData.map((input) => (
-        <InputField key={input.name} {...input} register={register} />
+        <InputField
+          key={input.name}
+          {...input}
+          isError={!!errors[input.name]}
+          register={register}
+        />
       ))}
       <input type="submit" />
     </form>
