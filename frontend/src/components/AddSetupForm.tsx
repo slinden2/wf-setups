@@ -9,6 +9,7 @@ import { inputFieldData, addSetupValidationSchema } from "./form/formFieldData";
 import { AddSetupInputWithSelect } from "../types/AddSetupInputWithSelect";
 import { useNotificationContext } from "../context/NotificationContext";
 import { selectStyleFn } from "./form/selectStyleFn";
+import { useThemeContext } from "../context/ThemeContext";
 
 interface Props {
   tracks: OptionType[];
@@ -18,6 +19,7 @@ interface Props {
 const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
   const { addSetup } = useSetupContext()!;
   const { setNotification } = useNotificationContext()!;
+  const theme = useThemeContext();
   const methods = useForm<AddSetupInputWithSelect>({
     resolver: yupResolver(addSetupValidationSchema),
   });
@@ -55,7 +57,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
         options={tracks}
         placeholder="Choose a track"
         defaultValue=""
-        styles={selectStyleFn({ isError: !!errors.track })}
+        styles={selectStyleFn({ isError: !!errors.track, theme })}
       />
       <Controller
         as={Select}
@@ -64,7 +66,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
         options={vehicles}
         placeholder="Choose a vehicle"
         defaultValue=""
-        styles={selectStyleFn({ isError: !!errors.vehicle })}
+        styles={selectStyleFn({ isError: !!errors.vehicle, theme })}
       />
       {inputFieldData.map((input) => (
         <InputField

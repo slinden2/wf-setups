@@ -10,6 +10,7 @@ const theme: DefaultTheme = {
     secondaryDark: "#6E6362",
     white: "#eee",
     black: "#111",
+    red: "#8b0000",
   },
 };
 
