@@ -10,6 +10,7 @@ import { AddSetupInputWithSelect } from "../types/AddSetupInputWithSelect";
 import { useNotificationContext } from "../context/NotificationContext";
 import { selectStyleFn } from "./form/selectStyleFn";
 import { useThemeContext } from "../context/ThemeContext";
+import { Button } from "../styles/elements/Button";
 
 interface Props {
   tracks: OptionType[];
@@ -76,7 +77,10 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
           register={register}
         />
       ))}
-      <input type="submit" />
+      <Button type="submit">Submit</Button>
+      <Button onClick={() => reset()} colorType="secondary">
+        Reset
+      </Button>
     </form>
   );
 };
