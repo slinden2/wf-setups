@@ -38,7 +38,8 @@ const StyledInput = styled.input<{ isError?: boolean }>`
 
 const StyledTextArea = styled.textarea<{ isError?: boolean }>`
   ${inputStyles}
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   height: 100px;
 `;
 
