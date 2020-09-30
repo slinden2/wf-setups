@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import styled from "styled-components";
 import createDOMPurify from "dompurify";
 import TurndownService from "turndown";
@@ -205,6 +205,9 @@ export const SetupPage = () => {
         </>
       ) : (
         <ButtonContainer>
+          <Link to="/">
+            <Button>Back</Button>
+          </Link>
           <Button onClick={() => setEditing(true)}>Modify</Button>
           <Button colorType="warn" onClick={() => onDelete()}>
             Delete
