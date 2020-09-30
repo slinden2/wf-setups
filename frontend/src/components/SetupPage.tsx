@@ -18,6 +18,7 @@ import { useNotificationContext } from "../context/NotificationContext";
 import { yupResolver } from "@hookform/resolvers";
 import { getSetupString } from "../utils/getSetupString";
 import { Button } from "../styles/elements/Button";
+import { Title } from "../styles/elements/Title";
 
 const TableContainer = styled.div`
   margin: 0 auto;
@@ -143,6 +144,7 @@ export const SetupPage = () => {
 
   return (
     <TableContainer>
+      <Title>Setup Details</Title>
       <Table>
         <tbody>
           <tr>

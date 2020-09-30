@@ -7,6 +7,7 @@ import { SetupRow } from "../types/SetupRow";
 import { getSelectFieldData, InputType } from "../utils/getSelectFieldData";
 import { columns } from "./table/tableData";
 import StyledDataTable from "./table/StyledDataTable";
+import { Title } from "../styles/elements/Title";
 
 const HomePage = () => {
   const history = useHistory();
@@ -48,6 +49,7 @@ const HomePage = () => {
 
   return (
     <div>
+      <Title>Add Setup</Title>
       <AddSetupForm tracks={tracksForSelect!} vehicles={vehiclesForSelect!} />
       <StyledDataTable
         columns={columns}
