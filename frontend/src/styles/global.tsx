@@ -8,6 +8,16 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  html {
+    --color-main: ${(props) => props.theme.colors.main};
+    --color-main2: ${(props) => props.theme.colors.secondary};
+
+    font-family: Rubik, Arial, Verdana, Tahoma;
+    font-size: 10px;
+    background-image: linear-gradient(100deg, var(--color-main) 70%, var(--color-main2) 150%);
+
+  }
+
   /* Remove default padding */
   ul[class],
   ol[class] {

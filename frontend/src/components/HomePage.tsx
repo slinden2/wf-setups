@@ -1,48 +1,12 @@
 import React from "react";
-import DataTable from "react-data-table-component";
 import { useHistory } from "react-router-dom";
 
 import AddSetupForm from "./AddSetupForm";
 import { useSetupContext } from "../context/SetupContext";
 import { SetupRow } from "../types/SetupRow";
 import { getSelectFieldData, InputType } from "../utils/getSelectFieldData";
-
-const columns = [
-  {
-    name: "Track",
-    selector: "track",
-    sortable: true,
-  },
-  {
-    name: "Vehicle",
-    selector: "vehicle",
-    sortable: true,
-  },
-  {
-    name: "Power",
-    selector: "power",
-  },
-  {
-    name: "Suspension",
-    selector: "suspension",
-    center: true,
-  },
-  {
-    name: "Gears",
-    selector: "gear",
-    center: true,
-  },
-  {
-    name: "Differential",
-    selector: "differential",
-    center: true,
-  },
-  {
-    name: "Brake",
-    selector: "brake",
-    center: true,
-  },
-];
+import { columns } from "./table/tableData";
+import StyledDataTable from "./table/StyledDataTable";
 
 const HomePage = () => {
   const history = useHistory();
@@ -85,7 +49,7 @@ const HomePage = () => {
   return (
     <div>
       <AddSetupForm tracks={tracksForSelect!} vehicles={vehiclesForSelect!} />
-      <DataTable
+      <StyledDataTable
         columns={columns}
         data={tableData}
         onRowClicked={(row) => openSetup(row)}
@@ -93,6 +57,8 @@ const HomePage = () => {
         striped
         highlightOnHover
         dense
+        noHeader
+        responsive
       />
     </div>
   );

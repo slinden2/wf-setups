@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useParams, useHistory } from "react-router-dom";
+import styled from "styled-components";
 import createDOMPurify from "dompurify";
 import TurndownService from "turndown";
 
@@ -16,6 +17,68 @@ import config from "../config";
 import { useNotificationContext } from "../context/NotificationContext";
 import { yupResolver } from "@hookform/resolvers";
 import { getSetupString } from "../utils/getSetupString";
+import { Button } from "../styles/elements/Button";
+
+const TableContainer = styled.div`
+  margin: 0 auto;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+  padding-right: 1rem;
+`;
+
+const Table = styled.table`
+  margin: 0 auto;
+  font-size: 1.6rem;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 8px;
+    color: ${(props) => props.theme.colors.white};
+  }
+
+  th {
+    text-align: left;
+    background-color: ${(props) => props.theme.colors.main};
+  }
+
+  td {
+    background-color: ${(props) => props.theme.colors.secondary};
+    padding-left: 1.2rem;
+  }
+`;
+
+const Note = styled.div`
+  margin: 2rem auto;
+  font-size: 1.5rem;
+  width: 100%;
+  max-width: 500px;
+  background-color: ${(props) => props.theme.colors.main};
+  color: ${(props) => props.theme.colors.white};
+  padding: 8px;
+
+  pre {
+    padding: 8px;
+    background-color: ${(props) => props.theme.colors.secondaryDark};
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+
+  button {
+    margin: 1rem 1rem;
+  }
+`;
+
+const FormContainer = styled.div`
+  width: 100%;
+  max-width: 500px;
+`;
 
 const statArray: Array<StatType> = [
   "power",
@@ -54,19 +117,20 @@ export const SetupPage = () => {
   const turndownService = new TurndownService(config.turndown.options);
 
   const onSubmit = async (data: EditSetupInput) => {
-    await editSetup({
-      variables: {
-        id: Number(id),
-        power: data.power,
-        setup: Number(data.setup),
-        note: data.note ? data.note : "",
-      },
-    });
-    setEditing(false);
-    setNotification({
-      type: "success",
-      message: "Setup successfully modified.",
-    });
+    try {
+      await editSetup({
+        variables: {
+          id: Number(id),
+          power: data.power,
+          setup: data.setup,
+          note: data.note ? data.note : "",
+        },
+      });
+      setEditing(false);
+      setNotification({
+        type: "success",
+        message: "Setup successfully modified.",
+      });
     } catch (err) {
       setNotification({ type: "error", message: err.message });
     }
@@ -78,8 +142,8 @@ export const SetupPage = () => {
   };
 
   return (
-    <section>
-      <table>
+    <TableContainer>
+      <Table>
         <tbody>
           <tr>
             <th>Track</th>
@@ -101,9 +165,9 @@ export const SetupPage = () => {
               </tr>
             ))}
         </tbody>
-      </table>
+      </Table>
       {!isEditing && curSetup.note && (
-        <div
+        <Note
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(curSetup.note),
           }}
@@ -111,32 +175,42 @@ export const SetupPage = () => {
       )}
       {isEditing ? (
         <>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            {inputFieldData.map((input) => {
-              const defaultValue =
-                input.name === "setup"
-                  ? setupString.toString()
-                  : turndownService.turndown(curSetup[input.name]!.toString());
-              return (
-                <InputField
-                  key={input.name}
-                  {...input}
-                  defaultValue={defaultValue}
-                  register={register}
-                  isError={!!errors[input.name]}
-                />
-              );
-            })}
-            <button type="submit">Save</button>
-          </form>
-          <button onClick={() => setEditing(false)}>Cancel</button>
+          <FormContainer>
+            <form>
+              {inputFieldData.map((input) => {
+                const defaultValue =
+                  input.name === "setup"
+                    ? setupString.toString()
+                    : turndownService.turndown(
+                        curSetup[input.name]!.toString()
+                      );
+                return (
+                  <InputField
+                    key={input.name}
+                    {...input}
+                    defaultValue={defaultValue}
+                    register={register}
+                    isError={!!errors[input.name]}
+                  />
+                );
+              })}
+            </form>
+          </FormContainer>
+          <ButtonContainer>
+            <Button onClick={handleSubmit(onSubmit)}>Save</Button>
+            <Button colorType="warn" onClick={() => setEditing(false)}>
+              Cancel
+            </Button>
+          </ButtonContainer>
         </>
       ) : (
-        <>
-          <button onClick={() => setEditing(true)}>Modify</button>
-          <button onClick={() => onDelete()}>Delete</button>
-        </>
+        <ButtonContainer>
+          <Button onClick={() => setEditing(true)}>Modify</Button>
+          <Button colorType="warn" onClick={() => onDelete()}>
+            Delete
+          </Button>
+        </ButtonContainer>
       )}
-    </section>
+    </TableContainer>
   );
 };

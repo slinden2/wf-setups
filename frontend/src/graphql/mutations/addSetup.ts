@@ -5,7 +5,7 @@ export const addSetupMutation = gql`
     $trackId: Float!
     $vehicleId: Float!
     $power: String!
-    $setup: Float!
+    $setup: String!
     $note: String
   ) {
     addSetup(

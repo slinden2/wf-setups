@@ -9,6 +9,8 @@ import { inputFieldData, addSetupValidationSchema } from "./form/formFieldData";
 import { AddSetupInputWithSelect } from "../types/AddSetupInputWithSelect";
 import { useNotificationContext } from "../context/NotificationContext";
 import { selectStyleFn } from "./form/selectStyleFn";
+import { useThemeContext } from "../context/ThemeContext";
+import { Button } from "../styles/elements/Button";
 
 interface Props {
   tracks: OptionType[];
@@ -18,6 +20,7 @@ interface Props {
 const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
   const { addSetup } = useSetupContext()!;
   const { setNotification } = useNotificationContext()!;
+  const theme = useThemeContext();
   const methods = useForm<AddSetupInputWithSelect>({
     resolver: yupResolver(addSetupValidationSchema),
   });
@@ -30,7 +33,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
           trackId: Number(data.track.value),
           vehicleId: Number(data.vehicle.value),
           power: data.power,
-          setup: Number(data.setup),
+          setup: data.setup,
           note: data.note ? data.note : "",
         },
       });
@@ -55,7 +58,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
         options={tracks}
         placeholder="Choose a track"
         defaultValue=""
-        styles={selectStyleFn({ isError: !!errors.track })}
+        styles={selectStyleFn({ isError: !!errors.track, theme })}
       />
       <Controller
         as={Select}
@@ -64,7 +67,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
         options={vehicles}
         placeholder="Choose a vehicle"
         defaultValue=""
-        styles={selectStyleFn({ isError: !!errors.vehicle })}
+        styles={selectStyleFn({ isError: !!errors.vehicle, theme })}
       />
       {inputFieldData.map((input) => (
         <InputField
@@ -74,7 +77,10 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
           register={register}
         />
       ))}
-      <input type="submit" />
+      <Button type="submit">Submit</Button>
+      <Button onClick={() => reset()} colorType="secondary">
+        Reset
+      </Button>
     </form>
   );
 };
