@@ -14,6 +14,7 @@ const StyledDataTable = <T extends unknown = any>(
     tableWrapper: {
       style: {
         marginTop: "3rem",
+        marginBottom: "3rem",
         borderRadius: theme.borderRadius,
       },
     },
