@@ -6,5 +6,4 @@ export const ContentContainer = styled.section`
   margin: 0 auto;
   padding-left: 1rem;
   padding-right: 1rem;
-  border: 5px solid yellow;
 `;

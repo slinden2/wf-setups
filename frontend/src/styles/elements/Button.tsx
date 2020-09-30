@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-type ColorType = "primary" | "secondary";
+type ColorType = "primary" | "secondary" | "warn";
 
 const StyledButton = styled.button<{ colorType: ColorType }>`
   margin-top: 1.5rem;
@@ -28,11 +28,17 @@ const StyledButton = styled.button<{ colorType: ColorType }>`
       background-color: ${(props) => props.theme.colors.main};
       color: ${(props) => props.theme.colors.white};
     `}
+
+    ${(props) =>
+    props.colorType === "warn" &&
+    css`
+      background-color: ${(props) => props.theme.colors.red};
+      color: ${(props) => props.theme.colors.white};
+    `}
 `;
 
-interface Props {
+interface Props extends React.HTMLProps<HTMLButtonElement> {
   type?: "submit" | "reset";
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   colorType?: ColorType;
 }
 

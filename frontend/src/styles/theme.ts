@@ -11,6 +11,7 @@ const theme: DefaultTheme = {
     white: "#eee",
     black: "#111",
     red: "#8b0000",
+    gray: "#aaa",
   },
 };
 
