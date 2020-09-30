@@ -61,6 +61,11 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration-skip-ink: auto;
   }
 
+  a {
+    text-decoration: inherit;
+    color: inherit;
+  }
+
   /* Make images easier to work with */
   img {
     max-width: 100%;

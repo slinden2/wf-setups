@@ -8,6 +8,7 @@ import { SetupPage } from "./components/SetupPage";
 import Header from "./components/Header";
 import { MainContainer } from "./styles/elements/MainContainer";
 import { ContentContainer } from "./styles/elements/ContentContainer";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
           </Switch>
         </ContentContainer>
       </MainContainer>
+      <Footer />
     </Router>
   );
 };
