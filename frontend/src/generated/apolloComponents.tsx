@@ -27,7 +27,6 @@ export type User = {
   username: Scalars['String'];
   discriminator: Scalars['String'];
   avatar: Scalars['String'];
-  email: Scalars['String'];
   setups: Array<Setup>;
 };
 
@@ -174,7 +173,7 @@ export type LoginMutation = (
   { __typename?: 'Mutation' }
   & { login?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'discordId' | 'username' | 'email'>
+    & Pick<User, 'id' | 'discordId' | 'username'>
   )> }
 );
 
@@ -220,7 +219,7 @@ export type MeQuery = (
   { __typename?: 'Query' }
   & { me?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'discordId' | 'username' | 'email'>
+    & Pick<User, 'id' | 'discordId' | 'username'>
   )> }
 );
 
@@ -353,7 +352,6 @@ export const LoginDocument = gql`
     id
     discordId
     username
-    email
   }
 }
     `;
@@ -475,7 +473,6 @@ export const MeDocument = gql`
     id
     discordId
     username
-    email
   }
 }
     `;

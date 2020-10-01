@@ -37,7 +37,6 @@ export class LoginResolver {
         username: discordUser.username,
         discriminator: discordUser.discriminator,
         avatar: discordUser.avatar,
-        email: discordUser.email,
       }).save();
     }
 

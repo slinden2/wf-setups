@@ -17,7 +17,6 @@ export interface DiscordUser {
   discriminator: string;
   public_flags: number;
   flags: number;
-  email: string;
   verified: boolean;
   locale: string;
   mfa_enabled: boolean;

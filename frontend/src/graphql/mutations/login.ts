@@ -6,7 +6,6 @@ export const loginMutation = gql`
       id
       discordId
       username
-      email
     }
   }
 `;

@@ -6,7 +6,6 @@ export const meQuery = gql`
       id
       discordId
       username
-      email
     }
   }
 `;

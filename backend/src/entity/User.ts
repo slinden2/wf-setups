@@ -39,10 +39,6 @@ export class User extends BaseEntity {
   @Column("text", { nullable: true })
   avatar: string;
 
-  @Field()
-  @Column("text", { unique: true })
-  email: string;
-
   @Field(() => [Setup])
   @OneToMany(() => Setup, (setup) => setup.user)
   setups: Setup[];
