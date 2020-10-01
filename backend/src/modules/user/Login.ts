@@ -18,11 +18,7 @@ export class LoginResolver {
   ): Promise<User | null> {
     console.log(`The access code is ${code}.`);
     const discordUser = await getDiscordUser(code);
-    console.log(discordUser);
-
-    if (!discordUser.verified) {
-      return null;
-    }
+    console.log("discordUser", discordUser);
 
     let user = await User.findOne({ where: { discordId: discordUser.id } });
     if (user) {
