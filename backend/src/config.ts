@@ -81,7 +81,7 @@ if (isLocal && env === "production") {
     url: process.env.DATABASE_URL!,
     entities: [__dirname + "/entity/*.js"],
     synchronize: true,
-    logging: true,
+    logging: !!process.env.PG_LOGGING,
   };
 } else {
   postgresConn = {
