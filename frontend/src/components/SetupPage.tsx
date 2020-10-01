@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useParams, useHistory, Link } from "react-router-dom";
+import { useParams, useHistory, Link, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import createDOMPurify from "dompurify";
 import TurndownService from "turndown";
@@ -104,7 +104,7 @@ export const SetupPage = () => {
   const { handleSubmit, register, errors } = methods;
 
   if (!curSetup) {
-    return null;
+    return <Redirect to="/404" />;
   }
 
   const setupString = getSetupString(

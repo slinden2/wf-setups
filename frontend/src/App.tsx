@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 
 import Auth from "./components/user/Auth";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -9,6 +14,7 @@ import Header from "./components/Header";
 import { MainContainer } from "./styles/elements/MainContainer";
 import { ContentContainer } from "./styles/elements/ContentContainer";
 import Footer from "./components/Footer";
+import PageNotFound from "./components/PageNotFound";
 
 const App = () => {
   return (
@@ -25,6 +31,12 @@ const App = () => {
             </ProtectedRoute>
             <Route path="/auth">
               <Auth />
+            </Route>
+            <Route path="/404">
+              <PageNotFound />
+            </Route>
+            <Route path="*">
+              <Redirect push to="/404" />
             </Route>
           </Switch>
         </ContentContainer>
