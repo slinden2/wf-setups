@@ -20,66 +20,15 @@ import { getSetupString } from "../utils/getSetupString";
 import { Button } from "../styles/elements/Button";
 import { Title } from "../styles/elements/Title";
 
-const TableContainer = styled.div`
-  margin: 0 auto;
-  width: 100%;
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  padding-left: 1rem;
-  padding-right: 1rem;
-`;
+const TableContainer = styled.div``;
 
-const Table = styled.table`
-  margin: 0 auto;
-  font-size: 1.6rem;
-  border-collapse: collapse;
+const Table = styled.table``;
 
-  th,
-  td {
-    padding: 8px;
-    color: ${(props) => props.theme.colors.white};
-  }
+const Note = styled.div``;
 
-  th {
-    text-align: left;
-    background-color: ${(props) => props.theme.colors.main};
-  }
+const ButtonContainer = styled.div``;
 
-  td {
-    background-color: ${(props) => props.theme.colors.secondary};
-    padding-left: 1.2rem;
-  }
-`;
-
-const Note = styled.div`
-  margin: 2rem auto;
-  font-size: 1.5rem;
-  width: 100%;
-  max-width: 500px;
-  background-color: ${(props) => props.theme.colors.main};
-  color: ${(props) => props.theme.colors.white};
-  padding: 8px;
-
-  pre {
-    padding: 8px;
-    background-color: ${(props) => props.theme.colors.secondaryDark};
-  }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-
-  button {
-    margin: 1rem 1rem;
-  }
-`;
-
-const FormContainer = styled.div`
-  width: 100%;
-  max-width: 500px;
-`;
+const FormContainer = styled.div``;
 
 const statArray: Array<StatType> = [
   "power",

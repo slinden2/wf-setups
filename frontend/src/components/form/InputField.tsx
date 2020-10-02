@@ -1,34 +1,11 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-const FieldContainer = styled.div`
-  font-size: 1.5rem;
-  color: ${(props) => props.theme.colors.white};
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-`;
+const FieldContainer = styled.div``;
 
-const StyledLabel = styled.label`
-  display: block;
-`;
+const StyledLabel = styled.label``;
 
-const inputStyles = css<{ isError?: boolean }>`
-  display: block;
-  padding: 1rem;
-  border-radius: ${(props) => props.theme.borderRadius};
-  border-style: none;
-  background-color: ${(props) => props.theme.colors.secondary};
-  outline: none;
-  color: ${(props) => props.theme.colors.white};
-  ${({ isError }) =>
-    isError &&
-    css`
-      border: 2px solid ${(props) => props.theme.colors.red};
-    `}
-  :focus {
-    box-shadow: 0px 0px 0px 1px ${(props) => props.theme.colors.white};
-  }
-`;
+const inputStyles = css<{ isError?: boolean }>``;
 
 const StyledInput = styled.input<{ isError?: boolean }>`
   ${inputStyles}
