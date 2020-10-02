@@ -15,8 +15,12 @@ import { MainContainer } from "./styles/elements/MainContainer";
 import { ContentContainer } from "./styles/elements/ContentContainer";
 import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
+import { useAuthContext } from "./context/AuthContext";
+import Stripes from "./styles/elements/Stripes";
 
 const App = () => {
+  const { isAuth } = useAuthContext();
+
   return (
     <Router>
       <MainContainer>
@@ -40,8 +44,11 @@ const App = () => {
             </Route>
           </Switch>
         </ContentContainer>
+        <div className="bg-grey">
+          <Stripes />
+        </div>
       </MainContainer>
-      <Footer />
+      {isAuth && <Footer />}
     </Router>
   );
 };

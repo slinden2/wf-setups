@@ -9,8 +9,16 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    font-family: Rubik, Arial, Verdana, Tahoma;
+    --header-height: 120px;
+
+    @media ${(props) => props.theme.mq.overMobilePortrait} {
+      --header-height: 180px;
+    }
+
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif;
     font-size: 10px;
+    font-weight: 400;
+    height: 100%;
   }
 
   /* Remove default padding */
@@ -39,7 +47,7 @@ export const GlobalStyle = createGlobalStyle`
 
   /* Set core body defaults */
   body {
-    min-height: 100vh;
+    min-height: 100%;
     scroll-behavior: smooth;
     text-rendering: optimizeSpeed;
     line-height: 1.5;
@@ -78,6 +86,14 @@ export const GlobalStyle = createGlobalStyle`
   textarea,
   select {
     font: inherit;
+  }
+
+  button {
+    border: 0;
+    outline: 0;
+    font-size: 1.6rem;
+    font-weight: 500;
+    border-radius: ${(props) => props.theme.borderRadius};
   }
 
   /* Remove all animations and transitions for people that prefer not to see them */
