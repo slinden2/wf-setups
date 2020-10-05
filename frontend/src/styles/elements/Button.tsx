@@ -7,16 +7,43 @@ const StyledButton = styled.button<{
   colorType: ColorType;
   extendWidth: boolean;
 }>`
-  color: ${(props) => props.theme.colors.white};
-  background-color: ${(props) => props.theme.colors.blue};
   border-radius: ${(props) => props.theme.borderRadius};
   padding: 1.5rem;
   cursor: pointer;
+  width: 100%;
+  margin: 1rem 0;
+
+  @media ${(props) => props.theme.mq.overMobilePortrait} {
+    ${(props) =>
+      props.extendWidth
+        ? css`
+            width: 100%;
+            margin-right: 0;
+          `
+        : css`
+            width: auto;
+            margin-right: 1rem;
+          `}
+  }
 
   ${(props) =>
-    props.extendWidth &&
+    props.colorType === "primary" &&
     css`
-      width: 100%;
+      color: ${(props) => props.theme.colors.white};
+      background-color: ${(props) => props.theme.colors.blue};
+    `}
+
+  ${(props) =>
+    props.colorType === "secondary" &&
+    css`
+      background-color: ${(props) => props.theme.colors.lightGrey2};
+    `}
+
+    ${(props) =>
+    props.colorType === "warn" &&
+    css`
+      color: ${(props) => props.theme.colors.white};
+      background-color: ${(props) => props.theme.colors.red};
     `}
 `;
 
@@ -34,7 +61,11 @@ export const Button: React.FC<Props> = ({
   const _colorType = colorType ? colorType : "primary";
 
   return (
-    <StyledButton onClick={onClick} colorType={_colorType} extendWidth>
+    <StyledButton
+      onClick={onClick}
+      colorType={_colorType}
+      extendWidth={!!extendWidth}
+    >
       <div>{children}</div>
     </StyledButton>
   );
