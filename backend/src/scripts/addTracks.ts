@@ -12,6 +12,8 @@ const addTracks = async () => {
 
   await createConnection(config.postgres.connParams);
 
+  const tracksInDb = await Track.find();
+
   const trackPromises: Promise<Track>[] = [];
 
   tracks.forEach((track) => {
@@ -20,7 +22,10 @@ const addTracks = async () => {
     newTrack.origin = track.trackOrigin;
     newTrack.name = track.trackName;
 
-    trackPromises.push(newTrack.save());
+    if (!tracksInDb.find((trackDb) => trackDb.trackId === newTrack.trackId)) {
+      console.log(newTrack);
+      trackPromises.push(newTrack.save());
+    }
   });
 
   await Promise.all(trackPromises);

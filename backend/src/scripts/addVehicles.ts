@@ -12,6 +12,8 @@ const addVehicles = async () => {
 
   await createConnection(config.postgres.connParams);
 
+  const vehiclesInDb = await Vehicle.find();
+
   const vehiclePromises: Promise<Vehicle>[] = [];
 
   vehicles.forEach((vehicle) => {
@@ -21,6 +23,15 @@ const addVehicles = async () => {
     newVehicle.name = vehicle.vehicleName;
 
     vehiclePromises.push(newVehicle.save());
+
+    if (
+      !vehiclesInDb.find(
+        (vehicleDb) => vehicleDb.vehicleId === newVehicle.vehicleId
+      )
+    ) {
+      console.log(newVehicle);
+      vehiclePromises.push(newVehicle.save());
+    }
   });
 
   await Promise.all(vehiclePromises);
