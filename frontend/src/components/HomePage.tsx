@@ -8,13 +8,14 @@ import { getSelectFieldData, InputType } from "../utils/getSelectFieldData";
 import { columns } from "./table/tableData";
 import StyledDataTable from "./table/StyledDataTable";
 import { Title } from "../styles/elements/Title";
+import Loader from "../styles/elements/Loader";
 
 const HomePage = () => {
   const history = useHistory();
   const { setups, tracksAndVehicles } = useSetupContext()!;
 
   if (setups.loading || tracksAndVehicles.loading) {
-    return <div>Loading...</div>;
+    return <Loader text="Loading" />;
   }
 
   const setupArray = setups.data?.getSetups;
