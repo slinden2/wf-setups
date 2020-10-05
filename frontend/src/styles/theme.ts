@@ -11,6 +11,7 @@ const theme: DefaultTheme = {
     darkBlue: "rgb(44,65,172)",
     lightGrey: "rgb(247,250,252)",
     lightGrey2: "rgb(217,220,222)",
+    inputFieldGrey: "hsl(0,0%,80%)",
     red: "rgb(237,95,116)",
   },
 

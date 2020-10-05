@@ -11,6 +11,7 @@ declare module "styled-components" {
       darkBlue: string;
       lightGrey: string;
       lightGrey2: string;
+      inputFieldGrey: string;
       red: string;
       // mainLight: string;
       // secondary: string;

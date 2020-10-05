@@ -18,7 +18,7 @@ export const selectStyleFn = ({ isError, theme }: Props): StylesConfig => {
     control: (provided, state) => ({
       ...provided,
       ...(isError && { boxShadow: `0 0 0 2px ${theme.colors.red}` }),
-      ...(state.isFocused && { boxShadow: `0 0 0 1px` }),
+      ...(state.isFocused && { boxShadow: `0 0 0 1px ${theme.colors.blue}` }),
     }),
     option: (provided, state) => ({
       ...provided,
