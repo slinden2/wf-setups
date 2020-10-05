@@ -11,12 +11,12 @@ declare module "styled-components" {
       darkBlue: string;
       lightGrey: string;
       lightGrey2: string;
+      red: string;
       // mainLight: string;
       // secondary: string;
       // secondaryDark: string;
       // white: string;
       // black: string;
-      // red: string;
       // gray: string;
     };
 
