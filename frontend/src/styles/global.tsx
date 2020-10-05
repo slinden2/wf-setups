@@ -96,6 +96,15 @@ export const GlobalStyle = createGlobalStyle`
     border-radius: ${(props) => props.theme.borderRadius};
   }
 
+  a {
+    color: ${(props) => props.theme.colors.blue};
+    font-weight: 500;
+    
+    :hover {
+      color: ${(props) => props.theme.colors.darkBlue};
+    }
+  }
+
   /* Remove all animations and transitions for people that prefer not to see them */
   @media (prefers-reduced-motion: reduce) {
     * {

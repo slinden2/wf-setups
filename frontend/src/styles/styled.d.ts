@@ -7,7 +7,9 @@ declare module "styled-components" {
     colors: {
       white: string;
       blue: string;
+      darkBlue: string;
       lightGrey: string;
+      lightGrey2: string;
       // mainLight: string;
       // secondary: string;
       // secondaryDark: string;
