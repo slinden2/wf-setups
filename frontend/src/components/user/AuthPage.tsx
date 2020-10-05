@@ -19,8 +19,7 @@ const LoginContainer = styled.div`
   max-width: 448px;
   padding: 48px;
   padding-bottom: 32px;
-  box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px,
-    rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
+  box-shadow: ${(props) => props.theme.boxShadow};
   background-color: ${(props) => props.theme.colors.white};
   border-radius: ${(props) => props.theme.borderRadius};
 

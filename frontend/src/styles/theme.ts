@@ -2,6 +2,8 @@ import { DefaultTheme } from "styled-components";
 
 const theme: DefaultTheme = {
   borderRadius: "4px",
+  boxShadow:
+    "rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px",
 
   colors: {
     white: "#fff",

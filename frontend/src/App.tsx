@@ -25,24 +25,26 @@ const App = () => {
     <Router>
       <MainContainer>
         <Header />
-        <ContentContainer>
-          <Switch>
-            <ProtectedRoute exact path="/">
-              <HomePage />
-            </ProtectedRoute>
-            <ProtectedRoute path="/setups/:id">
-              <SetupPage />
-            </ProtectedRoute>
-            <Route path="/auth">
-              <Auth />
-            </Route>
-            <Route path="/404">
-              <PageNotFound />
-            </Route>
-            <Route path="*">
-              <Redirect push to="/404" />
-            </Route>
-          </Switch>
+        <ContentContainer isAuth={isAuth}>
+          <div className="content-wrapper">
+            <Switch>
+              <ProtectedRoute exact path="/">
+                <HomePage />
+              </ProtectedRoute>
+              <ProtectedRoute path="/setups/:id">
+                <SetupPage />
+              </ProtectedRoute>
+              <Route path="/auth">
+                <Auth />
+              </Route>
+              <Route path="/404">
+                <PageNotFound />
+              </Route>
+              <Route path="*">
+                <Redirect push to="/404" />
+              </Route>
+            </Switch>
+          </div>
         </ContentContainer>
         <div className="bg-grey">
           <Stripes />
