@@ -15,8 +15,8 @@ export class TracksAndVehicles {
 export class GetTracksAndVehiclesResolver {
   @Query(() => TracksAndVehicles)
   async getTracksAndVehicles(): Promise<TracksAndVehicles> {
-    const tracks = await Track.find();
-    const vehicles = await Vehicle.find();
+    const tracks = await Track.find({ order: { name: "ASC" } });
+    const vehicles = await Vehicle.find({ order: { name: "ASC" } });
     return { tracks, vehicles };
   }
 }
