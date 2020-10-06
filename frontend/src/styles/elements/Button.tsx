@@ -12,6 +12,7 @@ const StyledButton = styled.button<{
   cursor: pointer;
   width: 100%;
   margin: 1rem 0;
+  box-shadow: ${(props) => props.theme.boxShadowLight};
 
   @media ${(props) => props.theme.mq.overMobilePortrait} {
     ${(props) =>
