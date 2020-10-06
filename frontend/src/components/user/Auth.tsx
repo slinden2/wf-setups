@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 
 import { useLoginMutation } from "../../generated/apolloComponents";
+import Loader from "../../styles/elements/Loader";
 
 const Auth = () => {
   const queryParams = new URLSearchParams(useLocation().search);
@@ -16,7 +17,7 @@ const Auth = () => {
     });
   }, [login]);
 
-  return <div>Authenticating...</div>;
+  return <Loader text="Authenticating" />;
 };
 
 export default Auth;

@@ -3,16 +3,24 @@ import "styled-components";
 declare module "styled-components" {
   export interface DefaultTheme {
     borderRadius: string;
+    boxShadow: string;
+    boxShadowLight: string;
 
     colors: {
-      main: string;
-      mainLight: string;
-      secondary: string;
-      secondaryDark: string;
       white: string;
-      black: string;
+      blue: string;
+      darkBlue: string;
+      lightGrey: string;
+      lightGrey2: string;
+      darkGrey: string;
+      silver: string;
+      inputFieldGrey: string;
       red: string;
-      gray: string;
+    };
+
+    mq: {
+      overMobilePortrait: string;
+      overTabletPortrait: string;
     };
   }
 }

@@ -2,8 +2,8 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 const FieldContainer = styled.div`
-  font-size: 1.5rem;
-  color: ${(props) => props.theme.colors.white};
+  font-size: 1.4rem;
+  /* color: ${(props) => props.theme.colors.white}; */
   margin-top: 1rem;
   margin-bottom: 1rem;
 `;
@@ -17,16 +17,20 @@ const inputStyles = css<{ isError?: boolean }>`
   padding: 1rem;
   border-radius: ${(props) => props.theme.borderRadius};
   border-style: none;
-  background-color: ${(props) => props.theme.colors.secondary};
+  border: 1px solid ${(props) => props.theme.colors.inputFieldGrey};
   outline: none;
-  color: ${(props) => props.theme.colors.white};
   ${({ isError }) =>
     isError &&
     css`
-      border: 2px solid ${(props) => props.theme.colors.red};
+      box-shadow: 0px 0px 0px 1px ${(props) => props.theme.colors.red};
     `}
   :focus {
-    box-shadow: 0px 0px 0px 1px ${(props) => props.theme.colors.white};
+    ${(props) =>
+      props.isError
+        ? css``
+        : css`
+            box-shadow: 0px 0px 0px 1px ${(props) => props.theme.colors.blue};
+          `}
   }
 `;
 

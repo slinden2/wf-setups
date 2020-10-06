@@ -15,33 +15,42 @@ import { MainContainer } from "./styles/elements/MainContainer";
 import { ContentContainer } from "./styles/elements/ContentContainer";
 import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
+import { useAuthContext } from "./context/AuthContext";
+import Stripes from "./styles/elements/Stripes";
 
 const App = () => {
+  const { isAuth } = useAuthContext();
+
   return (
     <Router>
       <MainContainer>
         <Header />
-        <ContentContainer>
-          <Switch>
-            <ProtectedRoute exact path="/">
-              <HomePage />
-            </ProtectedRoute>
-            <ProtectedRoute path="/setups/:id">
-              <SetupPage />
-            </ProtectedRoute>
-            <Route path="/auth">
-              <Auth />
-            </Route>
-            <Route path="/404">
-              <PageNotFound />
-            </Route>
-            <Route path="*">
-              <Redirect push to="/404" />
-            </Route>
-          </Switch>
+        <ContentContainer isAuth={isAuth}>
+          <div className="content-wrapper">
+            <Switch>
+              <ProtectedRoute exact path="/">
+                <HomePage />
+              </ProtectedRoute>
+              <ProtectedRoute path="/setups/:id">
+                <SetupPage />
+              </ProtectedRoute>
+              <Route path="/auth">
+                <Auth />
+              </Route>
+              <Route path="/404">
+                <PageNotFound />
+              </Route>
+              <Route path="*">
+                <Redirect push to="/404" />
+              </Route>
+            </Switch>
+          </div>
         </ContentContainer>
+        <div className="bg-grey">
+          <Stripes />
+        </div>
       </MainContainer>
-      <Footer />
+      {isAuth && <Footer />}
     </Router>
   );
 };

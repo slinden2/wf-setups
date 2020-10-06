@@ -4,13 +4,7 @@ import styled from "styled-components";
 import { Button } from "../styles/elements/Button";
 import { Title } from "../styles/elements/Title";
 
-const SPageNotFound = styled.div`
-  color: ${(props) => props.theme.colors.white};
-
-  p {
-    font-size: 1.5rem;
-  }
-`;
+const SPageNotFound = styled.div``;
 
 const PageNotFound = () => {
   return (

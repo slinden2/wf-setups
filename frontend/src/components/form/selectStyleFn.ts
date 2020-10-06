@@ -12,40 +12,21 @@ export const selectStyleFn = ({ isError, theme }: Props): StylesConfig => {
       ...provided,
       marginTop: "1rem",
       marginBottom: "1rem",
-      fontSize: "1.5rem",
+      fontSize: "1.4rem",
       maxWidth: "400px",
     }),
     control: (provided, state) => ({
       ...provided,
       ...(isError && { boxShadow: `0 0 0 2px ${theme.colors.red}` }),
-      backgroundColor: theme.colors.secondary,
-      borderStyle: "none",
-      color: theme.colors.white,
-      ...(state.isFocused && { boxShadow: `0 0 0 1px` }),
-    }),
-    menu: (provided, _state) => ({
-      ...provided,
-      backgroundColor: theme.colors.secondary,
-      borderStyle: "none",
-      color: theme.colors.white,
+      ...(state.isFocused && { boxShadow: `0 0 0 1px ${theme.colors.blue}` }),
     }),
     option: (provided, state) => ({
       ...provided,
-      borderStyle: "none",
-      ...(state.isSelected && { backgroundColor: theme.colors.main }),
-      ...(state.isFocused && { backgroundColor: theme.colors.main }),
-    }),
-    singleValue: (provided, _state) => ({
-      ...provided,
-      color: theme.colors.white,
-    }),
-    input: (provided, _state) => ({
-      ...provided,
-      color: theme.colors.white,
-    }),
-    placeholder: (provided, _state) => ({
-      ...provided,
-      color: theme.colors.black,
+      ...(state.isSelected && { backgroundColor: theme.colors.blue }),
+      ...(state.isFocused && {
+        backgroundColor: theme.colors.lightGrey,
+        color: "black",
+      }),
     }),
   };
 };
