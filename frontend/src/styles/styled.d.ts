@@ -4,6 +4,7 @@ declare module "styled-components" {
   export interface DefaultTheme {
     borderRadius: string;
     boxShadow: string;
+    boxShadowLight: string;
 
     colors: {
       white: string;
@@ -11,14 +12,10 @@ declare module "styled-components" {
       darkBlue: string;
       lightGrey: string;
       lightGrey2: string;
+      darkGrey: string;
+      silver: string;
       inputFieldGrey: string;
       red: string;
-      // mainLight: string;
-      // secondary: string;
-      // secondaryDark: string;
-      // white: string;
-      // black: string;
-      // gray: string;
     };
 
     mq: {

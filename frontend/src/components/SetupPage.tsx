@@ -18,13 +18,95 @@ import { useNotificationContext } from "../context/NotificationContext";
 import { yupResolver } from "@hookform/resolvers";
 import { getSetupString } from "../utils/getSetupString";
 import { Button } from "../styles/elements/Button";
-import { Title } from "../styles/elements/Title";
 
-const TableContainer = styled.div``;
+const TableContainer = styled.div`
+  margin: 0 auto;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  color: ${(props) => props.theme.colors.darkGrey};
+`;
 
-const Table = styled.table``;
+const Table = styled.table`
+  margin: 0 auto;
+  font-size: 1.4rem;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid ${(props) => props.theme.colors.lightGrey2};
+  border-radius: ${(props) => props.theme.borderRadius};
 
-const Note = styled.div``;
+  .details-title {
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    background-color: ${(props) => props.theme.colors.silver};
+    padding: 1rem;
+    text-align: left;
+    border-radius: ${(props) => props.theme.borderRadius}
+      ${(props) => props.theme.borderRadius} 0 0;
+  }
+
+  tbody tr:last-child th {
+    border-radius: 0 0 0 ${(props) => props.theme.borderRadius};
+  }
+  tbody tr:last-child td {
+    border-radius: 0 0 ${(props) => props.theme.borderRadius} 0;
+  }
+
+  th,
+  td {
+    padding: 1.6rem 2rem 0.9rem 2rem;
+    background-color: ${(props) => props.theme.colors.lightGrey};
+  }
+  th {
+    text-align: right;
+    width: 175px;
+    font-weight: 600;
+  }
+  td {
+  }
+`;
+
+const NoteContainer = styled.div`
+  margin: 2rem auto;
+  width: 100%;
+`;
+
+const NoteTitle = styled.div`
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  background-color: ${(props) => props.theme.colors.silver};
+  padding: 1rem;
+  text-align: left;
+  border-radius: ${(props) => props.theme.borderRadius}
+    ${(props) => props.theme.borderRadius} 0 0;
+  border-left: 1px solid ${(props) => props.theme.colors.lightGrey2};
+  border-right: 1px solid ${(props) => props.theme.colors.lightGrey2};
+  border-top: 1px solid ${(props) => props.theme.colors.lightGrey2};
+`;
+
+const Note = styled.div`
+  font-size: 1.4rem;
+  width: 100%;
+  max-width: 500px;
+  padding: 8px;
+  background-color: ${(props) => props.theme.colors.lightGrey};
+  border-radius: 0 0 ${(props) => props.theme.borderRadius}
+    ${(props) => props.theme.borderRadius};
+  border-left: 1px solid ${(props) => props.theme.colors.lightGrey2};
+  border-right: 1px solid ${(props) => props.theme.colors.lightGrey2};
+  border-bottom: 1px solid ${(props) => props.theme.colors.lightGrey2};
+
+  pre {
+    padding: 8px;
+    background-color: ${(props) => props.theme.colors.lightGrey2};
+    border-radius: ${(props) => props.theme.borderRadius};
+  }
+`;
 
 const ButtonContainer = styled.div``;
 
@@ -53,7 +135,8 @@ export const SetupPage = () => {
   const { handleSubmit, register, errors } = methods;
 
   if (!curSetup) {
-    return <Redirect to="/404" />;
+    return null;
+    // return <Redirect to="/404" />;
   }
 
   const setupString = getSetupString(
@@ -93,8 +176,14 @@ export const SetupPage = () => {
 
   return (
     <TableContainer>
-      <Title>Setup Details</Title>
       <Table>
+        <thead>
+          <tr>
+            <th className="details-title" colSpan={2}>
+              Setup Details
+            </th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
             <th>Track</th>
@@ -118,11 +207,14 @@ export const SetupPage = () => {
         </tbody>
       </Table>
       {!isEditing && curSetup.note && (
-        <Note
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(curSetup.note),
-          }}
-        />
+        <NoteContainer>
+          <NoteTitle>Notes</NoteTitle>
+          <Note
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(curSetup.note),
+            }}
+          />
+        </NoteContainer>
       )}
       {isEditing ? (
         <>
@@ -149,7 +241,7 @@ export const SetupPage = () => {
           </FormContainer>
           <ButtonContainer>
             <Button onClick={handleSubmit(onSubmit)}>Save</Button>
-            <Button colorType="warn" onClick={() => setEditing(false)}>
+            <Button colorType="secondary" onClick={() => setEditing(false)}>
               Cancel
             </Button>
           </ButtonContainer>
@@ -157,7 +249,7 @@ export const SetupPage = () => {
       ) : (
         <ButtonContainer>
           <Link to="/">
-            <Button>Back</Button>
+            <Button colorType="secondary">Back</Button>
           </Link>
           <Button onClick={() => setEditing(true)}>Modify</Button>
           <Button colorType="warn" onClick={() => onDelete()}>
