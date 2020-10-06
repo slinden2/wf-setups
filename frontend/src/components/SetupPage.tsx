@@ -18,6 +18,7 @@ import { useNotificationContext } from "../context/NotificationContext";
 import { yupResolver } from "@hookform/resolvers";
 import { getSetupString } from "../utils/getSetupString";
 import { Button } from "../styles/elements/Button";
+import Loader from "../styles/elements/Loader";
 
 const TableContainer = styled.div`
   margin: 0 auto;
@@ -134,16 +135,19 @@ export const SetupPage = () => {
   });
   const { handleSubmit, register, errors } = methods;
 
-  if (!curSetup) {
-    return null;
-    // return <Redirect to="/404" />;
+  if (curSetup.loading) {
+    return <Loader text="Loading" />;
+  }
+
+  if (!curSetup.data) {
+    return <Redirect to="/404" />;
   }
 
   const setupString = getSetupString(
-    curSetup.suspension,
-    curSetup.gear,
-    curSetup.differential,
-    curSetup.brake
+    curSetup.data.suspension,
+    curSetup.data.gear,
+    curSetup.data.differential,
+    curSetup.data.brake
   );
 
   const DOMPurify = createDOMPurify(window);
@@ -187,31 +191,31 @@ export const SetupPage = () => {
         <tbody>
           <tr>
             <th>Track</th>
-            <td>{curSetup.track.name}</td>
+            <td>{curSetup.data.track.name}</td>
           </tr>
           <tr>
             <th>Track Category</th>
-            <td>{curSetup.track.origin}</td>
+            <td>{curSetup.data.track.origin}</td>
           </tr>
           <tr>
             <th>Vehicle</th>
-            <td>{curSetup.vehicle.name}</td>
+            <td>{curSetup.data.vehicle.name}</td>
           </tr>
           {!isEditing &&
             statArray.map((stat) => (
               <tr key={stat}>
                 <th>{stat.charAt(0).toUpperCase() + stat.slice(1)}</th>
-                <td>{curSetup[stat]}</td>
+                <td>{curSetup.data![stat]}</td>
               </tr>
             ))}
         </tbody>
       </Table>
-      {!isEditing && curSetup.note && (
+      {!isEditing && curSetup.data.note && (
         <NoteContainer>
           <NoteTitle>Notes</NoteTitle>
           <Note
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(curSetup.note),
+              __html: DOMPurify.sanitize(curSetup.data.note),
             }}
           />
         </NoteContainer>
@@ -225,7 +229,7 @@ export const SetupPage = () => {
                   input.name === "setup"
                     ? setupString.toString()
                     : turndownService.turndown(
-                        curSetup[input.name]!.toString()
+                        curSetup.data![input.name]!.toString()
                       );
                 return (
                   <InputField

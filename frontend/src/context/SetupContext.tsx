@@ -20,6 +20,7 @@ import {
 } from "../generated/apolloComponents";
 import { getSetupsQuery } from "../graphql/queries/setup/getSetups";
 import { GetSetupsQueryCache } from "../types/GetSetupsQueryCache";
+import { SetupWithLoading } from "../types/SetupWithLoading";
 
 export type SetupContextProps = {
   tracksAndVehicles: QueryResult<
@@ -42,7 +43,7 @@ export type SetupContextProps = {
   ) => Promise<
     FetchResult<EditSetupMutation, Record<string, any>, Record<string, any>>
   >;
-  getSetup: (id: string) => Setup | null;
+  getSetup: (id: string) => SetupWithLoading;
 };
 
 export const SetupContext = createContext<SetupContextProps | undefined>(
@@ -126,14 +127,16 @@ export const SetupProvider: React.FC<SetupProviderProps> = ({
   });
 
   const getSetup = (id: string) => {
+    if (setups.loading) return { loading: true, data: null };
+
     if (setups.data?.getSetups) {
       const setup = setups.data?.getSetups.find((setup) => setup.id === id);
-      if (!setup) return null;
+      if (!setup) return { loading: false, data: null };
 
-      return setup as Setup;
+      return { loading: false, data: setup as Setup };
     }
 
-    return null;
+    return { loading: false, data: null };
   };
 
   return (

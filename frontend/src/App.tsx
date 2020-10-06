@@ -37,12 +37,12 @@ const App = () => {
               <Route path="/auth">
                 <Auth />
               </Route>
-              {/* <Route path="/404">
+              <Route path="/404">
                 <PageNotFound />
-              </Route> */}
-              {/* <Route path="*">
+              </Route>
+              <Route path="*">
                 <Redirect push to="/404" />
-              </Route> */}
+              </Route>
             </Switch>
           </div>
         </ContentContainer>
