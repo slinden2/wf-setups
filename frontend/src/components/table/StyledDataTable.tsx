@@ -11,28 +11,17 @@ const StyledDataTable = <T extends unknown = any>(
   const theme = useThemeContext();
 
   const customStyles: IDataTableStyles = {
-    // tableWrapper: {
-    //   style: {
-    //     marginTop: "3rem",
-    //     marginBottom: "3rem",
-    //     borderRadius: theme.borderRadius,
-    //   },
-    // },
-    // headCells: {
-    //   style: {
-    //     color: theme.colors.white,
-    //     backgroundColor: theme.colors.main,
-    //   },
-    // },
-    // rows: {
-    //   style: {
-    //     backgroundColor: "#ddd",
-    //   },
-    //   highlightOnHoverStyle: {
-    //     backgroundColor: theme.colors.secondary,
-    //     color: theme.colors.white,
-    //   },
-    // },
+    tableWrapper: {
+      style: {
+        borderRadius: theme.borderRadius,
+      },
+    },
+    header: {
+      style: {
+        fontSize: "2rem",
+        fontWeight: 700,
+      },
+    },
   };
 
   return <DataTable {...props} customStyles={customStyles} />;

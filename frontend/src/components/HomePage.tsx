@@ -52,15 +52,16 @@ const HomePage = () => {
     <div>
       <Title>Add Setup</Title>
       <AddSetupForm tracks={tracksForSelect!} vehicles={vehiclesForSelect!} />
+      <Title>Setups</Title>
       <StyledDataTable
         columns={columns}
         data={tableData}
         onRowClicked={(row) => openSetup(row)}
         pointerOnHover
         striped
+        noHeader
         highlightOnHover
         dense
-        noHeader
         responsive
       />
     </div>
