@@ -11,6 +11,16 @@ import { useNotificationContext } from "../context/NotificationContext";
 import { selectStyleFn } from "./form/selectStyleFn";
 import { useThemeContext } from "../context/ThemeContext";
 import { Button } from "../styles/elements/Button";
+import styled from "styled-components";
+
+const CheckboxContainer = styled.div`
+  display: flex;
+  font-size: 1.2rem;
+
+  label {
+    margin-right: 0.6rem;
+  }
+`;
 
 interface Props {
   tracks: OptionType[];
@@ -18,7 +28,7 @@ interface Props {
 }
 
 const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
-  const { addSetup } = useSetupContext()!;
+  const { addSetup, toggleModTracks } = useSetupContext()!;
   const { setNotification } = useNotificationContext()!;
   const theme = useThemeContext();
   const methods = useForm<AddSetupInputWithSelect>({
@@ -27,6 +37,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
   const { handleSubmit, control, register, reset, errors } = methods;
 
   const onSubmit = async (data: AddSetupInputWithSelect) => {
+    console.log(data);
     try {
       const response = await addSetup({
         variables: {
@@ -49,6 +60,11 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
     }
   };
 
+  const filterTracks = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const checkboxState = event.target.checked;
+    toggleModTracks(checkboxState);
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Controller
@@ -60,6 +76,14 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
         defaultValue=""
         styles={selectStyleFn({ isError: !!errors.track, theme })}
       />
+      <CheckboxContainer>
+        <label>Show mod tracks</label>
+        <input
+          type="checkbox"
+          defaultChecked
+          onChange={(e) => filterTracks(e)}
+        />
+      </CheckboxContainer>
       <Controller
         as={Select}
         name="vehicle"

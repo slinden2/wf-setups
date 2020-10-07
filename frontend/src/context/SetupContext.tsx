@@ -27,6 +27,8 @@ export type SetupContextProps = {
     TracksAndVehiclesQuery,
     TracksAndVehiclesQueryVariables
   >;
+  showModTracks: boolean;
+  toggleModTracks: (state: boolean) => void;
   setups: QueryResult<GetSetupsQuery, GetSetupsQueryVariables>;
   addSetup: (
     options?: AddSetupMutationOptions
@@ -57,6 +59,7 @@ type SetupProviderProps = {
 export const SetupProvider: React.FC<SetupProviderProps> = ({
   children,
 }: SetupProviderProps) => {
+  const [showModTracks, setShowModTracks] = React.useState<boolean>(true);
   const tracksAndVehicles = useTracksAndVehiclesQuery();
   const setups = useGetSetupsQuery();
 
@@ -139,10 +142,16 @@ export const SetupProvider: React.FC<SetupProviderProps> = ({
     return { loading: false, data: null };
   };
 
+  const toggleModTracks = (state: boolean) => {
+    setShowModTracks(state);
+  };
+
   return (
     <SetupContext.Provider
       value={{
         tracksAndVehicles,
+        toggleModTracks,
+        showModTracks,
         setups,
         getSetup,
         addSetup,

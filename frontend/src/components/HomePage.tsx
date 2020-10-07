@@ -12,7 +12,7 @@ import Loader from "../styles/elements/Loader";
 
 const HomePage = () => {
   const history = useHistory();
-  const { setups, tracksAndVehicles } = useSetupContext()!;
+  const { setups, tracksAndVehicles, showModTracks } = useSetupContext()!;
 
   if (setups.loading || tracksAndVehicles.loading) {
     return <Loader text="Loading" />;
@@ -24,6 +24,7 @@ const HomePage = () => {
     tracksAndVehicles,
     InputType["tracks"]
   );
+
   const vehiclesForSelect = getSelectFieldData(
     tracksAndVehicles,
     InputType["vehicles"]
@@ -32,6 +33,10 @@ const HomePage = () => {
   if (!setupArray || !tracksForSelect || !vehiclesForSelect) {
     return null;
   }
+
+  const tracksToShow = showModTracks
+    ? tracksForSelect
+    : tracksForSelect.filter((track) => track.origin === "Vanilla");
 
   const tableData: SetupRow[] = setupArray.map((setup) => ({
     id: setup.id,
@@ -51,7 +56,7 @@ const HomePage = () => {
   return (
     <div>
       <Title>Add Setup</Title>
-      <AddSetupForm tracks={tracksForSelect!} vehicles={vehiclesForSelect!} />
+      <AddSetupForm tracks={tracksToShow} vehicles={vehiclesForSelect!} />
       <Title>Setups</Title>
       <StyledDataTable
         columns={columns}
