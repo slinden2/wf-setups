@@ -1,6 +1,6 @@
 import { QueryResult } from "@apollo/client";
 import { Exact, TracksAndVehiclesQuery } from "../generated/apolloComponents";
-import { OptionType } from "../types/OptionType";
+import { MyOptionType } from "../types/OptionType";
 import { assertUnreachable } from "./assertUnreachable";
 
 type InputData = QueryResult<
@@ -18,7 +18,7 @@ export enum InputType {
 export const getSelectFieldData = (
   query: InputData,
   type: InputType
-): OptionType[] | undefined => {
+): MyOptionType[] | undefined => {
   const dataArrays = query.data?.getTracksAndVehicles;
 
   if (dataArrays) {

@@ -1,10 +1,10 @@
 import { AddSetupInput } from "../generated/apolloComponents";
-import { OptionType } from "./OptionType";
+import { MyOptionType } from "./OptionType";
 
 export type AddSetupInputWithSelect = Omit<
   AddSetupInput,
   "trackId" | "vehicleId"
 > & {
-  track: OptionType;
-  vehicle: OptionType;
+  track: MyOptionType;
+  vehicle: MyOptionType;
 };

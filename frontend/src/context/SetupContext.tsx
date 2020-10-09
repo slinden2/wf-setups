@@ -20,6 +20,7 @@ import {
 } from "../generated/apolloComponents";
 import { getSetupsQuery } from "../graphql/queries/setup/getSetups";
 import { GetSetupsQueryCache } from "../types/GetSetupsQueryCache";
+import { SetupsWithLoading } from "../types/SetupsWithLoading";
 import { SetupWithLoading } from "../types/SetupWithLoading";
 
 export type SetupContextProps = {
@@ -29,6 +30,9 @@ export type SetupContextProps = {
   >;
   showModTracks: boolean;
   toggleModTracks: (state: boolean) => void;
+  filterByTrack: (track: string) => void;
+  filterByVehicle: (vehicle: string) => void;
+  resetFilters: () => void;
   setups: QueryResult<GetSetupsQuery, GetSetupsQueryVariables>;
   addSetup: (
     options?: AddSetupMutationOptions
@@ -46,6 +50,8 @@ export type SetupContextProps = {
     FetchResult<EditSetupMutation, Record<string, any>, Record<string, any>>
   >;
   getSetup: (id: string) => SetupWithLoading;
+  getSetups: () => SetupsWithLoading;
+  getAllSetups: () => SetupsWithLoading;
 };
 
 export const SetupContext = createContext<SetupContextProps | undefined>(
@@ -60,6 +66,8 @@ export const SetupProvider: React.FC<SetupProviderProps> = ({
   children,
 }: SetupProviderProps) => {
   const [showModTracks, setShowModTracks] = React.useState<boolean>(true);
+  const [trackFilter, setTrackFilter] = React.useState<string | null>(null);
+  const [vehicleFilter, setVehicleFilter] = React.useState<string | null>(null);
   const tracksAndVehicles = useTracksAndVehiclesQuery();
   const setups = useGetSetupsQuery();
 
@@ -129,6 +137,46 @@ export const SetupProvider: React.FC<SetupProviderProps> = ({
     },
   });
 
+  const getSetups = () => {
+    if (setups.loading) return { loading: true, data: null };
+
+    if (setups.data?.getSetups) {
+      const filteredSetups = setups.data.getSetups
+        .filter((setup) => {
+          if (trackFilter) {
+            return setup.track.id === trackFilter;
+          } else {
+            return true;
+          }
+        })
+        .filter((setup) => {
+          if (vehicleFilter) {
+            return setup.vehicle.id === vehicleFilter;
+          } else {
+            return true;
+          }
+        });
+      if (!filteredSetups.length) return { loading: false, data: null };
+
+      return { loading: false, data: filteredSetups as Setup[] };
+    }
+
+    return { loading: false, data: null };
+  };
+
+  const getAllSetups = () => {
+    if (setups.loading) return { loading: true, data: null };
+
+    if (setups.data?.getSetups) {
+      const allSetups = setups.data?.getSetups;
+      if (!allSetups) return { loading: false, data: null };
+
+      return { loading: false, data: allSetups as Setup[] };
+    }
+
+    return { loading: false, data: null };
+  };
+
   const getSetup = (id: string) => {
     if (setups.loading) return { loading: true, data: null };
 
@@ -146,6 +194,19 @@ export const SetupProvider: React.FC<SetupProviderProps> = ({
     setShowModTracks(state);
   };
 
+  const filterByTrack = (track: string) => {
+    setTrackFilter(track);
+  };
+
+  const filterByVehicle = (vehicle: string) => {
+    setVehicleFilter(vehicle);
+  };
+
+  const resetFilters = () => {
+    setTrackFilter(null);
+    setVehicleFilter(null);
+  };
+
   return (
     <SetupContext.Provider
       value={{
@@ -154,9 +215,14 @@ export const SetupProvider: React.FC<SetupProviderProps> = ({
         showModTracks,
         setups,
         getSetup,
+        getSetups,
+        getAllSetups,
         addSetup,
         deleteSetup,
         editSetup,
+        filterByTrack,
+        filterByVehicle,
+        resetFilters,
       }}
     >
       {children}

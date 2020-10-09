@@ -9,16 +9,19 @@ import { columns } from "./table/tableData";
 import StyledDataTable from "./table/StyledDataTable";
 import { Title } from "../styles/elements/Title";
 import Loader from "../styles/elements/Loader";
+import SetupFilters from "./SetupFilters";
 
 const HomePage = () => {
   const history = useHistory();
-  const { setups, tracksAndVehicles, showModTracks } = useSetupContext()!;
+  const { getSetups, tracksAndVehicles, showModTracks } = useSetupContext()!;
 
-  if (setups.loading || tracksAndVehicles.loading) {
+  const filteredSetups = getSetups();
+
+  if (filteredSetups.loading || tracksAndVehicles.loading) {
     return <Loader text="Loading" />;
   }
 
-  const setupArray = setups.data?.getSetups;
+  const setupToShow = filteredSetups.data;
 
   const tracksForSelect = getSelectFieldData(
     tracksAndVehicles,
@@ -30,7 +33,7 @@ const HomePage = () => {
     InputType["vehicles"]
   );
 
-  if (!setupArray || !tracksForSelect || !vehiclesForSelect) {
+  if (!tracksForSelect || !vehiclesForSelect) {
     return null;
   }
 
@@ -38,16 +41,17 @@ const HomePage = () => {
     ? tracksForSelect
     : tracksForSelect.filter((track) => track.origin === "Vanilla");
 
-  const tableData: SetupRow[] = setupArray.map((setup) => ({
-    id: setup.id,
-    track: setup.track.name,
-    vehicle: setup.vehicle.name,
-    power: setup.power,
-    suspension: setup.suspension,
-    gear: setup.gear,
-    differential: setup.differential,
-    brake: setup.brake,
-  }));
+  let tableData: SetupRow[] | [] = [];
+
+  if (!setupToShow) {
+    tableData = [];
+  } else {
+    tableData = setupToShow.map((setup) => ({
+      ...setup,
+      track: setup.track.name,
+      vehicle: setup.vehicle.name,
+    }));
+  }
 
   const openSetup = (row: SetupRow) => {
     return history.push(`/setups/${row.id}`);
@@ -58,6 +62,7 @@ const HomePage = () => {
       <Title>Add Setup</Title>
       <AddSetupForm tracks={tracksToShow} vehicles={vehiclesForSelect!} />
       <Title>Setups</Title>
+      <SetupFilters />
       <StyledDataTable
         columns={columns}
         data={tableData}

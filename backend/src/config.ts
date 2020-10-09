@@ -73,7 +73,7 @@ if (isLocal && env === "production") {
     password: process.env.DATABASE_PW!,
     entities: [__dirname + "/entity/*.ts"],
     synchronize: true,
-    logging: true,
+    // logging: true,
   };
 } else if (!isLocal && env === "production") {
   postgresConn = {
@@ -93,7 +93,7 @@ if (isLocal && env === "production") {
     database: env === "test" ? "test" : "development",
     entities: [__dirname + "/entity/*.ts"],
     synchronize: true,
-    logging: true,
+    // logging: true,
   };
 }
 

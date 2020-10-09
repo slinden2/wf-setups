@@ -2,7 +2,7 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import Select from "react-select";
 import { yupResolver } from "@hookform/resolvers";
-import { OptionType } from "../types/OptionType";
+import { MyOptionType } from "../types/OptionType";
 import { useSetupContext } from "../context/SetupContext";
 import { InputField } from "./form/InputField";
 import { inputFieldData, addSetupValidationSchema } from "./form/formFieldData";
@@ -23,8 +23,8 @@ const CheckboxContainer = styled.div`
 `;
 
 interface Props {
-  tracks: OptionType[];
-  vehicles: OptionType[];
+  tracks: MyOptionType[];
+  vehicles: MyOptionType[];
 }
 
 const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
