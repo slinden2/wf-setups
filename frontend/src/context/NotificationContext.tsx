@@ -6,9 +6,9 @@ export type NotificationContextProps = {
   setNotification: React.Dispatch<React.SetStateAction<Notification | null>>;
 };
 
-export const NotificationContext = createContext<
-  NotificationContextProps | undefined
->(undefined);
+export const NotificationContext = createContext<NotificationContextProps>(
+  undefined!
+);
 
 type NotificationProviderProps = {
   children: React.ReactNode;

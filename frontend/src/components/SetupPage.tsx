@@ -123,8 +123,8 @@ const statArray: Array<StatType> = [
 
 export const SetupPage = () => {
   const [isEditing, setEditing] = React.useState<boolean>(false);
-  const { getSetup, deleteSetup, editSetup } = useSetupContext()!;
-  const { setNotification } = useNotificationContext()!;
+  const { getSetup, deleteSetup, editSetup } = useSetupContext();
+  const { setNotification } = useNotificationContext();
 
   const history = useHistory();
   const { id } = useParams<{ id: string }>();

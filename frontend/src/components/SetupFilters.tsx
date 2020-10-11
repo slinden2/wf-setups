@@ -31,7 +31,7 @@ const SetupFilters: React.FC = () => {
     filterByTrack,
     filterByVehicle,
     resetFilters,
-  } = useSetupContext()!;
+  } = useSetupContext();
   const [
     selectedTrackFilter,
     setSelectedTrackFilter,

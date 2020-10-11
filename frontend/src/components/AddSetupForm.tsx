@@ -28,8 +28,8 @@ interface Props {
 }
 
 const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
-  const { addSetup, toggleModTracks } = useSetupContext()!;
-  const { setNotification } = useNotificationContext()!;
+  const { addSetup, toggleModTracks } = useSetupContext();
+  const { setNotification } = useNotificationContext();
   const theme = useThemeContext();
   const methods = useForm<AddSetupInputWithSelect>({
     resolver: yupResolver(addSetupValidationSchema),

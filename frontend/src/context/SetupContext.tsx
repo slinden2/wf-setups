@@ -54,9 +54,7 @@ export type SetupContextProps = {
   getAllSetups: () => SetupsWithLoading;
 };
 
-export const SetupContext = createContext<SetupContextProps | undefined>(
-  undefined
-);
+export const SetupContext = createContext<SetupContextProps>(undefined!);
 
 type SetupProviderProps = {
   children: React.ReactNode;

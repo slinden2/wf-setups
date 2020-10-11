@@ -1,25 +1,17 @@
 import { QueryResult } from "@apollo/client";
 import React, { createContext, useContext } from "react";
-import { Exact, MeQuery, useMeQuery } from "../generated/apolloComponents";
+import {
+  MeQuery,
+  MeQueryVariables,
+  useMeQuery,
+} from "../generated/apolloComponents";
 
 export type AuthContextProps = {
   isAuth: boolean;
-  user:
-    | QueryResult<
-        MeQuery,
-        Exact<{
-          [key: string]: never;
-        }>
-      >
-    | undefined;
+  user: QueryResult<MeQuery, MeQueryVariables>;
 };
 
-const initialState: AuthContextProps = {
-  isAuth: false,
-  user: undefined,
-};
-
-export const AuthContext = createContext<AuthContextProps>(initialState);
+export const AuthContext = createContext<AuthContextProps>(undefined!);
 
 type AuthProviderProps = {
   children: React.ReactNode;

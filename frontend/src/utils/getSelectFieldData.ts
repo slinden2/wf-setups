@@ -1,13 +1,14 @@
 import { QueryResult } from "@apollo/client";
-import { Exact, TracksAndVehiclesQuery } from "../generated/apolloComponents";
+import {
+  TracksAndVehiclesQuery,
+  TracksAndVehiclesQueryVariables,
+} from "../generated/apolloComponents";
 import { MyOptionType } from "../types/OptionType";
 import { assertUnreachable } from "./assertUnreachable";
 
 type InputData = QueryResult<
   TracksAndVehiclesQuery,
-  Exact<{
-    [key: string]: never;
-  }>
+  TracksAndVehiclesQueryVariables
 >;
 
 export enum InputType {

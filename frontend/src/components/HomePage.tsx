@@ -13,7 +13,7 @@ import SetupFilters from "./SetupFilters";
 
 const HomePage = () => {
   const history = useHistory();
-  const { getSetups, tracksAndVehicles, showModTracks } = useSetupContext()!;
+  const { getSetups, tracksAndVehicles, showModTracks } = useSetupContext();
 
   const filteredSetups = getSetups();
 
