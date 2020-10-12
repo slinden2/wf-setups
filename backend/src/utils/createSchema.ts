@@ -6,6 +6,7 @@ import { AddSetupResolver } from "../modules/setup/AddSetup";
 import { GetSetupsResolver } from "../modules/setup/GetSetups";
 import { DeleteSetupResolver } from "../modules/setup/DeleteSetup";
 import { EditSetupResolver } from "../modules/setup/EditSetup";
+import { GetSetupSuggestionsResolver } from "../modules/setup/GetSetupSuggestions";
 
 export const createSchema = () =>
   buildSchema({
@@ -17,6 +18,7 @@ export const createSchema = () =>
       GetSetupsResolver,
       DeleteSetupResolver,
       EditSetupResolver,
+      GetSetupSuggestionsResolver
     ],
     authChecker: ({ context: { req } }) => {
       return !!req.session.userId;
