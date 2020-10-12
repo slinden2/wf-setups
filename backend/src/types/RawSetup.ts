@@ -2,6 +2,7 @@ export interface RawSetup {
   tracks_id: number;
   tracks_trackId: string;
   tracks_name: string;
+  tracks_origin: string;
   vehicles_id: number;
   vehicles_vehicleId: string;
   vehicles_name: string;

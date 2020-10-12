@@ -16,6 +16,7 @@ export class GetSetupSuggestionsResolver {
         "tracks.id",
         "tracks.trackId",
         "tracks.name",
+        "tracks.origin",
         "vehicles.id",
         "vehicles.vehicleId",
         "vehicles.name",
@@ -25,7 +26,7 @@ export class GetSetupSuggestionsResolver {
         "AVG(setups.brake) as brake",
       ])
       .groupBy(
-        "setups.power,tracks.id, tracks.trackId, tracks.name, vehicles.id, vehicles.vehicleId, vehicles.name"
+        "setups.power,tracks.id, tracks.trackId, tracks.name, tracks.origin, vehicles.id, vehicles.vehicleId, vehicles.name"
       )
       .getRawMany();
 
@@ -38,6 +39,7 @@ export class GetSetupSuggestionsResolver {
       track: {
         id: setup.tracks_id,
         trackId: setup.tracks_trackId,
+        origin: setup.tracks_origin,
         name: setup.tracks_name,
       },
       vehicle: {

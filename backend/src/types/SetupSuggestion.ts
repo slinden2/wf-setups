@@ -20,7 +20,7 @@ export class SetupSuggestion {
   brake: number;
 
   @Field(() => Track)
-  track: Pick<Track, "id" | "trackId" | "name">;
+  track: Pick<Track, "id" | "trackId" | "name" | "origin">;
 
   @Field(() => Vehicle)
   vehicle: Pick<Vehicle, "id" | "vehicleId" | "name">;
