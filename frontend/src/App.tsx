@@ -8,7 +8,7 @@ import {
 
 import Auth from "./components/user/Auth";
 import ProtectedRoute from "./components/ProtectedRoute";
-import HomePage from "./components/HomePage";
+import AddSetupPage from "./components/AddSetupPage";
 import { SetupPage } from "./components/SetupPage";
 import Header from "./components/Header";
 import { MainContainer } from "./styles/elements/MainContainer";
@@ -17,6 +17,7 @@ import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
 import { useAuthContext } from "./context/AuthContext";
 import Stripes from "./styles/elements/Stripes";
+import HomePage from "./components/HomePage";
 
 const App = () => {
   const { isAuth } = useAuthContext();
@@ -28,8 +29,11 @@ const App = () => {
         <ContentContainer isAuth={isAuth}>
           <div className="content-wrapper">
             <Switch>
-              <ProtectedRoute exact path="/">
+              <Route exact path="/">
                 <HomePage />
+              </Route>
+              <ProtectedRoute exact path="/setups">
+                <AddSetupPage />
               </ProtectedRoute>
               <ProtectedRoute path="/setups/:id">
                 <SetupPage />
