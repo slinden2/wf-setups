@@ -36,7 +36,7 @@ const HomePage: React.FC = () => {
     .filter((setup) => {
       let res = false;
       regexArr.forEach((regex) => {
-        if (regex.test(setup.track) && regex.test(setup.vehicle)) {
+        if (regex.test(setup.track) || regex.test(setup.vehicle)) {
           res = true;
         }
       });

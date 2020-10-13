@@ -252,7 +252,7 @@ export const SetupPage = () => {
         </>
       ) : (
         <ButtonContainer>
-          <Link to="/">
+          <Link to="/setups">
             <Button colorType="secondary">Back</Button>
           </Link>
           <Button onClick={() => setEditing(true)}>Modify</Button>

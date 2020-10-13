@@ -29,7 +29,7 @@ const App = () => {
               <Route exact path="/">
                 <HomePage />
               </Route>
-              <ProtectedRoute path="/setups">
+              <ProtectedRoute exact path="/setups">
                 <AddSetupPage />
               </ProtectedRoute>
               <ProtectedRoute path="/setups/:id">
