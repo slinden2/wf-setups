@@ -26,13 +26,13 @@ const App = () => {
     <Router>
       <MainContainer>
         <Header />
-        <ContentContainer isAuth={isAuth}>
+        <ContentContainer>
           <div className="content-wrapper">
             <Switch>
               <Route exact path="/">
                 <HomePage />
               </Route>
-              <ProtectedRoute exact path="/setups">
+              <ProtectedRoute path="/setups">
                 <AddSetupPage />
               </ProtectedRoute>
               <ProtectedRoute path="/setups/:id">
