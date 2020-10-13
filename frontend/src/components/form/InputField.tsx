@@ -14,6 +14,7 @@ const StyledLabel = styled.label`
 
 const inputStyles = css<{ isError?: boolean }>`
   display: block;
+  font-size: 1.4rem;
   padding: 1rem;
   border-radius: ${(props) => props.theme.borderRadius};
   border-style: none;
@@ -34,10 +35,17 @@ const inputStyles = css<{ isError?: boolean }>`
   }
 `;
 
-const StyledInput = styled.input<{ isError?: boolean }>`
+export const StyledInput = styled.input<{
+  isError?: boolean;
+  maxWidth?: string;
+  marginBottom?: string;
+}>`
   ${inputStyles}
+  width: 100%;
   min-width: 100px;
-  max-width: 200px;
+  max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : "200px")};
+  margin-bottom: ${({ marginBottom }) =>
+    marginBottom ? marginBottom : "auto"};
 `;
 
 const StyledTextArea = styled.textarea<{ isError?: boolean }>`

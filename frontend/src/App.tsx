@@ -8,28 +8,29 @@ import {
 
 import Auth from "./components/user/Auth";
 import ProtectedRoute from "./components/ProtectedRoute";
-import HomePage from "./components/HomePage";
+import AddSetupPage from "./components/AddSetupPage";
 import { SetupPage } from "./components/SetupPage";
 import Header from "./components/Header";
 import { MainContainer } from "./styles/elements/MainContainer";
 import { ContentContainer } from "./styles/elements/ContentContainer";
 import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
-import { useAuthContext } from "./context/AuthContext";
 import Stripes from "./styles/elements/Stripes";
+import HomePage from "./components/HomePage";
 
 const App = () => {
-  const { isAuth } = useAuthContext();
-
   return (
     <Router>
       <MainContainer>
         <Header />
-        <ContentContainer isAuth={isAuth}>
+        <ContentContainer>
           <div className="content-wrapper">
             <Switch>
-              <ProtectedRoute exact path="/">
+              <Route exact path="/">
                 <HomePage />
+              </Route>
+              <ProtectedRoute path="/setups">
+                <AddSetupPage />
               </ProtectedRoute>
               <ProtectedRoute path="/setups/:id">
                 <SetupPage />
@@ -49,8 +50,8 @@ const App = () => {
         <div className="bg-grey">
           <Stripes />
         </div>
+        <Footer />
       </MainContainer>
-      {isAuth && <Footer />}
     </Router>
   );
 };

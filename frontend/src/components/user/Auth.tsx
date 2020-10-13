@@ -1,8 +1,13 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+import styled from "styled-components";
 
 import { useLoginMutation } from "../../generated/apolloComponents";
 import Loader from "../../styles/elements/Loader";
+
+const Container = styled.div`
+  min-height: calc(100vh - var(--header-height));
+`;
 
 const Auth = () => {
   const queryParams = new URLSearchParams(useLocation().search);
@@ -17,7 +22,11 @@ const Auth = () => {
     });
   }, [login]);
 
-  return <Loader text="Authenticating" />;
+  return (
+    <Container>
+      <Loader text="Authenticating" />
+    </Container>
+  );
 };
 
 export default Auth;

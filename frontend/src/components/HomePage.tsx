@@ -1,73 +1,62 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-
-import AddSetupForm from "./AddSetupForm";
 import { useSetupContext } from "../context/SetupContext";
-import { SetupRow } from "../types/SetupRow";
-import { getSelectFieldData, InputType } from "../utils/getSelectFieldData";
-import { columns } from "./table/tableData";
-import StyledDataTable from "./table/StyledDataTable";
-import { Title } from "../styles/elements/Title";
 import Loader from "../styles/elements/Loader";
-import SetupFilters from "./SetupFilters";
+import { Title } from "../styles/elements/Title";
+import { getSearchRegex } from "../utils/getSearchRegex";
+import { StyledInput } from "./form/InputField";
+import StyledDataTable from "./table/StyledDataTable";
+import { columns } from "./table/tableData";
 
-const HomePage = () => {
-  const history = useHistory();
-  const { getSetups, tracksAndVehicles, showModTracks } = useSetupContext();
+const HomePage: React.FC = () => {
+  const [searchStr, setSearchStr] = React.useState<string>("");
+  const { getSetupSuggestions } = useSetupContext();
 
-  const filteredSetups = getSetups();
+  const setups = getSetupSuggestions();
 
-  if (filteredSetups.loading || tracksAndVehicles.loading) {
+  if (setups.loading) {
     return <Loader text="Loading" />;
   }
 
-  const setupToShow = filteredSetups.data;
-
-  const tracksForSelect = getSelectFieldData(
-    tracksAndVehicles,
-    InputType["tracks"]
-  );
-
-  const vehiclesForSelect = getSelectFieldData(
-    tracksAndVehicles,
-    InputType["vehicles"]
-  );
-
-  if (!tracksForSelect || !vehiclesForSelect) {
-    return null;
+  if (!setups.data) {
+    return <div>Nothing to see here</div>;
   }
 
-  const tracksToShow = showModTracks
-    ? tracksForSelect
-    : tracksForSelect.filter((track) => track.origin === "Vanilla");
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchStr(e.currentTarget.value);
+  };
 
-  let tableData: SetupRow[] | [] = [];
+  const regexArr = getSearchRegex(searchStr);
 
-  if (!setupToShow) {
-    tableData = [];
-  } else {
-    tableData = setupToShow.map((setup) => ({
+  const tableData = setups.data
+    .map((setup) => ({
       ...setup,
       track: setup.track.name,
       vehicle: setup.vehicle.name,
-    }));
-  }
-
-  const openSetup = (row: SetupRow) => {
-    return history.push(`/setups/${row.id}`);
-  };
+    }))
+    .filter((setup) => {
+      let res = false;
+      regexArr.forEach((regex) => {
+        if (regex.test(setup.track) && regex.test(setup.vehicle)) {
+          res = true;
+        }
+      });
+      return res;
+    });
 
   return (
     <div>
-      <Title>Add Setup</Title>
-      <AddSetupForm tracks={tracksToShow} vehicles={vehiclesForSelect!} />
-      <Title>Setups</Title>
-      <SetupFilters />
+      <Title>Setup Suggestions</Title>
+      <StyledInput
+        name="search"
+        placeholder="Search setups..."
+        maxWidth="400px"
+        marginBottom="1rem"
+        onChange={(e) => handleSearch(e)}
+        value={searchStr}
+      />
       <StyledDataTable
         columns={columns}
         data={tableData}
-        onRowClicked={(row) => openSetup(row)}
-        pointerOnHover
         striped
         noHeader
         highlightOnHover

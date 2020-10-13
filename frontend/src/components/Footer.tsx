@@ -22,7 +22,7 @@ const Author = styled.div``;
 
 const Footer = () => {
   return (
-    <SFooter>
+    <SFooter id="footer">
       <Content>
         <p>
           Are you able to communicate in Finnish and love competitive racing?

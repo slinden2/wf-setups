@@ -9,19 +9,22 @@ import {
   EditSetupMutationOptions,
   GetSetupsQuery,
   GetSetupsQueryVariables,
+  GetSetupSuggestionsQuery,
+  GetSetupSuggestionsQueryVariables,
   Setup,
+  SetupSuggestion,
   TracksAndVehiclesQuery,
   TracksAndVehiclesQueryVariables,
   useAddSetupMutation,
   useDeleteSetupMutation,
   useEditSetupMutation,
   useGetSetupsQuery,
+  useGetSetupSuggestionsQuery,
   useTracksAndVehiclesQuery,
 } from "../generated/apolloComponents";
 import { getSetupsQuery } from "../graphql/queries/setup/getSetups";
+import { DataWithLoading } from "../types/DataWithLoading";
 import { GetSetupsQueryCache } from "../types/GetSetupsQueryCache";
-import { SetupsWithLoading } from "../types/SetupsWithLoading";
-import { SetupWithLoading } from "../types/SetupWithLoading";
 
 export type SetupContextProps = {
   tracksAndVehicles: QueryResult<
@@ -34,6 +37,10 @@ export type SetupContextProps = {
   filterByVehicle: (vehicle: string) => void;
   resetFilters: () => void;
   setups: QueryResult<GetSetupsQuery, GetSetupsQueryVariables>;
+  setupSuggestions: QueryResult<
+    GetSetupSuggestionsQuery,
+    GetSetupSuggestionsQueryVariables
+  >;
   addSetup: (
     options?: AddSetupMutationOptions
   ) => Promise<
@@ -49,9 +56,10 @@ export type SetupContextProps = {
   ) => Promise<
     FetchResult<EditSetupMutation, Record<string, any>, Record<string, any>>
   >;
-  getSetup: (id: string) => SetupWithLoading;
-  getSetups: () => SetupsWithLoading;
-  getAllSetups: () => SetupsWithLoading;
+  getSetup: (id: string) => DataWithLoading<Setup>;
+  getSetups: () => DataWithLoading<Setup[]>;
+  getAllSetups: () => DataWithLoading<Setup[]>;
+  getSetupSuggestions: () => DataWithLoading<SetupSuggestion[]>;
 };
 
 export const SetupContext = createContext<SetupContextProps>(undefined!);
@@ -68,6 +76,7 @@ export const SetupProvider: React.FC<SetupProviderProps> = ({
   const [vehicleFilter, setVehicleFilter] = React.useState<string | null>(null);
   const tracksAndVehicles = useTracksAndVehiclesQuery();
   const setups = useGetSetupsQuery();
+  const setupSuggestions = useGetSetupSuggestionsQuery();
 
   const [addSetup] = useAddSetupMutation({
     update: (cache, response) => {
@@ -162,6 +171,19 @@ export const SetupProvider: React.FC<SetupProviderProps> = ({
     return { loading: false, data: null };
   };
 
+  const getSetupSuggestions = () => {
+    if (setupSuggestions.loading) return { loading: true, data: null };
+
+    if (setupSuggestions.data?.getSetupSuggestions) {
+      const allSetups = setupSuggestions.data?.getSetupSuggestions;
+      if (!allSetups) return { loading: false, data: null };
+
+      return { loading: false, data: allSetups as SetupSuggestion[] };
+    }
+
+    return { loading: false, data: null };
+  };
+
   const getAllSetups = () => {
     if (setups.loading) return { loading: true, data: null };
 
@@ -212,9 +234,11 @@ export const SetupProvider: React.FC<SetupProviderProps> = ({
         toggleModTracks,
         showModTracks,
         setups,
+        setupSuggestions,
         getSetup,
         getSetups,
         getAllSetups,
+        getSetupSuggestions,
         addSetup,
         deleteSetup,
         editSetup,
