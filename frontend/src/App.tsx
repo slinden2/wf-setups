@@ -15,13 +15,10 @@ import { MainContainer } from "./styles/elements/MainContainer";
 import { ContentContainer } from "./styles/elements/ContentContainer";
 import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
-import { useAuthContext } from "./context/AuthContext";
 import Stripes from "./styles/elements/Stripes";
 import HomePage from "./components/HomePage";
 
 const App = () => {
-  const { isAuth } = useAuthContext();
-
   return (
     <Router>
       <MainContainer>
@@ -53,8 +50,8 @@ const App = () => {
         <div className="bg-grey">
           <Stripes />
         </div>
+        <Footer />
       </MainContainer>
-      {isAuth && <Footer />}
     </Router>
   );
 };

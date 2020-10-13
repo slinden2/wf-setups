@@ -3,11 +3,12 @@ import { InlineIcon } from "@iconify/react";
 import discordIcon from "@iconify/icons-simple-icons/discord";
 import config from "../../config";
 import styled from "styled-components";
-import Footer from "../Footer";
 import { Button } from "../../styles/elements/Button";
 
-const AuthContainer = styled.div`
-  min-height: calc(100vh - var(--header-height));
+const AuthContainer = styled.div<{ footerHeight: number }>`
+  min-height: calc(
+    100vh - var(--header-height) - 2rem - ${(props) => props.footerHeight}px
+  );
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -36,12 +37,25 @@ const LoginContainer = styled.div`
 `;
 
 const AuthPage = () => {
+  const [footerHeight, setFooterHeight] = React.useState<number>(135);
+
+  const footer = document.getElementById("footer") as HTMLElement;
+
+  React.useEffect(() => {
+    window.addEventListener("resize", () => {
+      if (footer) {
+        const height = footer.getBoundingClientRect().height;
+        setFooterHeight(height);
+      }
+    });
+  }, [footer, setFooterHeight]);
+
   const onClickHandler = () => {
     window.location.href = config.discordAuthUrl;
   };
 
   return (
-    <AuthContainer>
+    <AuthContainer footerHeight={footerHeight}>
       <LoginContainer>
         <div className="header">
           <InlineIcon icon={discordIcon} width="3em" />
@@ -51,7 +65,6 @@ const AuthPage = () => {
           Login through Discord
         </Button>
       </LoginContainer>
-      <Footer />
     </AuthContainer>
   );
 };

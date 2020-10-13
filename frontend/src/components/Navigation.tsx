@@ -5,6 +5,7 @@ import styled from "styled-components";
 const NavList = styled.ul`
   display: flex;
   font-size: 2rem;
+  justify-content: center;
 
   a.active {
     color: ${(props) => props.theme.colors.darkBlue};
@@ -12,7 +13,7 @@ const NavList = styled.ul`
   }
 
   li {
-    margin: 1rem;
+    margin: 0 1rem;
   }
 `;
 

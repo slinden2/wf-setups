@@ -9,10 +9,10 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    --header-height: 120px;
+    --header-height: 190px;
 
     @media ${(props) => props.theme.mq.overMobilePortrait} {
-      --header-height: 180px;
+      --header-height: 230px;
     }
 
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif;
