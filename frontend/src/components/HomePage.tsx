@@ -2,6 +2,7 @@ import React from "react";
 import { useSetupContext } from "../context/SetupContext";
 import Loader from "../styles/elements/Loader";
 import { Title } from "../styles/elements/Title";
+import { getSearchRegex } from "../utils/getSearchRegex";
 import { StyledInput } from "./form/InputField";
 import StyledDataTable from "./table/StyledDataTable";
 import { columns } from "./table/tableData";
@@ -9,8 +10,6 @@ import { columns } from "./table/tableData";
 const HomePage: React.FC = () => {
   const [searchStr, setSearchStr] = React.useState<string>("");
   const { getSetupSuggestions } = useSetupContext();
-
-  console.log(searchStr);
 
   const setups = getSetupSuggestions();
 
@@ -26,11 +25,23 @@ const HomePage: React.FC = () => {
     setSearchStr(e.currentTarget.value);
   };
 
-  const tableData = setups.data.map((setup) => ({
-    ...setup,
-    track: setup.track.name,
-    vehicle: setup.vehicle.name,
-  }));
+  const regexArr = getSearchRegex(searchStr);
+
+  const tableData = setups.data
+    .map((setup) => ({
+      ...setup,
+      track: setup.track.name,
+      vehicle: setup.vehicle.name,
+    }))
+    .filter((setup) => {
+      let res = false;
+      regexArr.forEach((regex) => {
+        if (regex.test(setup.track) && regex.test(setup.vehicle)) {
+          res = true;
+        }
+      });
+      return res;
+    });
 
   return (
     <div>
