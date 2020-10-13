@@ -3,6 +3,7 @@ import { Resolver, Query } from "type-graphql";
 import { Setup } from "../../entity/Setup";
 import { SetupSuggestion } from "../../types/SetupSuggestion";
 import { RawSetup } from "../../types/RawSetup";
+import { roundToDecimal } from "../../utils/roundToDecimal";
 
 @Resolver()
 export class GetSetupSuggestionsResolver {
@@ -32,10 +33,10 @@ export class GetSetupSuggestionsResolver {
 
     const setups: SetupSuggestion[] = rawSetups.map((setup: RawSetup) => ({
       power: setup.power,
-      suspension: Number(setup.suspension),
-      gear: Number(setup.gear),
-      differential: Number(setup.differential),
-      brake: Number(setup.brake),
+      suspension: roundToDecimal(setup.suspension, 1),
+      gear: roundToDecimal(setup.gear, 1),
+      differential: roundToDecimal(setup.differential, 1),
+      brake: roundToDecimal(setup.brake, 1),
       track: {
         id: setup.tracks_id,
         trackId: setup.tracks_trackId,
