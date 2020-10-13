@@ -29,6 +29,8 @@ export class GetSetupSuggestionsResolver {
       .groupBy(
         "setups.power,tracks.id, tracks.trackId, tracks.name, tracks.origin, vehicles.id, vehicles.vehicleId, vehicles.name"
       )
+      .orderBy("tracks.name", "ASC")
+      .addOrderBy("vehicles.name", "ASC")
       .getRawMany();
 
     const setups: SetupSuggestion[] = rawSetups.map((setup: RawSetup) => ({
