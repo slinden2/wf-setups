@@ -40,6 +40,7 @@ export type Setup = {
   differential: Scalars['Float'];
   brake: Scalars['Float'];
   note?: Maybe<Scalars['String']>;
+  private: Scalars['Boolean'];
   track: Track;
   vehicle: Vehicle;
 };
@@ -108,6 +109,7 @@ export type MutationEditSetupArgs = {
 export type AddSetupInput = {
   power: Scalars['String'];
   setup: Scalars['String'];
+  private: Scalars['Boolean'];
   note?: Maybe<Scalars['String']>;
   trackId: Scalars['Float'];
   vehicleId: Scalars['Float'];
@@ -116,6 +118,7 @@ export type AddSetupInput = {
 export type EditSetupInput = {
   power: Scalars['String'];
   setup: Scalars['String'];
+  private: Scalars['Boolean'];
   note?: Maybe<Scalars['String']>;
   id: Scalars['Float'];
 };
@@ -123,6 +126,7 @@ export type EditSetupInput = {
 export type BaseSetupInput = {
   power: Scalars['String'];
   setup: Scalars['String'];
+  private: Scalars['Boolean'];
   note?: Maybe<Scalars['String']>;
 };
 
@@ -131,6 +135,7 @@ export type AddSetupMutationVariables = Exact<{
   vehicleId: Scalars['Float'];
   power: Scalars['String'];
   setup: Scalars['String'];
+  private: Scalars['Boolean'];
   note?: Maybe<Scalars['String']>;
 }>;
 
@@ -139,7 +144,7 @@ export type AddSetupMutation = (
   { __typename?: 'Mutation' }
   & { addSetup?: Maybe<(
     { __typename?: 'Setup' }
-    & Pick<Setup, 'id' | 'power' | 'suspension' | 'gear' | 'differential' | 'brake' | 'note'>
+    & Pick<Setup, 'id' | 'power' | 'suspension' | 'gear' | 'differential' | 'brake' | 'private' | 'note'>
     & { track: (
       { __typename?: 'Track' }
       & Pick<Track, 'id' | 'name' | 'origin'>
@@ -164,6 +169,7 @@ export type EditSetupMutationVariables = Exact<{
   id: Scalars['Float'];
   power: Scalars['String'];
   setup: Scalars['String'];
+  private: Scalars['Boolean'];
   note?: Maybe<Scalars['String']>;
 }>;
 
@@ -172,7 +178,7 @@ export type EditSetupMutation = (
   { __typename?: 'Mutation' }
   & { editSetup?: Maybe<(
     { __typename?: 'Setup' }
-    & Pick<Setup, 'id' | 'power' | 'suspension' | 'gear' | 'differential' | 'brake' | 'note'>
+    & Pick<Setup, 'id' | 'power' | 'suspension' | 'gear' | 'differential' | 'brake' | 'private' | 'note'>
   )> }
 );
 
@@ -214,7 +220,7 @@ export type GetSetupsQuery = (
   { __typename?: 'Query' }
   & { getSetups?: Maybe<Array<(
     { __typename?: 'Setup' }
-    & Pick<Setup, 'id' | 'power' | 'suspension' | 'gear' | 'differential' | 'brake' | 'note'>
+    & Pick<Setup, 'id' | 'power' | 'suspension' | 'gear' | 'differential' | 'brake' | 'private' | 'note'>
     & { track: (
       { __typename?: 'Track' }
       & Pick<Track, 'id' | 'name' | 'origin'>
@@ -255,14 +261,15 @@ export type MeQuery = (
 
 
 export const AddSetupDocument = gql`
-    mutation AddSetup($trackId: Float!, $vehicleId: Float!, $power: String!, $setup: String!, $note: String) {
-  addSetup(data: {trackId: $trackId, vehicleId: $vehicleId, power: $power, setup: $setup, note: $note}) {
+    mutation AddSetup($trackId: Float!, $vehicleId: Float!, $power: String!, $setup: String!, $private: Boolean!, $note: String) {
+  addSetup(data: {trackId: $trackId, vehicleId: $vehicleId, power: $power, setup: $setup, private: $private, note: $note}) {
     id
     power
     suspension
     gear
     differential
     brake
+    private
     note
     track {
       id
@@ -295,6 +302,7 @@ export type AddSetupMutationFn = ApolloReactCommon.MutationFunction<AddSetupMuta
  *      vehicleId: // value for 'vehicleId'
  *      power: // value for 'power'
  *      setup: // value for 'setup'
+ *      private: // value for 'private'
  *      note: // value for 'note'
  *   },
  * });
@@ -336,14 +344,15 @@ export type DeleteSetupMutationHookResult = ReturnType<typeof useDeleteSetupMuta
 export type DeleteSetupMutationResult = ApolloReactCommon.MutationResult<DeleteSetupMutation>;
 export type DeleteSetupMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteSetupMutation, DeleteSetupMutationVariables>;
 export const EditSetupDocument = gql`
-    mutation EditSetup($id: Float!, $power: String!, $setup: String!, $note: String) {
-  editSetup(data: {id: $id, power: $power, setup: $setup, note: $note}) {
+    mutation EditSetup($id: Float!, $power: String!, $setup: String!, $private: Boolean!, $note: String) {
+  editSetup(data: {id: $id, power: $power, setup: $setup, private: $private, note: $note}) {
     id
     power
     suspension
     gear
     differential
     brake
+    private
     note
   }
 }
@@ -366,6 +375,7 @@ export type EditSetupMutationFn = ApolloReactCommon.MutationFunction<EditSetupMu
  *      id: // value for 'id'
  *      power: // value for 'power'
  *      setup: // value for 'setup'
+ *      private: // value for 'private'
  *      note: // value for 'note'
  *   },
  * });
@@ -473,6 +483,7 @@ export const GetSetupsDocument = gql`
     gear
     differential
     brake
+    private
     note
   }
 }

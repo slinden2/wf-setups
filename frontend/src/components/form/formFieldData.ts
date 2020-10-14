@@ -13,6 +13,7 @@ export const baseValidationSchema = {
     .matches(/^[aAbBcCdD]\d{2,3}$/, { message: "invalid power value" }),
   setup: setupValueValidation,
   note: yup.string().max(1000, `must not exceed 1000 characters`),
+  private: yup.boolean().required(),
 };
 
 export const addSetupValidationSchema = yup.object().shape({

@@ -11,16 +11,7 @@ import { useNotificationContext } from "../context/NotificationContext";
 import { selectStyleFn } from "./form/selectStyleFn";
 import { useThemeContext } from "../context/ThemeContext";
 import { Button } from "../styles/elements/Button";
-import styled from "styled-components";
-
-const CheckboxContainer = styled.div`
-  display: flex;
-  font-size: 1.2rem;
-
-  label {
-    margin-right: 0.6rem;
-  }
-`;
+import Checkbox from "./Checkbox";
 
 interface Props {
   tracks: MyOptionType[];
@@ -37,7 +28,6 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
   const { handleSubmit, control, register, reset, errors } = methods;
 
   const onSubmit = async (data: AddSetupInputWithSelect) => {
-    console.log(data);
     try {
       const response = await addSetup({
         variables: {
@@ -45,6 +35,7 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
           vehicleId: Number(data.vehicle.value),
           power: data.power,
           setup: data.setup,
+          private: data.private,
           note: data.note ? data.note : "",
         },
       });
@@ -76,14 +67,12 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
         defaultValue=""
         styles={selectStyleFn({ isError: !!errors.track, theme })}
       />
-      <CheckboxContainer>
-        <label>Show mod tracks</label>
-        <input
-          type="checkbox"
-          defaultChecked
-          onChange={(e) => filterTracks(e)}
-        />
-      </CheckboxContainer>
+      <Checkbox
+        name="showMod"
+        label="Show mod tracks"
+        defaultChecked={true}
+        onChange={filterTracks}
+      />
       <Controller
         as={Select}
         name="vehicle"
@@ -101,6 +90,12 @@ const AddSetupForm: React.FC<Props> = ({ tracks, vehicles }) => {
           register={register}
         />
       ))}
+      <Checkbox
+        name="private"
+        label="Do not include this setup in setup suggestions"
+        defaultChecked={false}
+        register={register}
+      />
       <Button type="submit">Submit</Button>
       <Button onClick={() => reset()} colorType="secondary">
         Reset

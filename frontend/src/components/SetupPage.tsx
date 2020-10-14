@@ -4,6 +4,9 @@ import { useParams, useHistory, Link, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import createDOMPurify from "dompurify";
 import TurndownService from "turndown";
+import { Icon } from "@iconify/react";
+import checkmarkIcon from "@iconify/icons-gridicons/checkmark";
+import crossIcon from "@iconify/icons-gridicons/cross";
 
 import { useSetupContext } from "../context/SetupContext";
 import { EditSetupInput } from "../generated/apolloComponents";
@@ -19,6 +22,7 @@ import { yupResolver } from "@hookform/resolvers";
 import { getSetupString } from "../utils/getSetupString";
 import { Button } from "../styles/elements/Button";
 import Loader from "../styles/elements/Loader";
+import Checkbox from "./Checkbox";
 
 const TableContainer = styled.div`
   margin: 0 auto;
@@ -160,6 +164,7 @@ export const SetupPage = () => {
           id: Number(id),
           power: data.power,
           setup: data.setup,
+          private: data.private,
           note: data.note ? data.note : "",
         },
       });
@@ -208,6 +213,16 @@ export const SetupPage = () => {
                 <td>{curSetup.data![stat]}</td>
               </tr>
             ))}
+          <tr>
+            <th>Private</th>
+            <td>
+              {curSetup.data.private ? (
+                <Icon icon={checkmarkIcon} />
+              ) : (
+                <Icon icon={crossIcon} />
+              )}
+            </td>
+          </tr>
         </tbody>
       </Table>
       {!isEditing && curSetup.data.note && (
@@ -241,6 +256,12 @@ export const SetupPage = () => {
                   />
                 );
               })}
+              <Checkbox
+                name="private"
+                label="Do not include this setup in setup suggestions"
+                defaultChecked={curSetup.data.private}
+                register={register}
+              />
             </form>
           </FormContainer>
           <ButtonContainer>

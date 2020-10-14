@@ -6,6 +6,7 @@ export const addSetupMutation = gql`
     $vehicleId: Float!
     $power: String!
     $setup: String!
+    $private: Boolean!
     $note: String
   ) {
     addSetup(
@@ -14,6 +15,7 @@ export const addSetupMutation = gql`
         vehicleId: $vehicleId
         power: $power
         setup: $setup
+        private: $private
         note: $note
       }
     ) {
@@ -23,6 +25,7 @@ export const addSetupMutation = gql`
       gear
       differential
       brake
+      private
       note
       track {
         id
