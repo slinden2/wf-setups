@@ -41,8 +41,11 @@ export class EditSetupResolver {
     existingSetup.differential = Number(data.setup.charAt(2));
     existingSetup.brake = Number(data.setup.charAt(3));
     existingSetup.note = marked(data.note);
+    existingSetup.private = data.private;
 
     const modifiedSetup = await existingSetup.save();
+
+    console.log(`User ${user.id} modified setup ${modifiedSetup.id}`);
 
     return modifiedSetup;
   }

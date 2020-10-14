@@ -14,6 +14,7 @@ export class GetSetupSuggestionsResolver {
       .innerJoin("setups.vehicle", "vehicles")
       .select([
         "setups.power as power",
+        "setups.private as private",
         "tracks.id",
         "tracks.trackId",
         "tracks.name",
@@ -26,8 +27,9 @@ export class GetSetupSuggestionsResolver {
         "AVG(setups.differential) AS differential",
         "AVG(setups.brake) as brake",
       ])
+      .where("setups.private = false")
       .groupBy(
-        "setups.power,tracks.id, tracks.trackId, tracks.name, tracks.origin, vehicles.id, vehicles.vehicleId, vehicles.name"
+        "setups.power, setups.private, tracks.id, tracks.trackId, tracks.name, tracks.origin, vehicles.id, vehicles.vehicleId, vehicles.name"
       )
       .orderBy("tracks.name", "ASC")
       .addOrderBy("vehicles.name", "ASC")

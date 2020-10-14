@@ -48,9 +48,10 @@ export class AddSetupResolver {
     setup.track = track;
     setup.vehicle = vehicle;
     setup.note = marked(data.note);
+    setup.private = data.private;
     const newSetup = await setup.save();
 
-    console.log("newSetup", newSetup);
+    console.log(`User ${user.id} added a new setup added with ID: ${setup.id}`);
 
     return newSetup;
   }

@@ -48,6 +48,10 @@ export class Setup extends BaseEntity {
   @Column({ nullable: true })
   note: string;
 
+  @Field()
+  @Column()
+  private: boolean;
+
   @ManyToOne(() => User, (user) => user.setups, {
     nullable: false,
   })
