@@ -61,7 +61,8 @@
     "addTracks:dev": "cross-env NODE_ENV=development ts-node ./src/scripts/addTracks.ts",
     "addVehicles:dev": "cross-env NODE_ENV=development ts-node ./src/scripts/addVehicles.ts",
     "addTracks:prod": "cross-env NODE_ENV=production IS_LOCAL=true ts-node ./src/scripts/addTracks.ts",
-    "addVehicles:prod": "cross-env NODE_ENV=production IS_LOCAL=true ts-node ./src/scripts/addVehicles.ts"
+    "addVehicles:prod": "cross-env NODE_ENV=production IS_LOCAL=true ts-node ./src/scripts/addVehicles.ts",
+    "generateDummySetups": "cross-env NODE_ENV=development ts-node ./src/scripts/generateDummySetups.ts"
   },
   "repository": {
     "type": "git",
