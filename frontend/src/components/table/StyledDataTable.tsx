@@ -24,6 +24,14 @@ const StyledDataTable = <T extends unknown = any>(
     },
   };
 
-  return <DataTable {...props} customStyles={customStyles} />;
+  return (
+    <DataTable
+      {...props}
+      customStyles={customStyles}
+      pagination
+      paginationPerPage={25}
+      paginationRowsPerPageOptions={[10, 25, 50]}
+    />
+  );
 };
 export default StyledDataTable;

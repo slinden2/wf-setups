@@ -60,7 +60,7 @@ const HomePage: React.FC = () => {
         striped
         noHeader
         highlightOnHover
-        dense
+        // dense
         responsive
       />
     </div>
